@@ -1,4 +1,7 @@
 #include <iostream>
+#include "SDL.h"
+
+SDL_Texture* texture;
 
 int main()
 {
