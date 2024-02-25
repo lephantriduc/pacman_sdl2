@@ -14,7 +14,7 @@ private:
     TextureManager dotTexture;
     TextureManager powerupTexture;
     TextureManager doorTexture;
-    unsigned int NumericBoard[BOARD_HEIGHT * BOARD_WIDTH];
+    unsigned char NumericBoard[BOARD_HEIGHT * BOARD_WIDTH];
 
     RGB boardColor = {0x00, 0x00, 0xff}; // Blue
 };

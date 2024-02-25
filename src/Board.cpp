@@ -7,6 +7,7 @@ Board::Board() {
     doorTexture.load("assets/Door.png");
 
     mapTexture.paint(boardColor);
+    this->convertSketch(); // Without converting, dots and powerups aren't properly placed on board
 }
 
 Board::~Board() {
@@ -55,6 +56,8 @@ void Board::draw(unsigned char ActualMap[]) {
             powerupTexture.render(x * BLOCK_SIZE_24, y * BLOCK_SIZE_24);
         }
     }
+    // constexpr RGB mapColor = {0, 0, 255};
+    // mapTexture.paint(mapColor);
 }
 
 
