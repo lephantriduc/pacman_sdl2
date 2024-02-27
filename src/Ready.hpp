@@ -13,46 +13,14 @@ constexpr uint8_t BLOCK_SIZE_24 = 24;
 constexpr uint16_t SCREEN_WIDTH = BOARD_WIDTH * BLOCK_SIZE_24;
 constexpr uint16_t SCREEN_HEIGHT = BOARD_HEIGHT * BLOCK_SIZE_24;
 
-inline SDL_Window* window = NULL;
-inline SDL_Renderer* renderer = NULL;
+inline SDL_Window* window = nullptr;
+inline SDL_Renderer* renderer = nullptr;
+inline SDL_Rect* CurrentClip = nullptr;
 
-const std::string CharBoard =
-        "                            "
-        "                            "
-        "                            "
-        "############################"
-        "#............##............#"
-        "#.####.#####.##.#####.####.#"
-        "#o####.#####.##.#####.####o#"
-        "#.####.#####.##.#####.####.#"
-        "#..........................#"
-        "#.####.##.########.##.####.#"
-        "#.####.##.########.##.####.#"
-        "#......##....##....##......#"
-        "######.##### ## #####.######"
-        "     #.##### ## #####.#     "
-        "     #.##    1     ##.#     "
-        "     #.## ###==### ##.#     "
-        "######.## #      # ##.######"
-        "      .   #2 3 4 #   .      "
-        "######.## #      # ##.######"
-        "     #.## ######## ##.#     "
-        "     #.##          ##.#     "
-        "     #.## ######## ##.#     "
-        "######.## ######## ##.######"
-        "#............##............#"
-        "#.####.#####.##.#####.####.#"
-        "#.####.#####.##.#####.####.#"
-        "#o..##.......0 .......##..o#"
-        "###.##.##.########.##.##.###"
-        "###.##.##.########.##.##.###"
-        "#......##....##....##......#"
-        "#.##########.##.##########.#"
-        "#.##########.##.##########.#"
-        "#..........................#"
-        "############################"
-        "                            "
-        "                            ";
+const unsigned char LivingPacFrames = 3;
+
+
+// const std::string CharBoard =
 
 enum Objects {
     wall,
@@ -60,6 +28,21 @@ enum Objects {
     dot,
     powerup,
     space,
+};
+
+enum Entities {
+    pac,
+    redGhost,
+    pinkGhost,
+    blueGhost,
+    orangeGhost,
+};
+
+enum Directions {
+    up,
+    down,
+    left,
+    right,
 };
 
 void openSDL();
