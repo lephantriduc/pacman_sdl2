@@ -18,11 +18,11 @@ Position Position::getPos() const {
     return position;
 }
 
-void Position::changeX(int newX) {
+void Position::setX(int newX) {
     this->x = newX;
 }
 
-void Position::changeY(int newY) {
+void Position::setY(int newY) {
     this->y = newY;
 }
 

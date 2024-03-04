@@ -8,8 +8,8 @@ public:
     int getX() const;
     int getY() const;
     Position getPos() const;
-    void changeX(int newX);
-    void changeY(int newY);
+    void setX(int newX);
+    void setY(int newY);
     void changeCoordinates(int newX, int newY);
 
     bool operator ==(Position other) const;

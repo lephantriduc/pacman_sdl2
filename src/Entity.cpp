@@ -17,16 +17,16 @@ unsigned char Entity::getSpeed(){
 void Entity::move(unsigned char mover){
 	switch(mover){
 		case right:
-			this->changeX(this->getX() + 1);
+            this->setX(this->getX() + 1);
 			break;
 		case up:
-			this->changeY(this->getY() - 1);
+            this->setY(this->getY() - 1);
 			break;
 		case left:
-			this->changeX(this->getX() - 1);
+            this->setX(this->getX() - 1);
 			break;
 		case down:
-			this->changeY(this->getY() + 1);
+            this->setY(this->getY() + 1);
 			break;
 		default:
 			break;
