@@ -12,7 +12,29 @@ int main(int argc, const char* argv[]) {
     std::vector<unsigned char> mover;
     mover.push_back(right);
 
-    while (!quit) {
+    int Quit = 0;
+    while (!Quit && !quit) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                quit = true;
+            }
+            else if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+                int mouseX, mouseY;
+                SDL_GetMouseState(&mouseX, &mouseY);
+                if (isMouseOver(startButton, mouseX, mouseY)) {
+                    SDL_DestroyTexture(mainMenuText);
+                    SDL_DestroyTexture(startText);
+                    SDL_DestroyTexture(quitText);
+                    Quit = 2;
+                }
+                else if (isMouseOver(quitButton, mouseX, mouseY)) {
+                    Quit = 1;
+                }
+            }
+        }
+    }
+
+    while (!quit && Quit == 2) {
         while (SDL_PollEvent(&event) != 0) {
             if (event.type == SDL_QUIT)
                 quit = true;
