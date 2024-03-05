@@ -7,10 +7,12 @@ public:
     Game();
     ~Game();
 
+    void start();
     void draw();
     void update(std::vector<unsigned char> &mover);
     void updatePositions(std::vector <unsigned char> &mover);
     bool process(std::vector<unsigned char> &mover);
+
 
 private:
     Board mBoard;

@@ -100,3 +100,20 @@ void Board::draw(unsigned char ActualMap[]) {
 void Board::copyBoard(unsigned char ActualMap[]) {
     memcpy(ActualMap, NumericBoard, BOARD_HEIGHT * BOARD_WIDTH);
 }
+
+void Board::putEntities(Entity& entity) {
+    int8_t y = -1;
+
+    for (short i = 0; i < BOARD_WIDTH * BOARD_HEIGHT; i++) {
+        uint8_t x = i % BOARD_WIDTH;
+
+        if (x == 0) {
+            y++;
+        }
+        if (charBoard[i] == '0' && entity.getIdentity() == Entities::pac) {
+            entity.setX(x * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
+            entity.setY(y * BLOCK_SIZE_24);
+            return;
+        }
+    }
+}

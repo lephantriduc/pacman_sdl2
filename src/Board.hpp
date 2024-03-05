@@ -8,7 +8,7 @@ public:
     void convertSketch();
     void draw(unsigned char ActualMap[]);
     void copyBoard(unsigned char ActualMap[]);
-
+    void putEntities(Entity& mEntity);
 
 private:
     TextureManager mapTexture;

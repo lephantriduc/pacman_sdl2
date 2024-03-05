@@ -25,6 +25,8 @@ inline SDL_Texture* quitText = NULL;
 
 inline SDL_Rect mainMenuRect , startButton , quitButton;
 
+static bool gameStarted = false;
+
 constexpr uint8_t pacmanFrames = 3;
 
 enum Objects {

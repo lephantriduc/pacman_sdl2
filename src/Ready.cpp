@@ -8,23 +8,23 @@ void openSDL() {
 
     IMG_Init(IMG_INIT_PNG);
 
-    TTF_Init();
-    TTF_Font* Font = TTF_OpenFont("fonts/emulogic.ttf", BLOCK_SIZE_24);
-
-    mainMenuText = renderText("Main Menu", Font, textColor, renderer);
-    startText = renderText("Start", Font, textColor, renderer);
-    quitText = renderText("Quit", Font, textColor, renderer);
-
-    mainMenuRect = { SCREEN_WIDTH / 2 - 100, 50, 200, 50 };
-    startButton = { SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 - 50, 150, 50 };
-    quitButton = { SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 50, 150, 50 };
-
-    SDL_RenderClear(renderer);
-
-    SDL_RenderCopy(renderer, mainMenuText, nullptr, &mainMenuRect);
-    SDL_RenderCopy(renderer, startText, nullptr, &startButton);
-    SDL_RenderCopy(renderer, quitText, nullptr, &quitButton);
-    SDL_RenderPresent(renderer);
+//    TTF_Init();
+//    TTF_Font* Font = TTF_OpenFont("fonts/emulogic.ttf", BLOCK_SIZE_24);
+//
+//    mainMenuText = renderText("Main Menu", Font, textColor, renderer);
+//    startText = renderText("Start", Font, textColor, renderer);
+//    quitText = renderText("Quit", Font, textColor, renderer);
+//
+//    mainMenuRect = { SCREEN_WIDTH / 2 - 100, 50, 200, 50 };
+//    startButton = { SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 - 50, 150, 50 };
+//    quitButton = { SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 50, 150, 50 };
+//
+//    SDL_RenderClear(renderer);
+//
+//    SDL_RenderCopy(renderer, mainMenuText, nullptr, &mainMenuRect);
+//    SDL_RenderCopy(renderer, startText, nullptr, &startButton);
+//    SDL_RenderCopy(renderer, quitText, nullptr, &quitButton);
+//    SDL_RenderPresent(renderer);
 
 }
 

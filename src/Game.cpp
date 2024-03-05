@@ -6,6 +6,10 @@ Game::Game() {
 
 Game::~Game() {}
 
+void Game::start() {
+    mBoard.putEntities(mPac);
+}
+
 void Game::draw() {
     mBoard.draw(ActualMap);
     mPac.draw();
@@ -20,7 +24,12 @@ void Game::updatePositions(std::vector <unsigned char> &mover){
 }
 
 bool Game::process(std::vector<unsigned char> &mover){
+    if (!gameStarted) {
+        this->start();
+        gameStarted = true;
+    }
     this->update(mover);
 
     return true;
 }
+
