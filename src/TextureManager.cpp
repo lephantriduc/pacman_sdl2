@@ -48,7 +48,7 @@ void TextureManager::paint(RGB color) {
     SDL_SetTextureColorMod(mTexture, color.r, color.g, color.b);
 }
 
-void TextureManager::render(short x, short y, unsigned char facing, SDL_Rect* clip) {
+void TextureManager::render(short x, short y, uint8_t facing, SDL_Rect* clip) {
     //Set rendering space and render to screen
     SDL_Rect renderQuad = {x, y, mWidth, mHeight};
 

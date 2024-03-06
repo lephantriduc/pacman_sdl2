@@ -5,11 +5,15 @@
 class Entity : public Position{
 	public:
 		Entity(Entities mIdentity);
-		unsigned char getIdentity();
-		unsigned char getSpeed();
+		uint8_t getIdentity();
+        uint8_t getSpeed();
 
-		void move(unsigned char mover);
+		void move(uint8_t mover);
+        uint8_t getFacing();
+        void setFacing(uint8_t mFacing);
+
 	private:
-		unsigned char identity;
-		unsigned char speed;
+        uint8_t identity;
+        uint8_t speed;
+        uint8_t facing;
 };

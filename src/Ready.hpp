@@ -57,7 +57,7 @@ void openSDL();
 
 inline void InitFrames(const uint8_t TotalFrames, SDL_Rect SpriteClips[], uint8_t CurrentBlockSize){
     unsigned short counter = 0;
-    for(unsigned char i = 0; i < TotalFrames; i++){
+    for(uint8_t i = 0; i < TotalFrames; i++){
         SpriteClips[i].x = counter;
         SpriteClips[i].y = 0;
         SpriteClips[i].w = CurrentBlockSize;

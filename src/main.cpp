@@ -9,7 +9,7 @@ int main(int argc, const char* argv[]) {
     SDL_Event event;
     bool quit = false;
 
-    std::vector<unsigned char> mover;
+    std::vector<uint8_t> mover;
     mover.push_back(right);
 
     int quitState = 0;

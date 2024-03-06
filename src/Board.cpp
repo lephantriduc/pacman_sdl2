@@ -77,13 +77,13 @@ void Board::convertSketch() {
     }
 }
 
-void Board::draw(unsigned char ActualMap[]) {
+void Board::draw(uint8_t ActualMap[]) {
     mapTexture.render();
 
     doorTexture.render(SCREEN_WIDTH/2 - 23, SCREEN_HEIGHT/2 - 57);
     char y = -1;
     for(unsigned short i = 0; i < BOARD_HEIGHT * BOARD_WIDTH; i++) {
-        unsigned char x = i % BOARD_WIDTH;
+        uint8_t x = i % BOARD_WIDTH;
         if(x == 0) {
             y++;
         }
@@ -97,7 +97,7 @@ void Board::draw(unsigned char ActualMap[]) {
 }
 
 
-void Board::copyBoard(unsigned char ActualMap[]) {
+void Board::copyBoard(uint8_t ActualMap[]) {
     memcpy(ActualMap, NumericBoard, BOARD_HEIGHT * BOARD_WIDTH);
 }
 

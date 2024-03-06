@@ -9,14 +9,14 @@ public:
 
     void start();
     void draw();
-    void update(std::vector<unsigned char> &mover);
-    void updatePositions(std::vector <unsigned char> &mover);
-    bool process(std::vector<unsigned char> &mover);
+    void update(std::vector<uint8_t> &mover);
+    void updatePositions(std::vector <uint8_t> &mover);
+    bool process(std::vector<uint8_t> &mover);
 
 
 private:
     Board mBoard;
     Pac mPac;
-    unsigned char ActualMap[BOARD_HEIGHT * BOARD_WIDTH];
+    uint8_t ActualMap[BOARD_HEIGHT * BOARD_WIDTH];
 
 };

@@ -6,15 +6,15 @@ Entity::Entity(Entities mIdentity){
 	speed = 2;
 }
 
-unsigned char Entity::getIdentity(){
+uint8_t Entity::getIdentity(){
 	return identity;
 }
 
-unsigned char Entity::getSpeed(){
+uint8_t Entity::getSpeed(){
 	return speed;
 }
 
-void Entity::move(unsigned char mover){
+void Entity::move(uint8_t mover){
 	switch(mover){
 		case right:
             this->setX(this->getX() + 1);
@@ -32,3 +32,12 @@ void Entity::move(unsigned char mover){
 			break;
 	}
 }
+
+uint8_t Entity::getFacing() {
+    return facing;
+}
+
+void Entity::setFacing(uint8_t mFacing) {
+        this->facing = mFacing;
+}
+

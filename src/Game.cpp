@@ -15,15 +15,15 @@ void Game::draw() {
     mPac.draw();
 }
 
-void Game::update(std::vector<unsigned char> &mover) {
+void Game::update(std::vector<uint8_t> &mover) {
     this->updatePositions(mover);
 }
 
-void Game::updatePositions(std::vector <unsigned char> &mover){
+void Game::updatePositions(std::vector <uint8_t> &mover){
     mPac.updatePosition(mover, ActualMap);
 }
 
-bool Game::process(std::vector<unsigned char> &mover){
+bool Game::process(std::vector<uint8_t> &mover){
     if (!gameStarted) {
         this->start();
         gameStarted = true;

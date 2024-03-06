@@ -6,8 +6,8 @@ public:
     Board();
     ~Board();
     void convertSketch();
-    void draw(unsigned char ActualMap[]);
-    void copyBoard(unsigned char ActualMap[]);
+    void draw(uint8_t ActualMap[]);
+    void copyBoard(uint8_t ActualMap[]);
     void putEntities(Entity& mEntity);
 
 private:
@@ -16,7 +16,7 @@ private:
     TextureManager powerupTexture;
     TextureManager doorTexture;
     std::string charBoard;
-    unsigned char NumericBoard[BOARD_HEIGHT * BOARD_WIDTH];
+    uint8_t NumericBoard[BOARD_HEIGHT * BOARD_WIDTH];
 
     RGB boardColor = {0x00, 0x00, 0xff}; // Blue
 };
