@@ -11,6 +11,7 @@ class Entity : public Position{
 		void move(uint8_t mover);
         uint8_t getFacing();
         void setFacing(uint8_t mFacing);
+        void goToOtherSideOfScreen();
 
 	private:
         uint8_t identity;

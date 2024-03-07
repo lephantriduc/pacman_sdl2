@@ -21,6 +21,7 @@ void Pac::updatePosition(std::vector<uint8_t> &mover, uint8_t ActualMap[]){
 				mover.erase(mover.begin());
 		}
 	}
+    this->goToOtherSideOfScreen();
 }
 
 void Pac::draw(){
