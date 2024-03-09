@@ -1,7 +1,7 @@
 #include "Board.hpp"
 
 Board::Board() {
-    mapTexture.load("assets/Map.png");
+    mapTexture.load("assets/Map24.png");
     dotTexture.load("assets/Dot.png");
     powerupTexture.load("assets/Powerup.png");
     doorTexture.load("assets/Door.png");
@@ -81,19 +81,19 @@ void Board::draw(uint8_t ActualMap[]) {
     mapTexture.render();
 
     doorTexture.render(SCREEN_WIDTH/2 - 23, SCREEN_HEIGHT/2 - 57);
-    char y = -1;
-    for(unsigned short i = 0; i < BOARD_HEIGHT * BOARD_WIDTH; i++) {
-        uint8_t x = i % BOARD_WIDTH;
-        if(x == 0) {
-            y++;
-        }
-        if(ActualMap[i] == Objects::dot) {
-            dotTexture.render(x * BLOCK_SIZE_24, y * BLOCK_SIZE_24);
-        }
-        if(ActualMap[i] == Objects::powerup) {
-            powerupTexture.render(x * BLOCK_SIZE_24, y * BLOCK_SIZE_24);
-        }
-    }
+//    char y = -1;
+//    for(unsigned short i = 0; i < BOARD_HEIGHT * BOARD_WIDTH; i++) {
+//        uint8_t x = i % BOARD_WIDTH;
+//        if(x == 0) {
+//            y++;
+//        }
+//        if(ActualMap[i] == Objects::dot) {
+//            dotTexture.render(x * BLOCK_SIZE_24, y * BLOCK_SIZE_24);
+//        }
+//        if(ActualMap[i] == Objects::powerup) {
+//            powerupTexture.render(x * BLOCK_SIZE_24, y * BLOCK_SIZE_24);
+//        }
+//    }
 }
 
 
