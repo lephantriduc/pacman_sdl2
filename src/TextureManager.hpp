@@ -3,7 +3,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
-#include "Ready.hpp"
+#include "Common.hpp"
 #include "Structs.hpp"
 
 class TextureManager {

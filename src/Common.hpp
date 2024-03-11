@@ -28,6 +28,7 @@ inline SDL_Rect mainMenuRect , startButton , quitButton;
 static bool gameStarted = false;
 
 constexpr uint8_t pacmanFrames = 3;
+constexpr uint8_t ghostFrames = 6;
 
 enum Objects {
     wall,
@@ -46,16 +47,18 @@ enum Entities {
 };
 
 enum Directions {
-    up,
-    down,
-    left,
     right,
+    up,
+    left,
+    down,
 };
+
+const SDL_Color Red = {0xff, 0x00, 0x00};
 
 
 void openSDL();
 
-inline void InitFrames(const uint8_t TotalFrames, SDL_Rect SpriteClips[], uint8_t CurrentBlockSize){
+inline void InitFrames(const uint8_t TotalFrames, SDL_Rect SpriteClips[], uint8_t CurrentBlockSize = BLOCK_SIZE_32){
     unsigned short counter = 0;
     for(uint8_t i = 0; i < TotalFrames; i++){
         SpriteClips[i].x = counter;

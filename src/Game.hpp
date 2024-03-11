@@ -17,6 +17,7 @@ public:
 private:
     Board mBoard;
     Pac mPac;
-    uint8_t ActualMap[BOARD_HEIGHT * BOARD_WIDTH];
+    RedGhost mRedGhost;
+    uint8_t actualMap[BOARD_HEIGHT * BOARD_WIDTH];
 
 };

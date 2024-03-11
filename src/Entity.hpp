@@ -4,7 +4,7 @@
 
 class Entity : public Position{
 	public:
-		explicit Entity(Entities mIdentity);
+		Entity(Entities mIdentity);
 		[[nodiscard]] uint8_t getIdentity() const;
         [[nodiscard]] uint8_t getSpeed() const;
 
@@ -15,9 +15,12 @@ class Entity : public Position{
         void CharBoardPos(unsigned char SideDir, Position &BoardPos, float cell_x, float cell_y);
         bool wallCollision(short x, short y, unsigned char ActualMap[]);
         void getNextPosition(short& x, short& y, uint8_t mover);
+        uint8_t getDirection();
+        void setDirection(uint8_t newDirection);
 
 private:
         uint8_t identity;
         uint8_t speed;
         uint8_t facing;
+        uint8_t direction;
 };

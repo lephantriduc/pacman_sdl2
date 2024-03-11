@@ -116,3 +116,12 @@ void Entity::getNextPosition(short &x, short &y, uint8_t mover) {
             break;
     }
 }
+
+uint8_t Entity::getDirection() {
+    return direction;
+}
+
+void Entity::setDirection(uint8_t newDirection) {
+    direction = newDirection;
+}
+

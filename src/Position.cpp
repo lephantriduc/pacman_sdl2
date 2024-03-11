@@ -13,7 +13,7 @@ int Position::getY() const {
     return this->y;
 }
 
-Position Position::getPos() const {
+Position Position::getPosition() const {
     const Position position{this->x, this->y};
     return position;
 }
@@ -26,11 +26,17 @@ void Position::setY(int newY) {
     this->y = newY;
 }
 
-void Position::changeCoordinates(int newX, int newY) {
+void Position::setPosition(int newX, int newY) {
     this->x = newX;
     this->y = newY;
+}
+
+void Position::setPosition(Position newPos) {
+    this->x = newPos.getX();
+    this->y = newPos.getY();
 }
 
 bool Position::operator==(Position other) const {
     return this->x == other.getX() && this->y == other.getY();
 }
+

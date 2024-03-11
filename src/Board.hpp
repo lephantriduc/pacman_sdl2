@@ -1,5 +1,5 @@
 #pragma once
-#include "Pac.hpp"
+#include "RedGhost.hpp"
 
 class Board {
 public:
@@ -16,7 +16,7 @@ private:
     TextureManager powerupTexture;
     TextureManager doorTexture;
     std::string charBoard;
-    uint8_t NumericBoard[BOARD_HEIGHT * BOARD_WIDTH];
+    uint8_t numericBoard[BOARD_HEIGHT * BOARD_WIDTH];
 
     RGB boardColor = {0x00, 0x00, 0xff}; // Blue
 };

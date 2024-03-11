@@ -17,23 +17,23 @@ void Pac::updatePosition(std::vector<uint8_t> &mover, uint8_t ActualMap[]){
             std::string dir;
             switch (i) {
                 case 0:
-                    dir = "up";
+                    dir = "right";
                     break;
                 case 1:
-                    dir = "down";
+                    dir = "up";
                     break;
                 case 2:
                     dir = "left";
                     break;
                 case 3:
-                    dir = "right";
+                    dir = "down";
                     break;
                 default:
                     break;
             }
-            std::cout << dir << " ";
+//            std::cout << dir << " ";
         }
-        std::cout << '\n';
+//        std::cout << '\n';
 
         // Calculate the potential next step that Pacman is going to take
         short potentialX = this->getX();

@@ -1,17 +1,19 @@
 #include "Game.hpp"
 
 Game::Game() {
-    mBoard.copyBoard(ActualMap);
+    mBoard.copyBoard(actualMap);
 }
 
 Game::~Game() {}
 
 void Game::start() {
     mBoard.putEntities(mPac);
+    mBoard.putEntities(mRedGhost);
 }
 
 void Game::draw() {
-    mBoard.draw(ActualMap);
+    mBoard.draw(actualMap);
+    mRedGhost.draw();
     mPac.draw();
 }
 
@@ -20,7 +22,8 @@ void Game::update(std::vector<uint8_t> &mover) {
 }
 
 void Game::updatePositions(std::vector <uint8_t> &mover){
-    mPac.updatePosition(mover, ActualMap);
+    mRedGhost.updatePos(actualMap, mPac);
+    mPac.updatePosition(mover, actualMap);
 }
 
 bool Game::process(std::vector<uint8_t> &mover){

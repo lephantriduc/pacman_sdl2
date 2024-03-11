@@ -1,4 +1,4 @@
-#include "Ready.hpp"
+#include "Common.hpp"
 
 void openSDL() {
     SDL_Init(SDL_INIT_VIDEO);
@@ -27,8 +27,6 @@ void openSDL() {
 //    SDL_RenderPresent(renderer);
 
 }
-
-// log in acc cua cau vao fork tren may to di to push cho
 
 void closeSDL() {
     SDL_DestroyRenderer(renderer);

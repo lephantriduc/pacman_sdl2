@@ -1,6 +1,7 @@
 #include "Game.hpp"
+#include <cmath>
 
-int main(int argc, const char* argv[]) {
+int main() {
     openSDL();
 
     // gameLoop;
