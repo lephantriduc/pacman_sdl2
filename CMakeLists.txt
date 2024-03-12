@@ -3,9 +3,7 @@ project(pacman)
 
 file(GLOB Sources CONFIGURE_DEPENDS "src/*.h" "src/*.cpp")
 
-add_executable(pacman ${Sources}
-        src/Sound.cpp
-        src/Sound.hpp)
+add_executable(pacman ${Sources})
 
 # 1. Look for a SDL2 package
 # 2. look for the SDL2 component and
@@ -32,8 +30,10 @@ add_custom_command(TARGET pacman
 
 # Copy "assets" folder next to executable file for every build
 add_custom_command(TARGET pacman
-    POST_BUILD COMMAND
-    cp -r ${CMAKE_CURRENT_SOURCE_DIR}/assets ${CMAKE_CURRENT_BINARY_DIR}
+    POST_BUILD
+        COMMAND cp -r ${CMAKE_CURRENT_SOURCE_DIR}/assets ${CMAKE_CURRENT_BINARY_DIR}
+        COMMAND cp -r ${CMAKE_CURRENT_SOURCE_DIR}/sounds ${CMAKE_CURRENT_BINARY_DIR}
+        COMMAND cp -r ${CMAKE_CURRENT_SOURCE_DIR}/fonts ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 #set(CMAKE_CXX_STANDARD 17)
