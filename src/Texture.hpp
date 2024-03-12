@@ -3,10 +3,10 @@
 #include "Common.hpp"
 #include "Structs.hpp"
 
-class TextureManager {
+class Texture {
 public:
-    TextureManager();
-    ~TextureManager();
+    Texture();
+    ~Texture();
 
     bool load(std::string path);
     void paint(RGB color);

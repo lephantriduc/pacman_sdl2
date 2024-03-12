@@ -1,16 +1,16 @@
-#include "TextureManager.hpp"
+#include "Texture.hpp"
 
-TextureManager::TextureManager() {
+Texture::Texture() {
     mTexture = NULL;
     mWidth = 0;
     mHeight = 0;
 }
 
-TextureManager::~TextureManager() {
+Texture::~Texture() {
     free();
 }
 
-bool TextureManager::load(std::string path) {
+bool Texture::load(std::string path) {
     //Get rid of preexisting texture
     free();
 
@@ -44,11 +44,11 @@ bool TextureManager::load(std::string path) {
     return mTexture != NULL;
 }
 
-void TextureManager::paint(RGB color) {
+void Texture::paint(RGB color) {
     SDL_SetTextureColorMod(mTexture, color.r, color.g, color.b);
 }
 
-void TextureManager::render(short x, short y, uint8_t facing, SDL_Rect* clip) {
+void Texture::render(short x, short y, uint8_t facing, SDL_Rect* clip) {
     //Set rendering space and render to screen
     SDL_Rect renderQuad = {x, y, mWidth, mHeight};
 
@@ -62,7 +62,7 @@ void TextureManager::render(short x, short y, uint8_t facing, SDL_Rect* clip) {
 }
 
 
-void TextureManager::free(){
+void Texture::free(){
     if(mTexture != NULL){
         SDL_DestroyTexture(mTexture);
         mTexture = NULL;

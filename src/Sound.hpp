@@ -15,7 +15,7 @@ public:
     void StopScatterGhost(){Mix_HaltChannel(5);}
     void PlayWaka(){Mix_PlayChannel(6, Waka, -1);}
     void StopWaka(){Mix_HaltChannel(6);}
-    void PlayMusic(){Mix_PlayChannel(-1 , Music, 999);}
+    void PlayMusic(){Mix_PlayChannel(7 , Music, -1);}
     bool IsChannelPlaying(int channel);
     void StopChannel(int channel);
 private:

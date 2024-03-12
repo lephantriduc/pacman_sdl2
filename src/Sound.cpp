@@ -10,7 +10,7 @@ Sound::Sound(){
     GhostDeath = Mix_LoadWAV("sounds/GhostDeath.wav");
     ScatterGhost = Mix_LoadWAV("sounds/ScatterGhost.wav");
     Waka = Mix_LoadWAV("sounds/Waka.wav");
-    Music = Mix_LoadWAV("sounds/Music.wav");
+    Music = Mix_LoadWAV("sounds/InGameMusic.wav");
     Mix_Volume(-1, 10);
 }
 
