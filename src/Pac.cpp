@@ -3,7 +3,7 @@
 Pac::Pac():Entity(Entities::pac){
 	pacmanTexture.load("assets/Pacman.png");
 
-	InitFrames(pacmanFrames,pacmanSpriteAnimation, BLOCK_SIZE_32);
+	InitFrames(pacmanFrames, pacmanSpriteClips, BLOCK_SIZE_32);
 }
 
 Pac::~Pac(){
@@ -69,11 +69,11 @@ void Pac::updatePosition(std::vector<uint8_t> &mover, uint8_t ActualMap[]){
 		}
 	}
     // Pacman seamlessly goes from this side of screen to the opposite one
-    this->goToOtherSideOfScreen();
+    this->checkIfGoesOutOfScreen(false);
 }
 
 void Pac::draw(){
-	currentAnimation = &pacmanSpriteAnimation[currentPacmanFrame / (pacmanFrames * 4)];
+	currentAnimation = &pacmanSpriteClips[currentPacmanFrame / (pacmanFrames * 4)];
 	pacmanTexture.render(this->getX() - 4, this->getY() - 4, this->getFacing(), currentAnimation);
 }
 
@@ -101,4 +101,15 @@ void Pac::turn(uint8_t mover) {
         default:
             break;
     }
+}
+
+void Pac::updatePosition(std::vector<uint8_t> &mover) {
+    for(uint8_t i = 0; i < this->getSpeed(); i++){
+        this->updateFrame();
+        this->move(mover.at(0));
+        this->turn(mover.at(0));
+
+        mover.erase(mover.begin());
+    }
+    this->checkIfGoesOutOfScreen(false);
 }

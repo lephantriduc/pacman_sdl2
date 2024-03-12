@@ -4,15 +4,8 @@
 int main() {
     openSDL();
 
+    MainMenu mMenu;
     Game mGame;
-//    mGame.mSound.PlayIntro();
-    Mix_Music* test = NULL;
-    test = Mix_LoadMUS("sounds/Music.wav");
-    if( test == NULL )
-    {
-        printf( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );
-    }
-    std::cout << Mix_PlayMusic(test, -1);
 
     SDL_Event event;
     bool quit = false;
@@ -20,12 +13,21 @@ int main() {
     std::vector<uint8_t> mover;
     mover.push_back(right);
 
-    int quitState = 1;
+    int quitState = 0;
     int volume = MIX_MAX_VOLUME / 2;
     Mix_Volume(-1 , volume);
     bool isDragging = false;
 
+    Position pacPos = {150, 169};
+    mGame.putMenuEntities(pacPos);
+
+    mGame.mSound.PlayIntro();
     while (!quitState) {
+        uint8_t hihi[BOARD_HEIGHT * BOARD_WIDTH];
+        mMenu.draw(hihi);
+
+        mGame.runMenuEntities(mover);
+        if(!mGame.mSound.IsChannelPlaying(0)) mGame.mSound.PlayIntro();
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
                 quitState = 2;
@@ -80,7 +82,7 @@ int main() {
         SDL_RenderClear(renderer);
 
 
-        //Xóa volume và thanh âm thanh cũ
+        // Delete old volume
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_Rect clearRect = { SCREEN_WIDTH / 2 - 75 , SCREEN_HEIGHT / 2 + 50, SCREEN_WIDTH , 30 };
         SDL_RenderFillRect(renderer, &clearRect);
@@ -89,7 +91,7 @@ int main() {
         SDL_RenderClear(renderer);
 
 
-        // Tạo thanh âm thanh mới
+        // Create new volume bar
         SDL_Rect volumeBorder = { SCREEN_WIDTH / 2 - 76, SCREEN_HEIGHT / 2 + 69 + 15, 152, 32 };
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderDrawRect(renderer, &volumeBorder);
@@ -97,7 +99,7 @@ int main() {
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderFillRect(renderer, &volumeBar);
 
-        // Tạo volume mới
+        // Create new volume
         volumeToText.str("");
         volumeToText << "VOLUME: " << (volume * 100 / MIX_MAX_VOLUME) << "%";
         volumeSurface = TTF_RenderText_Solid(Font, volumeToText.str().c_str(), textColor);
@@ -106,7 +108,6 @@ int main() {
         SDL_RenderCopy(renderer, volumeText, NULL, &textRect);
 
         SDL_FreeSurface(volumeSurface);
-//        SDL_RenderPresent(renderer);
     }
 
     if(quitState == 2)
@@ -121,11 +122,13 @@ int main() {
     SDL_RenderPresent(SDL_GetRenderer(window));
 
 
+    mover.clear();
+    mover.push_back(right);
     quitState = 2;
-//    SDL_Delay(500);
+    SDL_Delay(250);
     while (!quit && quitState == 2) {
-//        if(!mGame.mSound.IsChannelPlaying(7)) mGame.mSound.PlayMusic();
-//        if (mGame.mSound.IsChannelPlaying(0)) mGame.mSound.StopChannel(0);
+        if(!mGame.mSound.IsChannelPlaying(7)) mGame.mSound.PlayMusic();
+        if (mGame.mSound.IsChannelPlaying(0)) mGame.mSound.StopChannel(0);
 
         while (SDL_PollEvent(&event) != 0) {
             if (event.type == SDL_QUIT)

@@ -42,23 +42,20 @@ void Entity::setFacing(uint8_t newFacing) {
         this->facing = newFacing;
 }
 
-void Entity::goToOtherSideOfScreen() {
-    // Entity goes to the opposite side of screen if going out of bound
-
-    // Entity goes to the sides
+void Entity::checkIfGoesOutOfScreen(bool inMenu) {
     if (this->getX() > SCREEN_WIDTH) {
-        this->setX(-BLOCK_SIZE_24);
+        if (!inMenu)this->setX(-BLOCK_SIZE_24);
+        else {
+            this->setY(669);
+            this->setDirection((this->getDirection() + 2) % 4);
+        }
     }
     if (this->getX() < -BLOCK_SIZE_24) {
-        this->setX(SCREEN_WIDTH);
-    }
-
-    // Entity goes to top or bottom
-    if (this->getY() > SCREEN_HEIGHT) {
-        this->setY(-BLOCK_SIZE_24);
-    }
-    if (this->getY() < -BLOCK_SIZE_24) {
-        this->setY(SCREEN_HEIGHT);
+        if (!inMenu)this->setX(SCREEN_WIDTH);
+        else {
+            this->setY(169);
+            this->setDirection((this->getDirection() + 2) % 4);
+        }
     }
 }
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "TextureManager.hpp"
+#include "Texture.hpp"
 
 class Position {
 public:

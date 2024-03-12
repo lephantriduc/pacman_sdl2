@@ -8,12 +8,12 @@ Game::~Game() {}
 
 void Game::start() {
     mBoard.putEntities(mPac);
-    mBoard.putEntities(mRedGhost);
+    mBoard.putEntities(mBlinky);
 }
 
 void Game::draw() {
     mBoard.draw(actualMap);
-    mRedGhost.draw();
+    mBlinky.draw();
     mPac.draw();
 }
 
@@ -22,7 +22,7 @@ void Game::update(std::vector<uint8_t> &mover) {
 }
 
 void Game::updatePositions(std::vector <uint8_t> &mover){
-    mRedGhost.updatePos(actualMap, mPac);
+    mBlinky.updatePos(actualMap, mPac, 0);
     mPac.updatePosition(mover, actualMap);
 }
 
@@ -35,4 +35,22 @@ bool Game::process(std::vector<uint8_t> &mover){
 
     return true;
 }
+
+void Game::runMenuEntities(std::vector<uint8_t> mover) {
+    mover.push_back(right);
+    mPac.draw();
+    mPac.updateFrame();
+    mPac.updatePosition(mover);
+
+    mBlinky.draw();
+    mBlinky.updatePos(actualMap, mPac, 1);
+}
+
+void Game::putMenuEntities(Position pos) {
+    mPac.setPosition(pos);
+    mBlinky.setDirection(right);
+    mBlinky.setPosition({pos.getX() - 100, pos.getY()});
+}
+
+
 
