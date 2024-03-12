@@ -1,10 +1,10 @@
 #include "Ghosts.hpp"
 
 Ghosts::Ghosts(SDL_Color MyColor, Entity mIdentity) : Entity(mIdentity) {
-    body.load("assets/ghost_test.png");
-    InitFrames(ghostFrames, ghostSpriteAnimation);
+    body.load("assets/Ghost.png");
+    InitFrames(ghostFrames, ghostSpriteClips);
     Color = MyColor;
-    currentGhostFrame = 0;
+    currentBodyFrame = 0;
 }
 
 Ghosts::~Ghosts() {
@@ -45,8 +45,14 @@ void Ghosts:: calcDirection(uint8_t ActualMap[]) {
 void Ghosts::draw() {
     RGB red {0xff, 0x00, 0x00};
     body.paint(red);
-    body.render(this->getX() - 4, this->getY() - 4, 0, NULL);
 
+    currentClip = &ghostSpriteClips[currentBodyFrame / ghostFrames];
+    body.render(this->getX() - 4, this->getY() - 4, 0, currentClip);
+
+    currentBodyFrame++;
+    if(currentBodyFrame / ghostFrames >= ghostFrames){
+        currentBodyFrame = 0;
+    }
 }
 
 void Ghosts::directionsBubbleSort(std::vector<int> &distances, std::vector<uint8_t> &possibleDirections) {

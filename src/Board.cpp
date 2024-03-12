@@ -44,8 +44,10 @@ Board::Board() {
         "                            "
         "                            ";
 
+
+
     mapTexture.paint(boardColor);
-    this->convertSketch(); // Without converting, dots and powerups aren't properly placed on board
+    this->convertSketch(charBoard);
 }
 
 Board::~Board() {
@@ -55,9 +57,9 @@ Board::~Board() {
     doorTexture.free();
 }
 
-void Board::convertSketch() {
+void Board::convertSketch(std::string board) {
     for(unsigned short i = 0; i < BOARD_HEIGHT * BOARD_WIDTH; i++){
-        switch(charBoard[i]){
+        switch(board[i]){
             case '#':
                 numericBoard[i] = Objects::wall;
             break;

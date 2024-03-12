@@ -13,8 +13,9 @@ public:
     void draw();
     Position target;
 private:
-    TextureManager body;
-    SDL_Rect ghostSpriteAnimation[ghostFrames];
+    Texture body;
+    SDL_Rect ghostSpriteClips[ghostFrames];
     SDL_Color Color;
-    uint8_t currentGhostFrame;
+    uint8_t currentBodyFrame;
+
 };
