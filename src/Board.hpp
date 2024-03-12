@@ -18,5 +18,5 @@ private:
     std::string charBoard;
     uint8_t numericBoard[BOARD_HEIGHT * BOARD_WIDTH];
 
-    RGB boardColor = {0x00, 0x00, 0xff}; // Blue
+    RGB boardColor = {0, 255, 247};
 };

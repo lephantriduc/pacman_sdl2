@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Board.hpp"
+#include "Sound.hpp"
 
 class Game {
 public:
@@ -12,7 +13,7 @@ public:
     void update(std::vector<uint8_t> &mover);
     void updatePositions(std::vector <uint8_t> &mover);
     bool process(std::vector<uint8_t> &mover);
-
+    Sound mSound;
 
 private:
     Board mBoard;

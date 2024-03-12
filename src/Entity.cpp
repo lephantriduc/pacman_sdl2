@@ -38,8 +38,8 @@ uint8_t Entity::getFacing() const {
     return facing;
 }
 
-void Entity::setFacing(uint8_t mFacing) {
-        this->facing = mFacing;
+void Entity::setFacing(uint8_t newFacing) {
+        this->facing = newFacing;
 }
 
 void Entity::goToOtherSideOfScreen() {
@@ -62,7 +62,7 @@ void Entity::goToOtherSideOfScreen() {
     }
 }
 
-void Entity::CharBoardPos(unsigned char SideDir, Position &BoardPos, float cell_x, float cell_y){
+void Entity::CharBoardPos(uint8_t SideDir, Position &BoardPos, float cell_x, float cell_y){
     switch(SideDir){
         case 0:
             BoardPos.setX(static_cast<short>(floor(cell_x)));
@@ -85,11 +85,11 @@ void Entity::CharBoardPos(unsigned char SideDir, Position &BoardPos, float cell_
     }
 }
 
-bool Entity::wallCollision(short x, short y, unsigned char ActualMap[]){
+bool Entity::wallCollision(short x, short y, uint8_t ActualMap[]){
     float cell_x = x / static_cast<float>(BLOCK_SIZE_24);
     float cell_y = y / static_cast<float>(BLOCK_SIZE_24);
     Position BoardPos;
-    for(unsigned char SideDir = 0; SideDir < 4; SideDir++){
+    for(uint8_t SideDir = 0; SideDir < 4; SideDir++){
         this->CharBoardPos(SideDir, BoardPos, cell_x, cell_y);
         if(Objects::wall == ActualMap[BOARD_WIDTH * BoardPos.getY() + abs(BoardPos.getX() % BOARD_WIDTH)]){
             return true;
@@ -117,11 +117,15 @@ void Entity::getNextPosition(short &x, short &y, uint8_t mover) {
     }
 }
 
-uint8_t Entity::getDirection() {
+uint8_t Entity::getDirection() const {
     return direction;
 }
 
 void Entity::setDirection(uint8_t newDirection) {
     direction = newDirection;
+}
+
+void Entity::setSpeed(uint8_t newSpeed) {
+    speed = newSpeed;
 }
 

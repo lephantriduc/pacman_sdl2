@@ -2,10 +2,13 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_mixer.h>
 #include <SDL_ttf.h>
 
+#include <string>
 #include <iostream>
 #include <vector>
+#include <sstream>
 
 constexpr uint8_t BOARD_WIDTH = 28;
 constexpr uint8_t BOARD_HEIGHT = 36;
@@ -22,6 +25,11 @@ inline SDL_Color textColor = {255 , 255 , 255};
 inline SDL_Texture* mainMenuText = NULL;
 inline SDL_Texture* startText = NULL;
 inline SDL_Texture* quitText = NULL;
+
+inline SDL_Surface* volumeSurface = NULL;
+inline SDL_Texture* volumeText = NULL;
+inline std::stringstream volumeToText;
+inline TTF_Font* Font = TTF_OpenFont("fonts/emulogic.ttf", BLOCK_SIZE_24);
 
 inline SDL_Rect mainMenuRect , startButton , quitButton;
 

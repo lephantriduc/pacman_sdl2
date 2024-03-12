@@ -4,8 +4,15 @@
 int main() {
     openSDL();
 
-    // gameLoop;
     Game mGame;
+//    mGame.mSound.PlayIntro();
+    Mix_Music* test = NULL;
+    test = Mix_LoadMUS("sounds/Music.wav");
+    if( test == NULL )
+    {
+        printf( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );
+    }
+    std::cout << Mix_PlayMusic(test, -1);
 
     SDL_Event event;
     bool quit = false;
@@ -13,30 +20,113 @@ int main() {
     std::vector<uint8_t> mover;
     mover.push_back(right);
 
-    int quitState = 0;
-//    while (!quitState && !quit) {
-//        while (SDL_PollEvent(&event)) {
-//            if (event.type == SDL_QUIT) {
-//                quit = true;
-//            }
-//            else if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
-//                int mouseX, mouseY;
-//                SDL_GetMouseState(&mouseX, &mouseY);
-//                if (isMouseOver(startButton, mouseX, mouseY)) {
-//                    SDL_DestroyTexture(mainMenuText);
-//                    SDL_DestroyTexture(startText);
-//                    SDL_DestroyTexture(quitText);
-//                    quitState = 2;
-//                }
-//                else if (isMouseOver(quitButton, mouseX, mouseY)) {
-//                    quitState = 1;
-//                }
-//            }
-//        }
-//    }
+    int quitState = 1;
+    int volume = MIX_MAX_VOLUME / 2;
+    Mix_Volume(-1 , volume);
+    bool isDragging = false;
+
+    while (!quitState) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                quitState = 2;
+            }
+            else if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+                int mouseX, mouseY;
+                SDL_GetMouseState(&mouseX, &mouseY);
+                if (mouseY >= SCREEN_HEIGHT / 2 + 70 && mouseY <= SCREEN_HEIGHT / 2 + 110) {
+                    isDragging = true;
+                    if(mouseX <= SCREEN_WIDTH / 2 - 75) volume = 0;
+                    else if(mouseX >= SCREEN_WIDTH / 2 + 75) volume = MIX_MAX_VOLUME;
+                    else volume = (mouseX - (SCREEN_WIDTH / 2 - 75)) * MIX_MAX_VOLUME / 150;
+                    Mix_Volume(-1, volume);
+                }
+                if (isMouseOver(startButton, mouseX, mouseY)) {
+                    quitState = 1;
+                }
+                else if (isMouseOver(quitButton, mouseX, mouseY)) {
+                    quitState = 2;
+                }
+            }
+            else if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT) {
+                isDragging = false;
+            }
+            else if (event.type == SDL_MOUSEMOTION && isDragging) {
+                int mouseX, mouseY;
+                SDL_GetMouseState(&mouseX, &mouseY);
+                if (mouseX >= SCREEN_WIDTH / 2 - 75 && mouseX <= SCREEN_WIDTH / 2 + 75) {
+                    volume = (mouseX - (SCREEN_WIDTH / 2 - 75)) * MIX_MAX_VOLUME / 150;
+                    Mix_Volume(-1, volume);
+                }
+            }
+        }
+
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+
+        mainMenuText = renderText("Main Menu", Font, textColor, renderer);
+        startText = renderText("Start", Font, textColor, renderer);
+        quitText = renderText("Quit", Font, textColor, renderer);
+
+        mainMenuRect = { SCREEN_WIDTH / 2 - 100, 50, 200, 50 };
+        startButton = { SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 - 150, 150, 50 };
+        quitButton = { SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 - 50, 150, 50 };
+
+        SDL_RenderCopy(renderer, mainMenuText, nullptr, &mainMenuRect);
+        SDL_RenderCopy(renderer, startText, nullptr, &startButton);
+        SDL_RenderCopy(renderer, quitText, nullptr, &quitButton);
+
+        SDL_RenderPresent(renderer);
+        int imgFlags = IMG_INIT_PNG;
+        IMG_Init(imgFlags);
+        SDL_RenderClear(renderer);
+
+
+        //Xóa volume và thanh âm thanh cũ
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_Rect clearRect = { SCREEN_WIDTH / 2 - 75 , SCREEN_HEIGHT / 2 + 50, SCREEN_WIDTH , 30 };
+        SDL_RenderFillRect(renderer, &clearRect);
+        clearRect = { SCREEN_WIDTH / 2 - 75 , SCREEN_HEIGHT / 2 + 70 + 15, 150, 30 };
+        SDL_RenderFillRect(renderer, &clearRect);
+        SDL_RenderClear(renderer);
+
+
+        // Tạo thanh âm thanh mới
+        SDL_Rect volumeBorder = { SCREEN_WIDTH / 2 - 76, SCREEN_HEIGHT / 2 + 69 + 15, 152, 32 };
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        SDL_RenderDrawRect(renderer, &volumeBorder);
+        SDL_Rect volumeBar = { SCREEN_WIDTH / 2 - 75 , SCREEN_HEIGHT / 2 + 70 + 15, volume * 150 / MIX_MAX_VOLUME, 30 };
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        SDL_RenderFillRect(renderer, &volumeBar);
+
+        // Tạo volume mới
+        volumeToText.str("");
+        volumeToText << "VOLUME: " << (volume * 100 / MIX_MAX_VOLUME) << "%";
+        volumeSurface = TTF_RenderText_Solid(Font, volumeToText.str().c_str(), textColor);
+        volumeText = SDL_CreateTextureFromSurface(renderer, volumeSurface);
+        SDL_Rect textRect = { SCREEN_WIDTH / 2 - 75 , SCREEN_HEIGHT / 2 + 50 , volumeSurface->w, volumeSurface->h };
+        SDL_RenderCopy(renderer, volumeText, NULL, &textRect);
+
+        SDL_FreeSurface(volumeSurface);
+//        SDL_RenderPresent(renderer);
+    }
+
+    if(quitState == 2)
+    {
+        closeSDL();
+        return 0;
+    }
+
+    SDL_RenderClear(renderer);
+    SDL_SetRenderDrawColor(SDL_GetRenderer(window), 0, 0, 0, 255);
+    SDL_RenderClear(SDL_GetRenderer(window));
+    SDL_RenderPresent(SDL_GetRenderer(window));
+
 
     quitState = 2;
+//    SDL_Delay(500);
     while (!quit && quitState == 2) {
+//        if(!mGame.mSound.IsChannelPlaying(7)) mGame.mSound.PlayMusic();
+//        if (mGame.mSound.IsChannelPlaying(0)) mGame.mSound.StopChannel(0);
+
         while (SDL_PollEvent(&event) != 0) {
             if (event.type == SDL_QUIT)
                 quit = true;
@@ -51,7 +141,6 @@ int main() {
             }
         }
 
-        // Don't forget to clear the renderer
         SDL_RenderClear(renderer);
 
         if (mGame.process(mover)) {

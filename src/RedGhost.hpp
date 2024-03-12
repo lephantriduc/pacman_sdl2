@@ -7,5 +7,9 @@ public:
     RedGhost();
 
     void calcTarget(Position mPac);
-    void updatePos(unsigned char actualBoard[], Pac &mPac);
+    void updatePos(uint8_t actualBoard[], Pac &mPac);
+
+private:
+    uint8_t currentSpeed = this->getSpeed();
+
 };

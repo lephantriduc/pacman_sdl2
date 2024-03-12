@@ -11,24 +11,27 @@ Ghosts::~Ghosts() {
     body.free();
 }
 
-void Ghosts:: calcDirection(unsigned char ActualMap[]) {
-    std::vector<float> distances;
+void Ghosts:: calcDirection(uint8_t ActualMap[]) {
+    std::vector<int> distances;
     std::vector<uint8_t> possibleDirections;
+
+    // Checking for each of the 4 directions
     for(uint8_t i = 0; i < 4; i++){
         short x = this->getX();
         short y = this->getY();
         this->getNextPosition(x, y, i);
         if(!this->wallCollision(x, y, ActualMap)){
-            float distX = abs(x - this->target.getX());
+            auto distX = abs(x - this->target.getX());
             if(distX > SCREEN_WIDTH / 2)
                 distX = SCREEN_WIDTH - distX;
-            auto dist = static_cast<float>(distX * distX + (y - target.getY()) * (y - target.getY()));
+            auto dist = (distX * distX + (y - target.getY()) * (y - target.getY()));
+
             distances.push_back(dist);
             possibleDirections.push_back(i);
         }
     }
 
-    if (distances.size() != 2) std::cout << distances.size() << '\n';
+//    if (distances.size() != 2) std::cout << distances.size() << '\n';
     this->directionsBubbleSort(distances, possibleDirections);
 
     for(uint8_t i = 0; i < possibleDirections.size(); i++){
@@ -46,14 +49,14 @@ void Ghosts::draw() {
 
 }
 
-void Ghosts::directionsBubbleSort(std::vector<float> &distances, std::vector<unsigned char> &possibleDirections) {
-    for(unsigned char i = 0; i < distances.size(); i++){
-        for(unsigned char j = 0; j < distances.size(); j++){
+void Ghosts::directionsBubbleSort(std::vector<int> &distances, std::vector<uint8_t> &possibleDirections) {
+    for(uint8_t i = 0; i < distances.size(); i++){
+        for(uint8_t j = 0; j < distances.size(); j++){
             if(distances.at(i) < distances.at(j)){
-                float temp1 = distances.at(i);
+                auto temp1 = distances.at(i);
                 distances.at(i) = distances.at(j);
                 distances.at(j) = temp1;
-                unsigned char temp2 = possibleDirections.at(i);
+                uint8_t temp2 = possibleDirections.at(i);
                 possibleDirections.at(i) = possibleDirections.at(j);
                 possibleDirections.at(j) = temp2;
             }

@@ -6,8 +6,9 @@ class Ghosts : public Entity{
 public:
     Ghosts(SDL_Color MyColor, Entity MyIdentity);
     ~Ghosts();
-    void calcDirection(unsigned char ActualMap[]);
-    void directionsBubbleSort(std::vector<float> &distances, std::vector<unsigned char> &possibleDirections);
+
+    void calcDirection(uint8_t ActualMap[]);
+    void directionsBubbleSort(std::vector<int> &distances, std::vector<uint8_t> &possibleDirections);
 
     void draw();
     Position target;
@@ -15,5 +16,5 @@ private:
     TextureManager body;
     SDL_Rect ghostSpriteAnimation[ghostFrames];
     SDL_Color Color;
-    unsigned char currentGhostFrame;
+    uint8_t currentGhostFrame;
 };
