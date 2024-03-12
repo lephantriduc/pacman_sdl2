@@ -2,12 +2,12 @@
 
 #include "Ghosts.hpp"
 
-class RedGhost : public Ghosts{
+class Blinky : public Ghosts{
 public:
-    RedGhost();
+    Blinky();
 
     void calcTarget(Position mPac);
-    void updatePos(uint8_t actualBoard[], Pac &mPac);
+    void updatePos(uint8_t actualBoard[], Pac &mPac, bool inMenu);
 
 private:
     uint8_t currentSpeed = this->getSpeed();
