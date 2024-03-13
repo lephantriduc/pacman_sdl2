@@ -38,6 +38,7 @@ static bool gameStarted = false;
 
 constexpr uint8_t pacmanFrames = 3;
 constexpr uint8_t ghostFrames = 6;
+constexpr uint8_t ghostEyesFrames = 5;
 
 enum Objects {
     wall,

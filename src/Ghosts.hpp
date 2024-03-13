@@ -14,7 +14,9 @@ public:
     Position target;
 private:
     Texture body;
+    Texture eyes;
     SDL_Rect ghostSpriteClips[ghostFrames];
+    SDL_Rect ghostEyesSpriteClips[ghostEyesFrames];
     SDL_Color Color;
     uint8_t currentBodyFrame;
 

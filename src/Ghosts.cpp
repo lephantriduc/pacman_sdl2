@@ -2,7 +2,9 @@
 
 Ghosts::Ghosts(SDL_Color MyColor, Entity mIdentity) : Entity(mIdentity) {
     body.load("assets/Ghost.png");
+    eyes.load("assets/GhostEyes.png");
     InitFrames(ghostFrames, ghostSpriteClips);
+    InitFrames(ghostEyesFrames, ghostEyesSpriteClips);
     Color = MyColor;
     currentBodyFrame = 0;
 }
@@ -44,10 +46,16 @@ void Ghosts:: calcDirection(uint8_t ActualMap[]) {
 
 void Ghosts::draw() {
     RGB red {0xff, 0x00, 0x00};
+    RGB white {0xff, 0xff, 0xff};
+
     body.paint(red);
+    eyes.paint(white);
 
     currentClip = &ghostSpriteClips[currentBodyFrame / ghostFrames];
     body.render(this->getX() - 4, this->getY() - 4, 0, currentClip);
+
+    currentClip = &ghostEyesSpriteClips[this->getFacing()];
+    eyes.render(this->getX() - 4, this->getY() - 4, 0, currentClip);
 
     currentBodyFrame++;
     if(currentBodyFrame / ghostFrames >= ghostFrames){
