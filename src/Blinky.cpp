@@ -13,6 +13,7 @@ void Blinky::updatePos(uint8_t actualBoard[], Pac &mPac, bool inMenu) {
 //    this->setDirection(right);
     for(uint8_t i = 0; i < this->getSpeed(); i++){
         this->calcTarget(mPac);
+        this->setFacing(this->getDirection());
         if (!inMenu) {
             this->calcDirection(actualBoard);
             this->move(this->getDirection());
