@@ -20,6 +20,10 @@ void Game::draw() {
 void Game::update(std::vector<uint8_t> &mover) {
     this->updatePositions(mover);
     this->food();
+
+    if (mPac.isColliding(mBlinky)) {
+        std::cout << "Colliding\n";
+    }
 }
 
 void Game::updatePositions(std::vector <uint8_t> &mover){

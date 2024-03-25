@@ -19,6 +19,7 @@ class Entity : public Position{
         void CharBoardPos(uint8_t SideDir, Position &BoardPos, float cell_x, float cell_y);
         bool wallCollision(short x, short y, uint8_t ActualMap[]);
         void getNextPosition(short& x, short& y, uint8_t mover);
+        bool isColliding(Position other);
 
 private:
         uint8_t identity;
