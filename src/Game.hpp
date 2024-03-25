@@ -3,6 +3,7 @@
 #include "Board.hpp"
 #include "MainMenu.hpp"
 #include "Sound.hpp"
+#include "Timer.hpp"
 
 class Game {
 public:
@@ -26,5 +27,5 @@ private:
     Board mBoard;
     Blinky mBlinky;
     uint8_t actualMap[BOARD_HEIGHT * BOARD_WIDTH];
-
+    Timer speedUpTime;
 };

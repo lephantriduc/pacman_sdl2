@@ -45,9 +45,14 @@ void Game::food() {
             break;
         case 3:
             mPac.setSpeed(5);
+            speedUpTime.restart();
             break;
         default:
             break;
+    }
+    if (speedUpTime.getTicks() > 5000) {
+        mPac.setSpeed(2);
+        speedUpTime.reset();
     }
 }
 

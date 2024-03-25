@@ -3,7 +3,9 @@ project(pacman)
 
 file(GLOB Sources CONFIGURE_DEPENDS "src/*.h" "src/*.cpp")
 
-add_executable(pacman ${Sources})
+add_executable(pacman ${Sources}
+        src/Timer.cpp
+        src/Timer.hpp)
 
 # 1. Look for a SDL2 package
 # 2. look for the SDL2 component and
