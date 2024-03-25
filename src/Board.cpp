@@ -5,6 +5,7 @@ Board::Board() {
     dotTexture.load("assets/Dot.png");
     powerupTexture.load("assets/Powerup.png");
     doorTexture.load("assets/Door.png");
+    swiftTexture.load("assets/Lightning.png");
 
     charBoard =
         "                            "
@@ -15,7 +16,7 @@ Board::Board() {
         "#.####.#####.##.#####.####.#"
         "#o####.#####.##.#####.####o#"
         "#.####.#####.##.#####.####.#"
-        "#..........................#"
+        "#............!.............#"
         "#.####.##.########.##.####.#"
         "#.####.##.########.##.####.#"
         "#......##....##....##......#"
@@ -44,8 +45,6 @@ Board::Board() {
         "                            "
         "                            ";
 
-
-
     mapTexture.paint(boardColor);
     this->convertSketch(charBoard);
 }
@@ -55,26 +54,30 @@ Board::~Board() {
     dotTexture.free();
     powerupTexture.free();
     doorTexture.free();
+    swiftTexture.free();
 }
 
 void Board::convertSketch(std::string board) {
-    for(unsigned short i = 0; i < BOARD_HEIGHT * BOARD_WIDTH; i++){
-        switch(board[i]){
+    for (unsigned short i = 0; i < BOARD_HEIGHT * BOARD_WIDTH; i++) {
+        switch (board[i]) {
             case '#':
                 numericBoard[i] = Objects::wall;
-            break;
+                break;
             case '=':
                 numericBoard[i] = Objects::door;
-            break;
+                break;
             case '.':
                 numericBoard[i] = Objects::dot;
-            break;
+                break;
             case 'o':
                 numericBoard[i] = Objects::powerup;
-            break;
+                break;
+            case '!':
+                numericBoard[i] = Objects::swift;
+                break;
             default:
                 numericBoard[i] = Objects::space;
-            break;
+                break;
         }
     }
 }
@@ -82,22 +85,24 @@ void Board::convertSketch(std::string board) {
 void Board::draw(uint8_t ActualMap[]) {
     mapTexture.render();
 
-    doorTexture.render(SCREEN_WIDTH/2 - 23, SCREEN_HEIGHT/2 - 57);
+    doorTexture.render(SCREEN_WIDTH / 2 - 23, SCREEN_HEIGHT / 2 - 57);
     char y = -1;
-    for(unsigned short i = 0; i < BOARD_HEIGHT * BOARD_WIDTH; i++) {
+    for (unsigned short i = 0; i < BOARD_HEIGHT * BOARD_WIDTH; i++) {
         uint8_t x = i % BOARD_WIDTH;
-        if(x == 0) {
+        if (x == 0) {
             y++;
         }
-        if(ActualMap[i] == Objects::dot) {
+        if (ActualMap[i] == Objects::dot) {
             dotTexture.render(x * BLOCK_SIZE_24, y * BLOCK_SIZE_24);
         }
-        if(ActualMap[i] == Objects::powerup) {
+        if (ActualMap[i] == Objects::powerup) {
             powerupTexture.render(x * BLOCK_SIZE_24, y * BLOCK_SIZE_24);
+        }
+        if (ActualMap[i] == Objects::swift) {
+            swiftTexture.render(x * BLOCK_SIZE_24, y * BLOCK_SIZE_24);
         }
     }
 }
-
 
 void Board::copyBoard(uint8_t ActualMap[]) {
     memcpy(ActualMap, numericBoard, BOARD_HEIGHT * BOARD_WIDTH);
@@ -116,7 +121,8 @@ void Board::putEntities(Entity& entity) {
             entity.setX(x * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
             entity.setY(y * BLOCK_SIZE_24);
             return;
-        } else if (charBoard[i] == '1' && entity.getIdentity() == Entities::redGhost) {
+        } else if (charBoard[i] == '1' &&
+                   entity.getIdentity() == Entities::redGhost) {
             entity.setX(x * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
             entity.setY(y * BLOCK_SIZE_24);
             return;

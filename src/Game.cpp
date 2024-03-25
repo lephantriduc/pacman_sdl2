@@ -44,6 +44,7 @@ void Game::food() {
         case 2:
             break;
         case 3:
+            mPac.setSpeed(5);
             break;
         default:
             break;

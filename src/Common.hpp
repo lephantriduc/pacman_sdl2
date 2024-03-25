@@ -45,6 +45,7 @@ enum Objects {
     door,
     dot,
     powerup,
+    swift,
     space,
 };
 

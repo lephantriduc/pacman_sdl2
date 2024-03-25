@@ -16,6 +16,7 @@ private:
     Texture dotTexture;
     Texture powerupTexture;
     Texture doorTexture;
+    Texture swiftTexture;
     std::string charBoard;
     std::string mainMenuBoard;
     uint8_t numericBoard[BOARD_HEIGHT * BOARD_WIDTH];
