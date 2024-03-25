@@ -6,7 +6,6 @@ public:
     MainMenu();
     ~MainMenu();
 
-    void convertSketch(std::string board);
     void draw(uint8_t ActualMap[]);
 
 private:

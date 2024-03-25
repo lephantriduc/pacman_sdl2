@@ -17,9 +17,9 @@ constexpr uint8_t BLOCK_SIZE_24 = 24;
 constexpr uint16_t SCREEN_WIDTH = BOARD_WIDTH * BLOCK_SIZE_24;
 constexpr uint16_t SCREEN_HEIGHT = BOARD_HEIGHT * BLOCK_SIZE_24;
 
-inline SDL_Window* window = nullptr;
-inline SDL_Renderer* renderer = nullptr;
-inline SDL_Rect* currentAnimation = nullptr;
+inline SDL_Window* window = NULL;
+inline SDL_Renderer* renderer = NULL;
+inline SDL_Rect* currentAnimation = NULL;
 inline SDL_Rect* currentClip = NULL;
 
 inline SDL_Color textColor = {255 , 255 , 255};
@@ -90,6 +90,6 @@ inline SDL_Texture* renderText(const std::string& text, TTF_Font* font, SDL_Colo
 inline bool isMouseOver(SDL_Rect button, int mouseX, int mouseY) {
     return mouseX >= button.x && mouseX <= button.x + button.w &&
            mouseY >= button.y && mouseY <= button.y + button.h;
-}
+} 
 
 void closeSDL();

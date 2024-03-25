@@ -19,6 +19,7 @@ void Game::draw() {
 
 void Game::update(std::vector<uint8_t> &mover) {
     this->updatePositions(mover);
+    this->food();
 }
 
 void Game::updatePositions(std::vector <uint8_t> &mover){
@@ -34,6 +35,19 @@ bool Game::process(std::vector<uint8_t> &mover){
     this->update(mover);
 
     return true;
+}
+
+void Game::food() {
+    switch(mPac.foodCollision(actualMap)) {
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        default:
+            break;
+    }
 }
 
 void Game::runMenuEntities(std::vector<uint8_t> mover) {

@@ -113,3 +113,22 @@ void Pac::updatePosition(std::vector<uint8_t> &mover) {
     }
     this->checkIfGoesOutOfScreen(false);
 }
+
+uint8_t Pac::foodCollision(uint8_t ActualMap[]) {
+    float cell_x = this->getX() / static_cast<float>(BLOCK_SIZE_24);
+    float cell_y = this->getY() / static_cast<float>(BLOCK_SIZE_24);
+    Position BoardPos;
+    for (uint8_t sideDir = 0; sideDir < 4; sideDir++) {
+        this->CharBoardPos(sideDir, BoardPos, cell_x, cell_y);
+        if (ActualMap[BOARD_WIDTH * BoardPos.getY() + BoardPos.getX()] == Objects::dot) {
+            ActualMap[BOARD_WIDTH * BoardPos.getY() + BoardPos.getX()] = Objects::space;
+            return 1;
+        }
+        if (ActualMap[BOARD_WIDTH * BoardPos.getY() + BoardPos.getX()] == Objects::powerup) {
+            ActualMap[BOARD_WIDTH * BoardPos.getY() + BoardPos.getX()] = Objects::space;
+            return 2;
+        }
+    }
+
+    return 3;
+}

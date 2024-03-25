@@ -33,9 +33,10 @@ void Ghosts:: calcDirection(uint8_t ActualMap[]) {
         }
     }
 
-//    if (distances.size() != 2) std::cout << distances.size() << '\n';
+    // Sort the possible directions
     this->directionsBubbleSort(distances, possibleDirections);
 
+    // To make sure that ghosts won't reverse direction midway
     for(uint8_t i = 0; i < possibleDirections.size(); i++){
         if(possibleDirections.at(i) != (this->getDirection() + 2) % 4){
             this->setDirection(possibleDirections.at(i));

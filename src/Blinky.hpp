@@ -11,5 +11,4 @@ public:
 
 private:
     uint8_t currentSpeed = this->getSpeed();
-
 };

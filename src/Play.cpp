@@ -58,7 +58,7 @@ bool Play::RunMainMenu() {
 
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
-        mainMenuText = renderText("Main Menu", Font, textColor, renderer);
+        mainMenuText = renderText("PacMan", Font, textColor, renderer);
         startText = renderText("Start", Font, textColor, renderer);
         quitText = renderText("Quit", Font, textColor, renderer);
 
@@ -77,7 +77,7 @@ bool Play::RunMainMenu() {
 
         // Delete old volume
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-        SDL_Rect clearRect = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 50,
+        clearRect = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 50,
                               SCREEN_WIDTH, 30};
         SDL_RenderFillRect(renderer, &clearRect);
         clearRect = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 70 + 15, 150,
@@ -86,11 +86,11 @@ bool Play::RunMainMenu() {
         SDL_RenderClear(renderer);
 
         // Create new volume bar
-        SDL_Rect volumeBorder = {SCREEN_WIDTH / 2 - 76,
+        volumeBorder = {SCREEN_WIDTH / 2 - 76,
                                  SCREEN_HEIGHT / 2 + 69 + 15, 152, 32};
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderDrawRect(renderer, &volumeBorder);
-        SDL_Rect volumeBar = {SCREEN_WIDTH / 2 - 75,
+        volumeBar = {SCREEN_WIDTH / 2 - 75,
                               SCREEN_HEIGHT / 2 + 70 + 15,
                               volume * 150 / MIX_MAX_VOLUME, 30};
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
@@ -102,7 +102,7 @@ bool Play::RunMainMenu() {
         volumeSurface =
             TTF_RenderText_Solid(Font, volumeToText.str().c_str(), textColor);
         volumeText = SDL_CreateTextureFromSurface(renderer, volumeSurface);
-        SDL_Rect textRect = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 50,
+        textRect = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 50,
                              volumeSurface->w, volumeSurface->h};
         SDL_RenderCopy(renderer, volumeText, NULL, &textRect);
 

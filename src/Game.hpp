@@ -15,6 +15,8 @@ public:
     void updatePositions(std::vector <uint8_t> &mover);
     bool process(std::vector<uint8_t> &mover);
 
+    void food();
+
     void putMenuEntities(Position pos);
     void runMenuEntities(std::vector<uint8_t> mover);
     Sound mSound;
