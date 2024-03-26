@@ -28,4 +28,5 @@ private:
     Blinky mBlinky;
     uint8_t actualMap[BOARD_HEIGHT * BOARD_WIDTH];
     Timer speedUpTime;
+    bool isGameOver;
 };
