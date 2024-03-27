@@ -3,6 +3,7 @@
 Game::Game() {
     mBoard.copyBoard(actualMap);
     isGameOver = false;
+    mPac.setLiving(true);
 }
 
 Game::~Game() {}
@@ -23,7 +24,9 @@ void Game::update(std::vector<uint8_t> &mover) {
     this->food();
 
     if (mPac.isColliding(mBlinky)) {
+        mPac.setFrame(32);
         isGameOver = true;
+        mPac.setLiving(false);
     }
 }
 
@@ -85,18 +88,6 @@ void Game::resetGame() {
 
     mBoard.resetScore();
     mBoard.resetLives();
-
-//    mPac.ModLifeStatement(true);
-
-//    ResetGhostsLifeStatement();
-//    ResetGhostsFacing();
-//
-//    GhostTimer.Restart();
-//    Scorer = 200;
-//    LittleScoreTimer.clear();
-//    LittleScorePositions.clear();
-//    LittleScoreScorers.clear();
-//    WakaTimer.Stop();
 
     SDL_RenderClear(renderer);
 }

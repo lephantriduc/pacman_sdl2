@@ -135,3 +135,11 @@ bool Entity::isColliding(Position other) {
     return false;
 }
 
+bool Entity::getLiving() {
+    return living;
+}
+
+void Entity::setLiving(bool living) {
+    this->living = living;
+}
+

@@ -123,7 +123,7 @@ void Play::RunGame() {
     Playing();
 }
 
-void Play::DisPlayChoices(bool WinOrLose) {
+void Play::DisplayChoices(bool WinOrLose) {
     SDL_RenderClear(renderer);
     std::string name = WinOrLose ? "Play" : "Try";
     playAgainText = renderText(name + " Again", Font, Yellow, renderer);
@@ -143,7 +143,8 @@ void Play::DisPlayChoices(bool WinOrLose) {
 
 void Play::Playing() {
     if(mGame.isGameOver || mGame.isGameWon()){
-        DisPlayChoices(mGame.isGameWon());
+        SDL_Delay(250);
+        DisplayChoices(mGame.isGameWon());
         if(PlayAgain()) mGame.resetGame() , RunGame();
         return;
     }

@@ -19,7 +19,6 @@ constexpr uint16_t SCREEN_HEIGHT = BOARD_HEIGHT * BLOCK_SIZE_24;
 
 inline SDL_Window* window = NULL;
 inline SDL_Renderer* renderer = NULL;
-inline SDL_Rect* currentAnimation = NULL;
 inline SDL_Rect* currentClip = NULL;
 
 inline SDL_Color textColor = {255 , 255 , 255};
@@ -39,8 +38,12 @@ inline SDL_Rect mainMenuRect , startButton , quitButton, playAgainButton, quitGa
 static bool gameStarted = false;
 
 constexpr uint8_t pacmanFrames = 3;
+constexpr uint8_t deathFrames = 10;
 constexpr uint8_t ghostFrames = 6;
 constexpr uint8_t ghostEyesFrames = 5;
+
+inline bool isPacDoneDying = false;
+
 
 enum Objects {
     wall,

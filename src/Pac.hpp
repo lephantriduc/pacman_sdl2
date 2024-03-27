@@ -10,11 +10,18 @@ public:
     void updatePosition(std::vector<uint8_t> &mover);
     void draw();
     void updateFrame();
+    void setFrame(uint8_t newFrame);
     void turn(uint8_t mover);
     uint8_t foodCollision(uint8_t ActualMap[]);
 
 private:
     Texture pacmanTexture;
+    Texture deathTexture;
+
     SDL_Rect pacmanSpriteClips[pacmanFrames];
+    SDL_Rect deathSpriteClips[deathFrames];
+
     uint8_t currentPacmanFrame;
+    short currentDeathFrame;
+
 };
