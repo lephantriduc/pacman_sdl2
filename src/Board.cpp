@@ -6,44 +6,46 @@ Board::Board() {
     powerupTexture.load("assets/Powerup.png");
     doorTexture.load("assets/Door.png");
     swiftTexture.load("assets/Lightning.png");
+    portal1Texture.load("assets/Portal1.png");
+    portal2Texture.load("assets/Portal2.png");
 
     charBoard =
-        "                            "
-        "                            "
-        "                            "
-        "############################"
-        "#............##............#"
-        "#.####.#####.##.#####.####.#"
-        "#o####.#####.##.#####.####o#"
-        "#.####.#####.##.#####.####.#"
-        "#............!.............#"
-        "#.####.##.########.##.####.#"
-        "#.####.##.########.##.####.#"
-        "#......##....##....##......#"
-        "######.##### ## #####.######"
-        "     #.##### ## #####.#     "
-        "     #.##    1     ##.#     "
-        "     #.## ######## ##.#     "
-        "######.## #      # ##.######"
-        "......o   #2 3 4 #   o......"
-        "######.## #      # ##.######"
-        "     #.## ######## ##.#     "
-        "     #.##    0     ##.#     "
-        "     #.## ######## ##.#     "
-        "######.## ######## ##.######"
-        "#............##............#"
-        "#.####.#####.##.#####.####.#"
-        "#.####.#####.##.#####.####.#"
-        "#o..##................##..o#"
-        "###.##.##.########.##.##.###"
-        "###.##.##.########.##.##.###"
-        "#......##....##....##......#"
-        "#.##########.##.##########.#"
-        "#.##########.##.##########.#"
-        "#..........................#"
-        "############################"
-        "                            "
-        "                            ";
+            "                            "
+            "                            "
+            "                            "
+            "############################"
+            "#[...........##...........]#"
+            "#.####.#####.##.#####.####.#"
+            "#o####.#####.##.#####.####o#"
+            "#.####.#####.##.#####.####.#"
+            "#............!.............#"
+            "#.####.##.########.##.####.#"
+            "#.####.##.########.##.####.#"
+            "#......##....##....##......#"
+            "######.##### ## #####.######"
+            "     #.##### ## #####.#     "
+            "     #.##    1     ##.#     "
+            "     #.## ######## ##.#     "
+            "######.## #      # ##.######"
+            "......o   #2 3 4 #   o......"
+            "######.## #      # ##.######"
+            "     #.## ######## ##.#     "
+            "     #.##    0     ##.#     "
+            "     #.## ######## ##.#     "
+            "######.## ######## ##.######"
+            "#............##............#"
+            "#.####.#####.##.#####.####.#"
+            "#.####.#####.##.#####.####.#"
+            "#o..##................##..o#"
+            "###.##.##.########.##.##.###"
+            "###.##.##.########.##.##.###"
+            "#......##....##....##......#"
+            "#.##########.##.##########.#"
+            "#.##########.##.##########.#"
+            "#]........................[#"
+            "############################"
+            "                            "
+            "                            ";
 
     mapTexture.paint(boardColor);
     this->convertSketch(charBoard);
@@ -55,6 +57,8 @@ Board::~Board() {
     powerupTexture.free();
     doorTexture.free();
     swiftTexture.free();
+    portal1Texture.free();
+    portal2Texture.free();
 }
 
 void Board::convertSketch(std::string board) {
@@ -74,6 +78,12 @@ void Board::convertSketch(std::string board) {
                 break;
             case '!':
                 numericBoard[i] = Objects::swift;
+                break;
+            case '[':
+                numericBoard[i] = Objects::portal1;
+                break;
+            case ']':
+                numericBoard[i] = Objects::portal2;
                 break;
             default:
                 numericBoard[i] = Objects::space;
@@ -101,6 +111,12 @@ void Board::draw(uint8_t ActualMap[]) {
         if (ActualMap[i] == Objects::swift) {
             swiftTexture.render(x * BLOCK_SIZE_24, y * BLOCK_SIZE_24);
         }
+        if (ActualMap[i] == Objects::portal1) {
+            portal1Texture.render(x * BLOCK_SIZE_24, y * BLOCK_SIZE_24);
+        }
+        if (ActualMap[i] == Objects::portal2) {
+            portal2Texture.render(x * BLOCK_SIZE_24, y * BLOCK_SIZE_24);
+        }
     }
 }
 
@@ -108,7 +124,7 @@ void Board::copyBoard(uint8_t ActualMap[]) {
     memcpy(ActualMap, numericBoard, BOARD_HEIGHT * BOARD_WIDTH);
 }
 
-void Board::putEntities(Entity& entity) {
+void Board::putEntities(Entity &entity) {
     int8_t y = -1;
 
     for (short i = 0; i < BOARD_WIDTH * BOARD_HEIGHT; i++) {
@@ -125,6 +141,38 @@ void Board::putEntities(Entity& entity) {
                    entity.getIdentity() == Entities::redGhost) {
             entity.setX(x * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
             entity.setY(y * BLOCK_SIZE_24);
+            return;
+        }
+    }
+}
+
+void Board::increaseLives() {
+    Lives++;
+}
+
+void Board::resetScore() {
+    Score = 0;
+}
+
+void Board::resetLives() {
+    Lives = 3;
+}
+
+void Board::resetPosition(Entity &mEntity) {
+    uint8_t y = -1;
+    for (unsigned short i = 0; i < BOARD_HEIGHT * BOARD_WIDTH; i++) {
+        uint8_t x = i % BOARD_WIDTH;
+        if (x == 0) {
+            y++;
+        }
+        if (charBoard[i] == '0' && mEntity.getIdentity() == Entities::pac) {
+            mEntity.setX(x * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
+            mEntity.setY(y * BLOCK_SIZE_24);
+            return;
+        }
+        if (charBoard[i] == '1' && mEntity.getIdentity() == Entities::redGhost) {
+            mEntity.setX(x * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
+            mEntity.setY(y * BLOCK_SIZE_24);
             return;
         }
     }

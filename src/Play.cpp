@@ -123,7 +123,31 @@ void Play::RunGame() {
     Playing();
 }
 
+void Play::DisPlayChoices(bool WinOrLose) {
+    SDL_RenderClear(renderer);
+    std::string name = WinOrLose ? "Play" : "Try";
+    playAgainText = renderText(name + " Again", Font, Yellow, renderer);
+    quitGameText = renderText("Quit", Font, Yellow, renderer);
+
+    playAgainButton = {10 * BLOCK_SIZE_24 + (WinOrLose ? -5 : 5), 20 * BLOCK_SIZE_24, 20 * (WinOrLose ? 10 : 9),
+                       BLOCK_SIZE_24};
+    quitGameButton = {12 * BLOCK_SIZE_24 + 9, 26 * BLOCK_SIZE_24, 20 * 4, BLOCK_SIZE_24};
+
+    SDL_RenderCopy(renderer, playAgainText, nullptr, &playAgainButton);
+    SDL_RenderCopy(renderer, quitGameText, nullptr, &quitGameButton);
+
+    mGame.draw();
+    SDL_RenderPresent(renderer);
+    SDL_RenderClear(renderer);
+}
+
 void Play::Playing() {
+    if(mGame.isGameOver || mGame.isGameWon()){
+        DisPlayChoices(mGame.isGameWon());
+        if(PlayAgain()) mGame.resetGame() , RunGame();
+        return;
+    }
+
     if (!mGame.mSound.IsChannelPlaying(7)) mGame.mSound.PlayMusic();
     if (mGame.mSound.IsChannelPlaying(0)) mGame.mSound.StopChannel(0);
 
@@ -156,3 +180,29 @@ void Play::Playing() {
 
     Playing();
 }
+
+bool Play::PlayAgain() {
+    bool isPlayAgain = false;
+    bool isQuitGame = false;
+
+    while (!isPlayAgain && !isQuitGame) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                isQuitGame = true;
+            } else if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+                int mouseX, mouseY;
+                SDL_GetMouseState(&mouseX, &mouseY);
+                if (isMouseOver(playAgainButton, mouseX, mouseY)) {
+                    isPlayAgain = true;
+                } else if (isMouseOver(quitGameButton, mouseX, mouseY)) {
+                    isQuitGame = true;
+                }
+            }
+        }
+    }
+
+    SDL_RenderClear(renderer);
+
+    return isPlayAgain;
+}
+

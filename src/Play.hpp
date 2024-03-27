@@ -7,7 +7,9 @@ public:
     bool RunMainMenu();
 //    bool PlayAgain();
     void RunGame();
+    void DisPlayChoices(bool WinOrLose);
     void Playing();
+    bool PlayAgain();
 private:
     SDL_Event event;
     Game mGame;

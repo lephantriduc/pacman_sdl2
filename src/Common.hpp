@@ -26,13 +26,15 @@ inline SDL_Color textColor = {255 , 255 , 255};
 inline SDL_Texture* mainMenuText = NULL;
 inline SDL_Texture* startText = NULL;
 inline SDL_Texture* quitText = NULL;
+inline SDL_Texture* playAgainText = NULL;
+inline SDL_Texture* quitGameText = NULL;
 
 inline SDL_Surface* volumeSurface = NULL;
 inline SDL_Texture* volumeText = NULL;
 inline std::stringstream volumeToText;
 inline TTF_Font* Font = TTF_OpenFont("fonts/emulogic.ttf", BLOCK_SIZE_24);
 
-inline SDL_Rect mainMenuRect , startButton , quitButton;
+inline SDL_Rect mainMenuRect , startButton , quitButton, playAgainButton, quitGameButton;
 
 static bool gameStarted = false;
 
@@ -47,6 +49,8 @@ enum Objects {
     powerup,
     swift,
     space,
+    portal1,
+    portal2,
 };
 
 enum Entities {
@@ -65,6 +69,8 @@ enum Directions {
 };
 
 const SDL_Color Red = {0xff, 0x00, 0x00};
+const SDL_Color Yellow = {0xff, 0xff, 0x00};
+const SDL_Color White = {0xff, 0xff, 0xff};
 
 
 void openSDL();
@@ -94,3 +100,5 @@ inline bool isMouseOver(SDL_Rect button, int mouseX, int mouseY) {
 } 
 
 void closeSDL();
+
+void DisPlayChoices(bool WinOrLose);
