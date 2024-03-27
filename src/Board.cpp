@@ -8,6 +8,7 @@ Board::Board() {
     swiftTexture.load("assets/Lightning.png");
     portal1Texture.load("assets/Portal1.png");
     portal2Texture.load("assets/Portal2.png");
+    livesTexture.load("assets/Heart.png");
 
     charBoard =
             "                            "
@@ -59,6 +60,7 @@ Board::~Board() {
     swiftTexture.free();
     portal1Texture.free();
     portal2Texture.free();
+    livesTexture.free();
 }
 
 void Board::convertSketch(std::string board) {
@@ -97,6 +99,11 @@ void Board::draw(uint8_t ActualMap[]) {
 
     doorTexture.render(SCREEN_WIDTH / 2 - 23, SCREEN_HEIGHT / 2 - 57);
     char y = -1;
+
+    for (unsigned short i = 1; i <= Lives; i++) {
+        livesTexture.render(i * BLOCK_SIZE_32, 825);
+    }
+
     for (unsigned short i = 0; i < BOARD_HEIGHT * BOARD_WIDTH; i++) {
         uint8_t x = i % BOARD_WIDTH;
         if (x == 0) {
@@ -150,6 +157,10 @@ void Board::increaseLives() {
     Lives++;
 }
 
+void Board::decreaseLives() {
+    Lives--;
+}
+
 void Board::resetScore() {
     Score = 0;
 }
@@ -177,3 +188,4 @@ void Board::resetPosition(Entity &mEntity) {
         }
     }
 }
+

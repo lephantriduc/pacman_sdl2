@@ -82,6 +82,7 @@ bool Game::isGameWon(){
 void Game::resetGame() {
     mBoard.copyBoard(actualMap);
     isGameOver = false;
+    mPac.setLiving(true);
 
     mBoard.resetPosition(mPac);
     mBoard.resetPosition(mBlinky);

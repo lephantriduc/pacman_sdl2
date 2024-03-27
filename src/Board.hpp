@@ -13,6 +13,7 @@ public:
     void resetPosition(Entity& mEntity);
 
     void increaseLives();
+    void decreaseLives();
     void resetScore();
     void resetLives();
 
@@ -24,10 +25,12 @@ private:
     Texture swiftTexture;
     Texture portal1Texture;
     Texture portal2Texture;
+    Texture livesTexture;
+
     std::string charBoard;
     std::string mainMenuBoard;
     uint8_t numericBoard[BOARD_HEIGHT * BOARD_WIDTH];
-    uint8_t Lives = 3;
+    uint8_t Lives = 5;
     short Score = 0;
 
     RGB boardColor = {0, 255, 247};
