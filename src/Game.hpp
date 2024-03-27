@@ -20,6 +20,11 @@ public:
 
     void putMenuEntities(Position pos);
     void runMenuEntities(std::vector<uint8_t> mover);
+    bool isGameWon();
+    void resetGame();
+
+    
+    bool isGameOver;
     Sound mSound;
 
 private:

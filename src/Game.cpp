@@ -2,6 +2,7 @@
 
 Game::Game() {
     mBoard.copyBoard(actualMap);
+    isGameOver = false;
 }
 
 Game::~Game() {}
@@ -22,16 +23,16 @@ void Game::update(std::vector<uint8_t> &mover) {
     this->food();
 
     if (mPac.isColliding(mBlinky)) {
-        std::cout << "Colliding\n";
+        isGameOver = true;
     }
 }
 
-void Game::updatePositions(std::vector <uint8_t> &mover){
+void Game::updatePositions(std::vector<uint8_t> &mover) {
     mBlinky.updatePos(actualMap, mPac, 0);
     mPac.updatePosition(mover, actualMap);
 }
 
-bool Game::process(std::vector<uint8_t> &mover){
+bool Game::process(std::vector<uint8_t> &mover) {
     if (!gameStarted) {
         this->start();
         gameStarted = true;
@@ -42,15 +43,18 @@ bool Game::process(std::vector<uint8_t> &mover){
 }
 
 void Game::food() {
-    switch(mPac.foodCollision(actualMap)) {
+    switch (mPac.foodCollision(actualMap)) {
         case 1:
             break;
         case 2:
             break;
         case 3:
-            mPac.setSpeed(5);
+            mPac.setSpeed(3);
             speedUpTime.restart();
             break;
+        case 4:
+            mPac.setX(BLOCK_SIZE_24 * 27 - mPac.getX());
+            mPac.setY(BLOCK_SIZE_24 * 36 - mPac.getY());
         default:
             break;
     }
@@ -58,6 +62,43 @@ void Game::food() {
         mPac.setSpeed(2);
         speedUpTime.reset();
     }
+}
+
+bool Game::isGameWon(){
+//    SDL_RenderClear(renderer);
+
+	for(unsigned short i = 0; i < BOARD_HEIGHT * BOARD_WIDTH; i++){
+		if(actualMap[i] == Objects::dot)
+			return false;
+		if(actualMap[i] == Objects::powerup)
+			return false;
+	}
+	return true;
+}
+
+void Game::resetGame() {
+    mBoard.copyBoard(actualMap);
+    isGameOver = false;
+
+    mBoard.resetPosition(mPac);
+    mBoard.resetPosition(mBlinky);
+
+    mBoard.resetScore();
+    mBoard.resetLives();
+
+//    mPac.ModLifeStatement(true);
+
+//    ResetGhostsLifeStatement();
+//    ResetGhostsFacing();
+//
+//    GhostTimer.Restart();
+//    Scorer = 200;
+//    LittleScoreTimer.clear();
+//    LittleScorePositions.clear();
+//    LittleScoreScorers.clear();
+//    WakaTimer.Stop();
+
+    SDL_RenderClear(renderer);
 }
 
 void Game::runMenuEntities(std::vector<uint8_t> mover) {
@@ -75,6 +116,3 @@ void Game::putMenuEntities(Position pos) {
     mBlinky.setDirection(right);
     mBlinky.setPosition({pos.getX() - 100, pos.getY()});
 }
-
-
-
