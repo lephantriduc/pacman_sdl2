@@ -53,6 +53,7 @@ enum Objects {
     space,
     portal1,
     portal2,
+    heal,
 };
 
 enum Entities {

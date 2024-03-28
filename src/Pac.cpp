@@ -131,6 +131,10 @@ uint8_t Pac::foodCollision(uint8_t ActualMap[]) {
         if (ActualMap[BOARD_WIDTH * BoardPos.getY() + BoardPos.getX()] == Objects::portal2) {
             return 4;
         }
+        if (ActualMap[BOARD_WIDTH * BoardPos.getY() + BoardPos.getX()] == Objects::heal) {
+            ActualMap[BOARD_WIDTH * BoardPos.getY() + BoardPos.getX()] = Objects::space;
+            return 5;
+        }
     }
 
     return 0;
