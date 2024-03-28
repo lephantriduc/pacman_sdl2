@@ -4,7 +4,7 @@
 
 class Ghosts : public Entity{
 public:
-    Ghosts(SDL_Color MyColor, Entity MyIdentity);
+    Ghosts(Entity MyIdentity);
     ~Ghosts();
 
     void calcDirection(uint8_t ActualMap[]);
@@ -12,12 +12,11 @@ public:
 
     void draw();
     Position target;
+    RGB ghostColor;
 private:
     Texture body;
     Texture eyes;
     SDL_Rect ghostSpriteClips[ghostFrames];
     SDL_Rect ghostEyesSpriteClips[ghostEyesFrames];
-    SDL_Color Color;
     uint8_t currentBodyFrame;
-
 };

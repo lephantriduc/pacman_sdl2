@@ -1,14 +1,14 @@
-#include "Blinky.hpp"
+#include "Pinky.hpp"
 
-Blinky::Blinky() : Ghosts(Entities::Blinky){
-    ghostColor = {255, 0, 0};
+Pinky::Pinky() : Ghosts(Entities::Pinky){
+    ghostColor = {254,184,255};
 }
 
-void Blinky::calcTarget(Position mPac) {
+void Pinky::calcTarget(Position mPac) {
     this->target.setPosition(mPac.getPosition());
 }
 
-void Blinky::updatePos(uint8_t actualBoard[], Pac &mPac, bool inMenu) {
+void Pinky::updatePos(uint8_t actualBoard[], Pac &mPac, bool inMenu) {
 //    this->setSpeed(currentSpeed++);
 
 //    this->setDirection(right);
@@ -26,5 +26,3 @@ void Blinky::updatePos(uint8_t actualBoard[], Pac &mPac, bool inMenu) {
         }
     }
 }
-
-

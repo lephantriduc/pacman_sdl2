@@ -30,7 +30,8 @@ public:
 private:
     Pac mPac;
     Board mBoard;
-    Blinky mBlinky;
+    class Blinky mBlinky;
+    class Pinky mPinky;
     uint8_t actualMap[BOARD_HEIGHT * BOARD_WIDTH];
     Timer speedUpTime;
     Timer mapAnimationTimer;

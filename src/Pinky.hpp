@@ -2,12 +2,10 @@
 
 #include "Ghosts.hpp"
 
-class Blinky : public Ghosts{
+class Pinky : public Ghosts {
 public:
-    Blinky();
+    Pinky();
 
     void calcTarget(Position mPac);
     void updatePos(uint8_t actualBoard[], Pac &mPac, bool inMenu);
-private:
-
 };
