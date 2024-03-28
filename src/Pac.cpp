@@ -65,7 +65,7 @@ void Pac::draw(){
         currentDeathFrame++;
         if (currentDeathFrame / deathFrames >= deathFrames){
             currentDeathFrame = 0;
-            isPacDoneDying = true;
+            setPacDoneDying(true);
         }
         std::cout << currentDeathFrame << '\n';
     }
@@ -139,4 +139,12 @@ uint8_t Pac::foodCollision(uint8_t ActualMap[]) {
 
 void Pac::setFrame(uint8_t newFrame) {
     currentPacmanFrame = newFrame;
+}
+
+bool Pac::getPacDoneDying() {
+    return isPacDoneDying;
+}
+
+void Pac::setPacDoneDying(bool answer) {
+    isPacDoneDying = answer;
 }

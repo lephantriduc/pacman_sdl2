@@ -25,7 +25,6 @@ void Game::update(std::vector<uint8_t> &mover) {
 
     if (mPac.isColliding(mBlinky)) {
         mPac.setFrame(32);
-        isGameOver = true;
         mPac.setLiving(false);
     }
 }
@@ -35,12 +34,26 @@ void Game::updatePositions(std::vector<uint8_t> &mover) {
     mPac.updatePosition(mover, actualMap);
 }
 
-bool Game::process(std::vector<uint8_t> &mover) {
+bool Game::process(std::vector<uint8_t> &mover, Timer gameTimer, unsigned short &startTicks) {
     if (!gameStarted) {
         this->start();
         gameStarted = true;
     }
-    this->update(mover);
+    if (mPac.getLiving()) {
+        this->update(mover);
+
+    } else { // If Pac is ded
+        if (mBoard.getLives()) { // If Pac is ded but still have lives
+            if (mPac.getPacDoneDying()) {
+                mPac.setPacDoneDying(false);
+                mBoard.decreaseLives();
+                mPac.setLiving(true);
+                return false;
+            }
+        } else { // If Pac is ded but no lives remaining
+            isGameOver = true;
+        }
+    }
 
     return true;
 }

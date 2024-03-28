@@ -142,6 +142,9 @@ void Play::DisplayChoices(bool WinOrLose) {
 }
 
 void Play::Playing() {
+    Timer GameTimer;
+    static unsigned short startTicks = 4500;
+
     if(mGame.isGameOver || mGame.isGameWon()){
         SDL_Delay(250);
         DisplayChoices(mGame.isGameWon());
@@ -174,7 +177,7 @@ void Play::Playing() {
 
     SDL_RenderClear(renderer);
 
-    if (mGame.process(mover)) {
+    if (mGame.process(mover, GameTimer, startTicks)) {
         mGame.draw();
         SDL_RenderPresent(renderer);
     }

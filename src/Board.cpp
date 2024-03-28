@@ -189,3 +189,7 @@ void Board::resetPosition(Entity &mEntity) {
     }
 }
 
+uint8_t Board::getLives() {
+    return Lives;
+}
+

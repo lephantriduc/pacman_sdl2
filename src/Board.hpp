@@ -12,6 +12,8 @@ public:
     void putEntities(Entity& mEntity);
     void resetPosition(Entity& mEntity);
 
+    uint8_t getLives();
+
     void increaseLives();
     void decreaseLives();
     void resetScore();
@@ -30,7 +32,7 @@ private:
     std::string charBoard;
     std::string mainMenuBoard;
     uint8_t numericBoard[BOARD_HEIGHT * BOARD_WIDTH];
-    uint8_t Lives = 5;
+    uint8_t Lives = 3;
     short Score = 0;
 
     RGB boardColor = {0, 255, 247};

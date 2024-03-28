@@ -42,9 +42,6 @@ constexpr uint8_t deathFrames = 10;
 constexpr uint8_t ghostFrames = 6;
 constexpr uint8_t ghostEyesFrames = 5;
 
-inline bool isPacDoneDying = false;
-
-
 enum Objects {
     wall,
     door,
