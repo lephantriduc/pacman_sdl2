@@ -78,6 +78,9 @@ void Game::food() {
         case 4: // Teleport perk
             mPac.setX(BLOCK_SIZE_24 * 27 - mPac.getX());
             mPac.setY(BLOCK_SIZE_24 * 36 - mPac.getY());
+        case 5: // Healing perk
+            mBoard.increaseLives();
+            break;
         default:
             break;
     }

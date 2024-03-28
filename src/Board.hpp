@@ -30,6 +30,7 @@ private:
     Texture swiftTexture;
     Texture portal1Texture;
     Texture portal2Texture;
+    Texture healTexture;
     Texture livesTexture;
     Texture scoreNumberTexture;
     Texture scoreWordTexture;

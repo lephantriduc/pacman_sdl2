@@ -8,6 +8,7 @@ Board::Board() {
     swiftTexture.load("assets/Lightning.png");
     portal1Texture.load("assets/Portal1.png");
     portal2Texture.load("assets/Portal2.png");
+    healTexture.load("assets/Heart.png");
     livesTexture.load("assets/PacLives.png");
 
     scoreWordTexture.loadFromRenderedText("Score", White);
@@ -43,7 +44,7 @@ Board::Board() {
             "#o..##................##..o#"
             "###.##.##.########.##.##.###"
             "###.##.##.########.##.##.###"
-            "#......##....##....##......#"
+            "#......##....##h...##......#"
             "#.##########.##.##########.#"
             "#.##########.##.##########.#"
             "#]........................[#"
@@ -103,6 +104,7 @@ Board::~Board() {
     portal1Texture.free();
     portal2Texture.free();
     livesTexture.free();
+    healTexture.free();
     scoreWordTexture.free();
     highScoreWordTexture.free();
     scoreNumberTexture.free();
@@ -131,6 +133,9 @@ void Board::convertSketch(std::string board) {
                 break;
             case ']':
                 numericBoard[i] = Objects::portal2;
+                break;
+            case 'h':
+                numericBoard[i] = Objects::heal;
                 break;
             default:
                 numericBoard[i] = Objects::space;
@@ -202,6 +207,9 @@ void Board::draw(uint8_t ActualMap[]) {
         }
         if (ActualMap[i] == Objects::portal2) {
             portal2Texture.render(x * BLOCK_SIZE_24, y * BLOCK_SIZE_24);
+        }
+        if (ActualMap[i] == Objects::heal) {
+            healTexture.render(x * BLOCK_SIZE_24, y * BLOCK_SIZE_24);
         }
     }
 }
