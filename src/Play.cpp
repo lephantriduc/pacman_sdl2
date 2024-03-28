@@ -104,7 +104,7 @@ bool Play::RunMainMenu() {
         volumeText = SDL_CreateTextureFromSurface(renderer, volumeSurface);
         textRect = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 50,
                              volumeSurface->w, volumeSurface->h};
-        SDL_RenderCopy(renderer, volumeText, NULL, &textRect);
+        SDL_RenderCopy(renderer, volumeText, nullptr, &textRect);
 
         SDL_FreeSurface(volumeSurface);
     }
@@ -123,7 +123,7 @@ void Play::RunGame() {
     Playing();
 }
 
-void Play::DisPlayChoices(bool WinOrLose) {
+void Play::DisplayChoices(bool WinOrLose) {
     SDL_RenderClear(renderer);
     std::string name = WinOrLose ? "Play" : "Try";
     playAgainText = renderText(name + " Again", Font, Yellow, renderer);
@@ -142,8 +142,12 @@ void Play::DisPlayChoices(bool WinOrLose) {
 }
 
 void Play::Playing() {
+    Timer GameTimer;
+    static unsigned short startTicks = 4500;
+
     if(mGame.isGameOver || mGame.isGameWon()){
-        DisPlayChoices(mGame.isGameWon());
+        SDL_Delay(250);
+        DisplayChoices(mGame.isGameWon());
         if(PlayAgain()) mGame.resetGame() , RunGame();
         return;
     }
@@ -173,7 +177,7 @@ void Play::Playing() {
 
     SDL_RenderClear(renderer);
 
-    if (mGame.process(mover)) {
+    if (mGame.process(mover, GameTimer, startTicks)) {
         mGame.draw();
         SDL_RenderPresent(renderer);
     }

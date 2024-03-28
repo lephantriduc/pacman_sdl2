@@ -14,7 +14,7 @@ public:
     void draw();
     void update(std::vector<uint8_t> &mover);
     void updatePositions(std::vector <uint8_t> &mover);
-    bool process(std::vector<uint8_t> &mover);
+    bool process(std::vector<uint8_t> &mover, Timer gameTimer, unsigned short &startTicks);
 
     void food();
 
@@ -22,7 +22,7 @@ public:
     void runMenuEntities(std::vector<uint8_t> mover);
     bool isGameWon();
     void resetGame();
-
+    void resetMover(std::vector<uint8_t> &mover);
     
     bool isGameOver;
     Sound mSound;
@@ -33,4 +33,5 @@ private:
     Blinky mBlinky;
     uint8_t actualMap[BOARD_HEIGHT * BOARD_WIDTH];
     Timer speedUpTime;
+    Timer mapAnimationTimer;
 };

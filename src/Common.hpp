@@ -17,20 +17,19 @@ constexpr uint8_t BLOCK_SIZE_24 = 24;
 constexpr uint16_t SCREEN_WIDTH = BOARD_WIDTH * BLOCK_SIZE_24;
 constexpr uint16_t SCREEN_HEIGHT = BOARD_HEIGHT * BLOCK_SIZE_24;
 
-inline SDL_Window* window = NULL;
-inline SDL_Renderer* renderer = NULL;
-inline SDL_Rect* currentAnimation = NULL;
-inline SDL_Rect* currentClip = NULL;
+inline SDL_Window* window = nullptr;
+inline SDL_Renderer* renderer = nullptr;
+inline SDL_Rect* currentClip = nullptr;
 
 inline SDL_Color textColor = {255 , 255 , 255};
-inline SDL_Texture* mainMenuText = NULL;
-inline SDL_Texture* startText = NULL;
-inline SDL_Texture* quitText = NULL;
-inline SDL_Texture* playAgainText = NULL;
-inline SDL_Texture* quitGameText = NULL;
+inline SDL_Texture* mainMenuText = nullptr;
+inline SDL_Texture* startText = nullptr;
+inline SDL_Texture* quitText = nullptr;
+inline SDL_Texture* playAgainText = nullptr;
+inline SDL_Texture* quitGameText = nullptr;
 
-inline SDL_Surface* volumeSurface = NULL;
-inline SDL_Texture* volumeText = NULL;
+inline SDL_Surface* volumeSurface = nullptr;
+inline SDL_Texture* volumeText = nullptr;
 inline std::stringstream volumeToText;
 inline TTF_Font* Font = TTF_OpenFont("fonts/emulogic.ttf", BLOCK_SIZE_24);
 
@@ -39,6 +38,7 @@ inline SDL_Rect mainMenuRect , startButton , quitButton, playAgainButton, quitGa
 static bool gameStarted = false;
 
 constexpr uint8_t pacmanFrames = 3;
+constexpr uint8_t deathFrames = 10;
 constexpr uint8_t ghostFrames = 6;
 constexpr uint8_t ghostEyesFrames = 5;
 
@@ -46,7 +46,7 @@ enum Objects {
     wall,
     door,
     dot,
-    powerup,
+    powerUp,
     swift,
     space,
     portal1,

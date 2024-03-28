@@ -2,39 +2,22 @@
 
 Pac::Pac():Entity(Entities::pac){
 	pacmanTexture.load("assets/Pacman.png");
+    deathTexture.load("assets/DeathPac.png");
 
 	InitFrames(pacmanFrames, pacmanSpriteClips, BLOCK_SIZE_32);
+    InitFrames(deathFrames, deathSpriteClips, BLOCK_SIZE_32);
+
+    currentPacmanFrame = 0;
+    currentDeathFrame = 0;
 }
 
 Pac::~Pac(){
 	pacmanTexture.free();
+    deathTexture.free();
 }
 
 void Pac::updatePosition(std::vector<uint8_t> &mover, uint8_t ActualMap[]){
 	for(uint8_t i = 0; i < this->getSpeed(); i++){
-        // Display items in mover vector to screen
-        for (uint8_t i : mover) {
-            std::string dir;
-            switch (i) {
-                case 0:
-                    dir = "right";
-                    break;
-                case 1:
-                    dir = "up";
-                    break;
-                case 2:
-                    dir = "left";
-                    break;
-                case 3:
-                    dir = "down";
-                    break;
-                default:
-                    break;
-            }
-//            std::cout << dir << " ";
-        }
-//        std::cout << '\n';
-
         // Calculate the potential next step that Pacman is going to take
         short potentialX = this->getX();
         short potentialY = this->getY();
@@ -47,7 +30,7 @@ void Pac::updatePosition(std::vector<uint8_t> &mover, uint8_t ActualMap[]){
             this->turn(mover.at(0));
         } else {
             // Pacman will have the same sprite for every time hitting wall
-            this->currentPacmanFrame = 32;
+            this->setFrame(32);
         }
 
         // Check if there's another item in mover vector (2 steps ahead in the future)
@@ -73,8 +56,18 @@ void Pac::updatePosition(std::vector<uint8_t> &mover, uint8_t ActualMap[]){
 }
 
 void Pac::draw(){
-	currentAnimation = &pacmanSpriteClips[currentPacmanFrame / (pacmanFrames * 4)];
-	pacmanTexture.render(this->getX() - 4, this->getY() - 4, this->getFacing(), currentAnimation);
+    if (this->getLiving()) {
+        currentClip = &pacmanSpriteClips[currentPacmanFrame / (pacmanFrames * 4)];
+        pacmanTexture.render(this->getX() - 4, this->getY() - 4, this->getFacing(), currentClip);
+    } else {
+        currentClip = &deathSpriteClips[currentDeathFrame / deathFrames];
+        deathTexture.render(this->getX() - 4, this->getY() - 4, this->getFacing(), currentClip);
+        currentDeathFrame++;
+        if (currentDeathFrame / deathFrames >= deathFrames){
+            currentDeathFrame = 0;
+            setPacDoneDying(true);
+        }
+    }
 }
 
 void Pac::updateFrame() {
@@ -124,7 +117,7 @@ uint8_t Pac::foodCollision(uint8_t ActualMap[]) {
             ActualMap[BOARD_WIDTH * BoardPos.getY() + BoardPos.getX()] = Objects::space;
             return 1;
         }
-        if (ActualMap[BOARD_WIDTH * BoardPos.getY() + BoardPos.getX()] == Objects::powerup) {
+        if (ActualMap[BOARD_WIDTH * BoardPos.getY() + BoardPos.getX()] == Objects::powerUp) {
             ActualMap[BOARD_WIDTH * BoardPos.getY() + BoardPos.getX()] = Objects::space;
             return 2;
         }
@@ -141,4 +134,16 @@ uint8_t Pac::foodCollision(uint8_t ActualMap[]) {
     }
 
     return 0;
+}
+
+void Pac::setFrame(uint8_t newFrame) {
+    currentPacmanFrame = newFrame;
+}
+
+bool Pac::getPacDoneDying() {
+    return isPacDoneDying;
+}
+
+void Pac::setPacDoneDying(bool answer) {
+    isPacDoneDying = answer;
 }

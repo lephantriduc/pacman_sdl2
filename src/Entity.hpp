@@ -9,10 +9,12 @@ class Entity : public Position{
         uint8_t getSpeed() const;
         uint8_t getFacing() const;
         uint8_t getDirection() const;
+        bool getLiving();
 
         void setSpeed(uint8_t newSpeed);
         void setFacing(uint8_t newFacing);
         void setDirection(uint8_t newDirection);
+        void setLiving(bool living);
 
 		void move(uint8_t mover);
         void checkIfGoesOutOfScreen(bool inMenu);
@@ -26,4 +28,6 @@ private:
         uint8_t facing;
         uint8_t speed;
         uint8_t direction;
+
+        bool living;
 };

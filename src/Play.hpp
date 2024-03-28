@@ -5,9 +5,8 @@
 class Play {
 public:
     bool RunMainMenu();
-//    bool PlayAgain();
     void RunGame();
-    void DisPlayChoices(bool WinOrLose);
+    void DisplayChoices(bool WinOrLose);
     void Playing();
     bool PlayAgain();
 private:

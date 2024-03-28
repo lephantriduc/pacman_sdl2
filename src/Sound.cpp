@@ -23,14 +23,14 @@ Sound::~Sound(){
     Mix_FreeChunk(ScatterGhost);
     Mix_FreeChunk(Waka);
     Mix_FreeChunk(Music);
-    Intro = NULL;
-    EatFruit = NULL;
-    ExtraLife = NULL;
-    PacDeath = NULL;
-    GhostDeath = NULL;
-    ScatterGhost = NULL;
-    Waka = NULL;
-    Music = NULL;
+    Intro = nullptr;
+    EatFruit = nullptr;
+    ExtraLife = nullptr;
+    PacDeath = nullptr;
+    GhostDeath = nullptr;
+    ScatterGhost = nullptr;
+    Waka = nullptr;
+    Music = nullptr;
 }
 
 bool Sound::IsChannelPlaying(int channel) {
