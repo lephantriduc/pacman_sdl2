@@ -9,8 +9,9 @@ Game::Game() {
 Game::~Game() {}
 
 void Game::start() {
-    mBoard.putEntities(mPac);
-    mBoard.putEntities(mBlinky);
+    mBoard.resetEntitiesPositions(mPac);
+    mBoard.resetEntitiesPositions(mBlinky);
+
 }
 
 void Game::draw() {
@@ -41,13 +42,14 @@ bool Game::process(std::vector<uint8_t> &mover, Timer gameTimer, unsigned short 
     }
     if (mPac.getLiving()) {
         this->update(mover);
-
     } else { // If Pac is ded
         if (mBoard.getLives()) { // If Pac is ded but still have lives
             if (mPac.getPacDoneDying()) {
                 mPac.setPacDoneDying(false);
                 mBoard.decreaseLives();
                 mPac.setLiving(true);
+                gameStarted = false;
+                this->resetMover(mover);
                 return false;
             }
         } else { // If Pac is ded but no lives remaining
@@ -120,4 +122,9 @@ void Game::putMenuEntities(Position pos) {
     mPac.setPosition(pos);
     mBlinky.setDirection(right);
     mBlinky.setPosition({pos.getX() - 100, pos.getY()});
+}
+
+void Game::resetMover(std::vector<uint8_t> &mover) {
+    mover.clear();
+    mover.push_back(Directions::right);
 }

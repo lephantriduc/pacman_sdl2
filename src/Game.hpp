@@ -22,7 +22,7 @@ public:
     void runMenuEntities(std::vector<uint8_t> mover);
     bool isGameWon();
     void resetGame();
-
+    void resetMover(std::vector<uint8_t> &mover);
     
     bool isGameOver;
     Sound mSound;

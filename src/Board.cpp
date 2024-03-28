@@ -8,7 +8,7 @@ Board::Board() {
     swiftTexture.load("assets/Lightning.png");
     portal1Texture.load("assets/Portal1.png");
     portal2Texture.load("assets/Portal2.png");
-    livesTexture.load("assets/Heart.png");
+    livesTexture.load("assets/PacLives.png");
 
     charBoard =
             "                            "
@@ -131,7 +131,7 @@ void Board::copyBoard(uint8_t ActualMap[]) {
     memcpy(ActualMap, numericBoard, BOARD_HEIGHT * BOARD_WIDTH);
 }
 
-void Board::putEntities(Entity &entity) {
+void Board::resetEntitiesPositions(Entity &entity) {
     int8_t y = -1;
 
     for (short i = 0; i < BOARD_WIDTH * BOARD_HEIGHT; i++) {

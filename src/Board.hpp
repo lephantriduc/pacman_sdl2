@@ -9,7 +9,7 @@ public:
     void convertSketch(std::string board);
     void draw(uint8_t ActualMap[]);
     void copyBoard(uint8_t ActualMap[]);
-    void putEntities(Entity& mEntity);
+    void resetEntitiesPositions(Entity& entity);
     void resetPosition(Entity& mEntity);
 
     uint8_t getLives();
