@@ -13,7 +13,7 @@ Ghosts::~Ghosts() {
     body.free();
 }
 
-void Ghosts:: calcDirection(uint8_t ActualMap[]) {
+void Ghosts::calcDirection(uint8_t ActualMap[]) {
     std::vector<int> distances;
     std::vector<uint8_t> possibleDirections;
 
@@ -21,12 +21,15 @@ void Ghosts:: calcDirection(uint8_t ActualMap[]) {
     for(uint8_t i = 0; i < 4; i++){
         short x = this->getX();
         short y = this->getY();
+        // Get the next possible block (there are 4 of them)
         this->getNextPosition(x, y, i);
-        if(!this->wallCollision(x, y, ActualMap)){
+        if(!this->wallCollision(x, y, ActualMap)){ // Process the direction if it isn't a wall
+            // Calculating distance from each potential block to Pac
             auto distX = abs(x - this->target.getX());
             if(distX > SCREEN_WIDTH / 2)
                 distX = SCREEN_WIDTH - distX;
-            auto dist = (distX * distX + (y - target.getY()) * (y - target.getY()));
+            auto distY = abs(y - target.getY());
+            auto dist = (distX * distX + distY * distY);
 
             distances.push_back(dist);
             possibleDirections.push_back(i);
@@ -36,7 +39,7 @@ void Ghosts:: calcDirection(uint8_t ActualMap[]) {
     // Sort the possible directions
     this->directionsBubbleSort(distances, possibleDirections);
 
-    // To make sure that ghosts won't reverse direction midway
+    // To make sure that ghosts won't reverse direction abruptly
     for(uint8_t i = 0; i < possibleDirections.size(); i++){
         if(possibleDirections.at(i) != (this->getDirection() + 2) % 4){
             this->setDirection(possibleDirections.at(i));

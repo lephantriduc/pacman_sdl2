@@ -104,7 +104,7 @@ bool Play::RunMainMenu() {
         volumeText = SDL_CreateTextureFromSurface(renderer, volumeSurface);
         textRect = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 50,
                              volumeSurface->w, volumeSurface->h};
-        SDL_RenderCopy(renderer, volumeText, NULL, &textRect);
+        SDL_RenderCopy(renderer, volumeText, nullptr, &textRect);
 
         SDL_FreeSurface(volumeSurface);
     }

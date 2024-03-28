@@ -3,12 +3,15 @@
 Board::Board() {
     mapTexture.load("assets/Map24.png");
     dotTexture.load("assets/Dot.png");
-    powerupTexture.load("assets/Powerup.png");
+    powerUpTexture.load("assets/powerUp.png");
     doorTexture.load("assets/Door.png");
     swiftTexture.load("assets/Lightning.png");
     portal1Texture.load("assets/Portal1.png");
     portal2Texture.load("assets/Portal2.png");
     livesTexture.load("assets/PacLives.png");
+
+    scoreWordTexture.loadFromRenderedText("Score", White);
+    highScoreWordTexture.loadFromRenderedText("High Score", White);
 
     charBoard =
             "                            "
@@ -48,6 +51,45 @@ Board::Board() {
             "                            "
             "                            ";
 
+//    charBoard = // For testing game over (winning)
+//            "                            "
+//            "                            "
+//            "                            "
+//            "############################"
+//            "#[           ##           ]#"
+//            "# #### ##### ## ##### #### #"
+//            "# #### ##### ## ##### #### #"
+//            "# #### ##### ## ##### #### #"
+//            "#            !             #"
+//            "# #### ## ######## ## #### #"
+//            "# #### ## ######## ## #### #"
+//            "#      ##    ##    ##      #"
+//            "###### ##### ## ##### ######"
+//            "     # ##### ## ##### #     "
+//            "     # ##    1     ## #     "
+//            "     # ## ######## ## #     "
+//            "###### ## #      # ## ######"
+//            "          #2 3 4 #          "
+//            "###### ## #      # ## ######"
+//            "     # ## ######## ## #     "
+//            "     # ##.   0     ## #     "
+//            "     # ## ######## ## #     "
+//            "###### ## ######## ## ######"
+//            "#            ##            #"
+//            "# #### ##### ## ##### #### #"
+//            "# #### ##### ## ##### #### #"
+//            "#   ##                ##   #"
+//            "### ## ## ######## ## ## ###"
+//            "### ## ## ######## ## ## ###"
+//            "#      ##    ##    ##      #"
+//            "# ########## ## ########## #"
+//            "# ########## ## ########## #"
+//            "#]                        [#"
+//            "############################"
+//            "                            "
+//            "                            ";
+
+
     mapTexture.paint(boardColor);
     this->convertSketch(charBoard);
 }
@@ -55,12 +97,15 @@ Board::Board() {
 Board::~Board() {
     mapTexture.free();
     dotTexture.free();
-    powerupTexture.free();
+    powerUpTexture.free();
     doorTexture.free();
     swiftTexture.free();
     portal1Texture.free();
     portal2Texture.free();
     livesTexture.free();
+    scoreWordTexture.free();
+    highScoreWordTexture.free();
+    scoreNumberTexture.free();
 }
 
 void Board::convertSketch(std::string board) {
@@ -76,7 +121,7 @@ void Board::convertSketch(std::string board) {
                 numericBoard[i] = Objects::dot;
                 break;
             case 'o':
-                numericBoard[i] = Objects::powerup;
+                numericBoard[i] = Objects::powerUp;
                 break;
             case '!':
                 numericBoard[i] = Objects::swift;
@@ -94,8 +139,19 @@ void Board::convertSketch(std::string board) {
     }
 }
 
+void Board::drawScore() {
+    std::stringstream ss;
+    ss << Score;
+    scoreNumberTexture.loadFromRenderedText(ss.str(), White);
+}
+
 void Board::draw(uint8_t ActualMap[]) {
     mapTexture.render();
+
+    scoreWordTexture.render();
+    highScoreWordTexture.render(300);
+    scoreNumberTexture.render(0, 32);
+    std::cout << Score << "\n";
 
     doorTexture.render(SCREEN_WIDTH / 2 - 23, SCREEN_HEIGHT / 2 - 57);
     char y = -1;
@@ -112,8 +168,8 @@ void Board::draw(uint8_t ActualMap[]) {
         if (ActualMap[i] == Objects::dot) {
             dotTexture.render(x * BLOCK_SIZE_24, y * BLOCK_SIZE_24);
         }
-        if (ActualMap[i] == Objects::powerup) {
-            powerupTexture.render(x * BLOCK_SIZE_24, y * BLOCK_SIZE_24);
+        if (ActualMap[i] == Objects::powerUp) {
+            powerUpTexture.render(x * BLOCK_SIZE_24, y * BLOCK_SIZE_24);
         }
         if (ActualMap[i] == Objects::swift) {
             swiftTexture.render(x * BLOCK_SIZE_24, y * BLOCK_SIZE_24);
@@ -191,5 +247,9 @@ void Board::resetPosition(Entity &mEntity) {
 
 uint8_t Board::getLives() {
     return Lives;
+}
+
+void Board::increaseScore(int delta) {
+    Score += delta;
 }
 

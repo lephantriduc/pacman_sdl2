@@ -67,7 +67,6 @@ void Pac::draw(){
             currentDeathFrame = 0;
             setPacDoneDying(true);
         }
-        std::cout << currentDeathFrame << '\n';
     }
 }
 
@@ -118,7 +117,7 @@ uint8_t Pac::foodCollision(uint8_t ActualMap[]) {
             ActualMap[BOARD_WIDTH * BoardPos.getY() + BoardPos.getX()] = Objects::space;
             return 1;
         }
-        if (ActualMap[BOARD_WIDTH * BoardPos.getY() + BoardPos.getX()] == Objects::powerup) {
+        if (ActualMap[BOARD_WIDTH * BoardPos.getY() + BoardPos.getX()] == Objects::powerUp) {
             ActualMap[BOARD_WIDTH * BoardPos.getY() + BoardPos.getX()] = Objects::space;
             return 2;
         }
