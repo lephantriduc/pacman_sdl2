@@ -9,6 +9,7 @@ public:
     void convertSketch(std::string board);
     void draw(uint8_t ActualMap[]);
     void drawScore();
+    void drawHighScore();
     void copyBoard(uint8_t ActualMap[]);
     void resetEntitiesPositions(Entity& entity);
     void resetPosition(Entity& mEntity);

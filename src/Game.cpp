@@ -16,6 +16,7 @@ void Game::start() {
 
 void Game::draw() {
     mBoard.drawScore();
+    mBoard.drawHighScore();
     mBoard.draw(actualMap);
     mBlinky.draw();
     mPac.draw();
@@ -67,9 +68,10 @@ void Game::food() {
             mBoard.increaseScore(10);
             break;
         case 2:
-            mBoard.increaseScore(50);
+            mBoard.increaseScore(100);
             break;
         case 3: // Speed perk
+            mBoard.increaseScore(20);
             mPac.setSpeed(3);
             speedUpTime.restart();
             break;

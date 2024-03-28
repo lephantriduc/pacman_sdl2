@@ -145,13 +145,36 @@ void Board::drawScore() {
     scoreNumberTexture.loadFromRenderedText(ss.str(), White);
 }
 
+void Board::drawHighScore() {
+    unsigned int highscore;
+    std::stringstream ss;
+    std::ifstream in_file("../data/Highscore.txt");
+    in_file >> highscore;
+    if (!in_file.is_open()) {
+        std::cout << "Could not open input file!!!\n";
+    }
+    if (Score > highscore) {
+        highscore = Score;
+        std::ofstream out_file("../data/Highscore.txt");
+        if (!out_file.is_open()) {
+            std::cout << "Could not open output file!!!\n";
+        }
+        out_file << std::to_string(highscore);
+    }
+    in_file.close();
+    ss << highscore;
+    highScoreNumberTexture.loadFromRenderedText(ss.str(), White);
+}
+
+
+
 void Board::draw(uint8_t ActualMap[]) {
     mapTexture.render();
 
     scoreWordTexture.render();
     highScoreWordTexture.render(300);
     scoreNumberTexture.render(0, 32);
-    std::cout << Score << "\n";
+    highScoreNumberTexture.render(300, 32);
 
     doorTexture.render(SCREEN_WIDTH / 2 - 23, SCREEN_HEIGHT / 2 - 57);
     char y = -1;
@@ -252,4 +275,6 @@ uint8_t Board::getLives() {
 void Board::increaseScore(int delta) {
     Score += delta;
 }
+
+
 
