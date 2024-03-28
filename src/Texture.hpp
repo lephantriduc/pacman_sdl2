@@ -10,7 +10,8 @@ public:
 
     bool load(std::string path);
     void paint(RGB color);
-    void render(short x = 0, short y = 0, uint8_t facing = 0, SDL_Rect* clip = NULL);
+    void render(short x = 0, short y = 0, uint8_t facing = 0, SDL_Rect* clip = nullptr);
+    bool loadFromRenderedText(std::string textureText, SDL_Color textColor);
     void free();
 
 private:

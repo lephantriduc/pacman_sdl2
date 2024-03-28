@@ -14,8 +14,8 @@ void openSDL() {
 void closeSDL() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
-    window = NULL;
-    renderer = NULL;
+    window = nullptr;
+    renderer = nullptr;
     IMG_Quit();
     TTF_Quit();
     Mix_Quit();
