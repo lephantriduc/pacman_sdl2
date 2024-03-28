@@ -9,6 +9,8 @@
 #include <iostream>
 #include <vector>
 #include <sstream>
+#include <fstream>
+#include <string>
 
 constexpr uint8_t BOARD_WIDTH = 28;
 constexpr uint8_t BOARD_HEIGHT = 36;
