@@ -47,7 +47,7 @@ bool Game::process(std::vector<uint8_t> &mover, Timer gameTimer, unsigned short 
     if (mPac.getLiving()) {
         this->update(mover);
     } else { // If Pac is ded
-        if (mBoard.getLives()) { // If Pac is ded but still have lives
+        if (mBoard.getLives() > 1) { // If Pac is ded but still have lives
             if (mPac.getPacDoneDying()) { // Wait for death animation to finish before resetting
                 mPac.setPacDoneDying(false);
                 mBoard.decreaseLives();
@@ -57,7 +57,11 @@ bool Game::process(std::vector<uint8_t> &mover, Timer gameTimer, unsigned short 
                 return false;
             }
         } else { // If Pac is ded but no lives remaining
-            isGameOver = true;
+            if (mPac.getPacDoneDying()) {
+                mPac.setPacDoneDying(false);
+                mBoard.decreaseLives();
+                isGameOver = true;
+            }
         }
     }
 
@@ -80,6 +84,7 @@ void Game::food() {
         case 4: // Teleport perk
             mPac.setX(BLOCK_SIZE_24 * 27 - mPac.getX());
             mPac.setY(BLOCK_SIZE_24 * 36 - mPac.getY());
+            break;
         case 5: // Healing perk
             mBoard.increaseLives();
             mBoard.increaseScore(200);

@@ -48,7 +48,6 @@ void Ghosts::calcDirection(uint8_t ActualMap[]) {
 }
 
 void Ghosts::draw() {
-    RGB red {0xff, 0x00, 0x00};
     RGB white {0xff, 0xff, 0xff};
 
     body.paint(ghostColor);
