@@ -11,7 +11,7 @@ Game::~Game() {}
 void Game::start() {
     mBoard.resetEntitiesPositions(mPac);
     mBoard.resetEntitiesPositions(mBlinky);
-
+    mBoard.resetEntitiesPositions(mPinky);
 }
 
 void Game::draw() {
@@ -19,6 +19,7 @@ void Game::draw() {
     mBoard.drawHighScore();
     mBoard.draw(actualMap);
     mBlinky.draw();
+    mPinky.draw();
     mPac.draw();
 }
 
@@ -26,7 +27,7 @@ void Game::update(std::vector<uint8_t> &mover) {
     this->updatePositions(mover);
     this->food();
 
-    if (mPac.isColliding(mBlinky)) {
+    if (mPac.isColliding(mBlinky) || mPac.isColliding(mPinky)) {
         mPac.setFrame(32);
         mPac.setLiving(false);
     }
@@ -34,6 +35,7 @@ void Game::update(std::vector<uint8_t> &mover) {
 
 void Game::updatePositions(std::vector<uint8_t> &mover) {
     mBlinky.updatePos(actualMap, mPac, 0);
+    mPinky.updatePos(actualMap, mPac, 0);
     mPac.updatePosition(mover, actualMap);
 }
 
@@ -80,6 +82,7 @@ void Game::food() {
             mPac.setY(BLOCK_SIZE_24 * 36 - mPac.getY());
         case 5: // Healing perk
             mBoard.increaseLives();
+            mBoard.increaseScore(200);
             break;
         default:
             break;
@@ -107,6 +110,7 @@ void Game::resetGame() {
 
     mBoard.resetPosition(mPac);
     mBoard.resetPosition(mBlinky);
+    mBoard.resetPosition(mPinky);
 
     mBoard.resetScore();
     mBoard.resetLives();

@@ -1,5 +1,6 @@
 #pragma once
 #include "Blinky.hpp"
+#include "Pinky.hpp"
 
 class Board {
 public:

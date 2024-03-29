@@ -32,7 +32,7 @@ Board::Board() {
             "     #.##    1     ##.#     "
             "     #.## ######## ##.#     "
             "######.## #      # ##.######"
-            "......o   #2 3 4 #   o......"
+            "......o   #  3 4 #   o......"
             "######.## #      # ##.######"
             "     #.## ######## ##.#     "
             "     #.##    0     ##.#     "
@@ -41,7 +41,7 @@ Board::Board() {
             "#............##............#"
             "#.####.#####.##.#####.####.#"
             "#.####.#####.##.#####.####.#"
-            "#o..##................##..o#"
+            "#o..##...2............##..o#"
             "###.##.##.########.##.##.###"
             "###.##.##.########.##.##.###"
             "#......##....##h...##......#"
@@ -232,7 +232,12 @@ void Board::resetEntitiesPositions(Entity &entity) {
             entity.setY(y * BLOCK_SIZE_24);
             return;
         } else if (charBoard[i] == '1' &&
-                   entity.getIdentity() == Entities::redGhost) {
+                   entity.getIdentity() == Entities::Blinky) {
+            entity.setX(x * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
+            entity.setY(y * BLOCK_SIZE_24);
+            return;
+        }else if (charBoard[i] == '2' &&
+                  entity.getIdentity() == Entities::Pinky) {
             entity.setX(x * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
             entity.setY(y * BLOCK_SIZE_24);
             return;
@@ -268,7 +273,12 @@ void Board::resetPosition(Entity &mEntity) {
             mEntity.setY(y * BLOCK_SIZE_24);
             return;
         }
-        if (charBoard[i] == '1' && mEntity.getIdentity() == Entities::redGhost) {
+        if (charBoard[i] == '1' && mEntity.getIdentity() == Entities::Blinky) {
+            mEntity.setX(x * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
+            mEntity.setY(y * BLOCK_SIZE_24);
+            return;
+        }
+        if (charBoard[i] == '2' && mEntity.getIdentity() == Entities::Pinky) {
             mEntity.setX(x * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
             mEntity.setY(y * BLOCK_SIZE_24);
             return;

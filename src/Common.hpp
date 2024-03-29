@@ -58,10 +58,8 @@ enum Objects {
 
 enum Entities {
     pac,
-    redGhost,
-    pinkGhost,
-    blueGhost,
-    orangeGhost,
+    Blinky,
+    Pinky,
 };
 
 enum Directions {
@@ -74,6 +72,7 @@ enum Directions {
 const SDL_Color Red = {0xff, 0x00, 0x00};
 const SDL_Color Yellow = {0xff, 0xff, 0x00};
 const SDL_Color White = {0xff, 0xff, 0xff};
+const SDL_Color Pink = {254, 184, 255};
 
 
 void openSDL();
