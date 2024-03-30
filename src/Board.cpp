@@ -294,5 +294,13 @@ void Board::increaseScore(int delta) {
     Score += delta;
 }
 
+void Board::decreaseScore(int delta) {
+    if (Score < delta) {
+        Score = 0;
+    } else {
+        Score -= delta;
+    }
+}
+
 
 

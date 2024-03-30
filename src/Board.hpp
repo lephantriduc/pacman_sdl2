@@ -20,6 +20,7 @@ public:
     void increaseLives();
     void decreaseLives();
     void increaseScore(int delta);
+    void decreaseScore(int delta);
     void resetScore();
     void resetLives();
 
