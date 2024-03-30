@@ -3,7 +3,7 @@
 bool Play::RunMainMenu() {
     mover.push_back(right);
 
-    int volume = MIX_MAX_VOLUME / 2;
+    int volume = MIX_MAX_VOLUME / 10 + 1;
     Mix_Volume(-1, volume);
     bool isDragging = false;
 
@@ -58,8 +58,8 @@ bool Play::RunMainMenu() {
 
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
-        mainMenuText = renderText("PacMan", Font, textColor, renderer);
-        startText = renderText("Start", Font, textColor, renderer);
+        mainMenuText = renderText("Pacman", Font, Yellow, renderer);
+        startText = renderText("Play", Font, textColor, renderer);
         quitText = renderText("Quit", Font, textColor, renderer);
 
         mainMenuRect = {SCREEN_WIDTH / 2 - 100, 50, 200, 50};
