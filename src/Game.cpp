@@ -30,6 +30,7 @@ void Game::update(std::vector<uint8_t> &mover) {
     if (mPac.isColliding(mBlinky) || mPac.isColliding(mPinky)) {
         mPac.setFrame(32);
         mPac.setLiving(false);
+        mBoard.decreaseScore(100);
     }
 }
 
@@ -131,12 +132,16 @@ void Game::runMenuEntities(std::vector<uint8_t> mover) {
 
     mBlinky.draw();
     mBlinky.updatePos(actualMap, mPac, 1);
+
+    mPinky.draw();
+    mPinky.updatePos(actualMap, mPac, 1);
 }
 
 void Game::putMenuEntities(Position pos) {
     mPac.setPosition(pos);
     mBlinky.setDirection(right);
     mBlinky.setPosition({pos.getX() - 100, pos.getY()});
+    mPinky.setPosition(pos.getX() - 150, pos.getY());
 }
 
 void Game::resetMover(std::vector<uint8_t> &mover) {
