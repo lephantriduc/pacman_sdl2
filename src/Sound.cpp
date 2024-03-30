@@ -4,32 +4,23 @@
 
 Sound::Sound(){
     Intro = Mix_LoadWAV("sounds/Intro.wav");
-    EatFruit = Mix_LoadWAV("sounds/EatFruit.wav");
     ExtraLife = Mix_LoadWAV("sounds/ExtraLife.wav");
     PacDeath = Mix_LoadWAV("sounds/PacDeath.wav");
-    GhostDeath = Mix_LoadWAV("sounds/GhostDeath.wav");
-    ScatterGhost = Mix_LoadWAV("sounds/ScatterGhost.wav");
-    Waka = Mix_LoadWAV("sounds/Waka.wav");
+    Eating = Mix_LoadWAV("sounds/Eating.wav");
     Music = Mix_LoadWAV("sounds/InGameMusic.wav");
     Mix_Volume(-1, 10);
 }
 
 Sound::~Sound(){
     Mix_FreeChunk(Intro);
-    Mix_FreeChunk(EatFruit);
     Mix_FreeChunk(ExtraLife);
     Mix_FreeChunk(PacDeath);
-    Mix_FreeChunk(GhostDeath);
-    Mix_FreeChunk(ScatterGhost);
-    Mix_FreeChunk(Waka);
+    Mix_FreeChunk(Eating);
     Mix_FreeChunk(Music);
     Intro = nullptr;
-    EatFruit = nullptr;
     ExtraLife = nullptr;
     PacDeath = nullptr;
-    GhostDeath = nullptr;
-    ScatterGhost = nullptr;
-    Waka = nullptr;
+    Eating = nullptr;
     Music = nullptr;
 }
 
@@ -39,5 +30,13 @@ bool Sound::IsChannelPlaying(int channel) {
 
 void Sound::StopChannel(int channel) {
     Mix_HaltChannel(channel);
+}
+
+void Sound::PlayEating() {
+    Mix_PlayChannel(6, Eating, -1);
+}
+
+void Sound::StopEating() {
+    Mix_HaltChannel(6);
 }
 
