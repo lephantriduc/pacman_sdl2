@@ -6,6 +6,6 @@ class Pinky : public Ghosts {
 public:
     Pinky();
 
-    void calcTarget(Position mPac);
+    void setTarget(Position destination);
     void updatePos(uint8_t actualBoard[], Pac &mPac, bool inMenu);
 };

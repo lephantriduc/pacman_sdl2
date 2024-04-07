@@ -5,6 +5,7 @@ Entity::Entity(Entities mIdentity) {
     identity = mIdentity;
     speed = 2;
     facing = 0;
+    living = true;
 }
 
 uint8_t Entity::getIdentity() const {
@@ -82,7 +83,7 @@ void Entity::CharBoardPos(uint8_t SideDir, Position &BoardPos, float cell_x, flo
     }
 }
 
-bool Entity::wallCollision(short x, short y, uint8_t ActualMap[]) {
+bool Entity::wallCollision(short x, short y, uint8_t ActualMap[], bool canUseDoor) {
     float cell_x = x / static_cast<float>(BLOCK_SIZE_24);
     float cell_y = y / static_cast<float>(BLOCK_SIZE_24);
     Position BoardPos;
@@ -90,6 +91,13 @@ bool Entity::wallCollision(short x, short y, uint8_t ActualMap[]) {
         this->CharBoardPos(SideDir, BoardPos, cell_x, cell_y);
         if (Objects::wall == ActualMap[BOARD_WIDTH * BoardPos.getY() + abs(BoardPos.getX() % BOARD_WIDTH)]) {
             return true;
+        }
+        else if (Objects::door == ActualMap[BOARD_WIDTH * BoardPos.getY() + abs(BoardPos.getX() % BOARD_WIDTH)]) {
+            if (canUseDoor) {
+                return false;
+            } else {
+                return true;
+            }
         }
     }
     return false;

@@ -7,11 +7,15 @@ public:
     Ghosts(Entity MyIdentity);
     ~Ghosts();
 
+    bool isHome();
     void calcDirection(uint8_t ActualMap[]);
     void directionsBubbleSort(std::vector<int> &distances, std::vector<uint8_t> &possibleDirections);
+    bool isTargetToCalc(Pac& mPac);
 
-    void draw();
+    void draw(Pac& pac);
     Position target;
+    Position home;
+    Position doorTarget;
     RGB ghostColor;
 private:
     Texture body;
@@ -19,4 +23,6 @@ private:
     SDL_Rect ghostSpriteClips[ghostFrames];
     SDL_Rect ghostEyesSpriteClips[ghostEyesFrames];
     uint8_t currentBodyFrame;
+
+    bool canUseDoor;
 };

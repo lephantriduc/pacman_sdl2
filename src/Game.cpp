@@ -18,8 +18,8 @@ void Game::draw() {
     mBoard.drawScore();
     mBoard.drawHighScore();
     mBoard.draw(actualMap);
-    mBlinky.draw();
-    mPinky.draw();
+    mBlinky.draw(mPac);
+    mPinky.draw(mPac);
     mPac.draw();
 }
 
@@ -28,15 +28,33 @@ void Game::update(std::vector<uint8_t> &mover) {
     this->food();
 
     if (mPac.isColliding(mBlinky) || mPac.isColliding(mPinky)) {
-        mPac.setFrame(32);
-        mPac.setLiving(false);
-        mBoard.decreaseScore(100);
+        if (!mPac.getPoweredUp()) { // Pac in normal state
+            mPac.setFrame(32);
+            mPac.setLiving(false);
+            mBoard.decreaseScore(100);
+        } else { // Pac is powered up
+            if (mPac.isColliding(mBlinky)) {
+                mBlinky.setLiving(false);
+                if (!flag_0) mBoard.increaseScore(500);
+                flag_0 = true;
+            }
+            if (mPac.isColliding(mPinky)) {
+                mPinky.setLiving(false);
+                if (!flag_1) mBoard.increaseScore(500);
+                flag_1 = true;
+            }
+        }
     }
+
+    // Flags to avoid counting eating ghosts score too much
+    if (mBlinky.isHome()) flag_0 = false;
+    if (mPinky.isHome()) flag_1 = false;
+
 }
 
 void Game::updatePositions(std::vector<uint8_t> &mover) {
-    mBlinky.updatePos(actualMap, mPac, 0);
-    mPinky.updatePos(actualMap, mPac, 0);
+    mBlinky.updatePos(actualMap, mPac, false);
+    mPinky.updatePos(actualMap, mPac, false);
     mPac.updatePosition(mover, actualMap);
 }
 
@@ -71,11 +89,13 @@ bool Game::process(std::vector<uint8_t> &mover, Timer gameTimer, unsigned short 
 
 void Game::food() {
     switch (mPac.foodCollision(actualMap)) {
-        case 1:
+        case 1: // Dot
             mBoard.increaseScore(10);
             break;
-        case 2:
+        case 2: // PowerUp
+            mPac.setPoweredUp(true);
             mBoard.increaseScore(100);
+            powerUpTime.restart();
             break;
         case 3: // Speed perk
             mBoard.increaseScore(20);
@@ -96,6 +116,11 @@ void Game::food() {
     if (speedUpTime.getTicks() > 5000) {
         mPac.setSpeed(2);
         speedUpTime.reset();
+    }
+
+    if (powerUpTime.getTicks() > 5000) {
+        mPac.setPoweredUp(false);
+        powerUpTime.reset();
     }
 }
 
@@ -130,11 +155,11 @@ void Game::runMenuEntities(std::vector<uint8_t> mover) {
     mPac.updateFrame();
     mPac.updatePosition(mover);
 
-    mBlinky.draw();
-    mBlinky.updatePos(actualMap, mPac, 1);
+    mBlinky.draw(mPac);
+    mBlinky.updatePos(actualMap, mPac, true);
 
-    mPinky.draw();
-    mPinky.updatePos(actualMap, mPac, 1);
+    mPinky.draw(mPac);
+    mPinky.updatePos(actualMap, mPac, true);
 }
 
 void Game::putMenuEntities(Position pos) {

@@ -1,7 +1,7 @@
 #include "Board.hpp"
 
 Board::Board() {
-    mapTexture.load("assets/Map24.png");
+    mapTexture.load("assets/Map0.png");
     dotTexture.load("assets/Dot.png");
     powerUpTexture.load("assets/powerUp.png");
     doorTexture.load("assets/Door.png");
@@ -30,9 +30,9 @@ Board::Board() {
             "######.##### ## #####.######"
             "     #.##### ## #####.#     "
             "     #.##    1     ##.#     "
-            "     #.## ######## ##.#     "
+            "     #.## ###==### ##.#     "
             "######.## #      # ##.######"
-            "......o   #  3 4 #   o......"
+            "......o   # 2    #   o......"
             "######.## #      # ##.######"
             "     #.## ######## ##.#     "
             "     #.##    0     ##.#     "
@@ -41,7 +41,7 @@ Board::Board() {
             "#............##............#"
             "#.####.#####.##.#####.####.#"
             "#.####.#####.##.#####.####.#"
-            "#o..##...2............##..o#"
+            "#o..##................##..o#"
             "###.##.##.########.##.##.###"
             "###.##.##.########.##.##.###"
             "#......##....##h...##......#"
@@ -52,6 +52,7 @@ Board::Board() {
             "                            "
             "                            ";
 
+
 //    charBoard = // For testing game over (winning)
 //            "                            "
 //            "                            "
@@ -61,7 +62,7 @@ Board::Board() {
 //            "# #### ##### ## ##### #### #"
 //            "# #### ##### ## ##### #### #"
 //            "# #### ##### ## ##### #### #"
-//            "#            !             #"
+//            "# 2                        #"
 //            "# #### ## ######## ## #### #"
 //            "# #### ## ######## ## #### #"
 //            "#      ##    ##    ##      #"
@@ -70,12 +71,12 @@ Board::Board() {
 //            "     # ##    1     ## #     "
 //            "     # ## ######## ## #     "
 //            "###### ## #      # ## ######"
-//            "          #2 3 4 #          "
+//            "          #      #          "
 //            "###### ## #      # ## ######"
 //            "     # ## ######## ## #     "
-//            "     # ##.   0     ## #     "
+//            "     # ##    0     ## #     "
 //            "     # ## ######## ## #     "
-//            "###### ## ######## ## ######"
+//            "###### ##.######## ## ######"
 //            "#            ##            #"
 //            "# #### ##### ## ##### #### #"
 //            "# #### ##### ## ##### #### #"
@@ -108,6 +109,7 @@ Board::~Board() {
     scoreWordTexture.free();
     highScoreWordTexture.free();
     scoreNumberTexture.free();
+    highScoreNumberTexture.free();
 }
 
 void Board::convertSketch(std::string board) {
@@ -184,8 +186,8 @@ void Board::draw(uint8_t ActualMap[]) {
     doorTexture.render(SCREEN_WIDTH / 2 - 23, SCREEN_HEIGHT / 2 - 57);
     char y = -1;
 
-    for (unsigned short i = 1; i <= Lives; i++) {
-        livesTexture.render(i * BLOCK_SIZE_32, 825);
+    for (unsigned short i = 0; i < Lives; i++) {
+        livesTexture.render(i * (BLOCK_SIZE_32 + 10) + 10, 825);
     }
 
     for (unsigned short i = 0; i < BOARD_HEIGHT * BOARD_WIDTH; i++) {

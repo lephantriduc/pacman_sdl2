@@ -14,6 +14,8 @@ public:
     void turn(uint8_t mover);
     bool getPacDoneDying();
     void setPacDoneDying(bool answer);
+    bool getPoweredUp();
+    void setPoweredUp(bool YesOrNo);
     uint8_t foodCollision(uint8_t ActualMap[]);
 
 private:
@@ -27,4 +29,5 @@ private:
     short currentDeathFrame;
 
     bool isPacDoneDying;
+    bool isPoweredUp;
 };

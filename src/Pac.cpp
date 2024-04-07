@@ -151,3 +151,13 @@ bool Pac::getPacDoneDying() {
 void Pac::setPacDoneDying(bool answer) {
     isPacDoneDying = answer;
 }
+
+bool Pac::getPoweredUp() {
+    return isPoweredUp;
+}
+
+void Pac::setPoweredUp(bool YesOrNo) {
+    isPoweredUp = YesOrNo;
+}
+
+
