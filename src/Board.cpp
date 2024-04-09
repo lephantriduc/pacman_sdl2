@@ -1,10 +1,10 @@
 #include "Board.hpp"
 
 Board::Board() {
-    std::string map = "MapTest";
-//    std::string assets_path_name = "assets/" + map + ".png";
-    std::string assets_path_name = "assets/Map1.png";
-    std::string data_path_name = "../data/" + map + ".txt";
+    map_num = "0";
+    std::string assets_path_name = "assets/Map" + map_num + ".png";
+//    std::string assets_path_name = "assets/Map1.png";
+    std::string data_path_name = "../data/Map" + map_num + ".txt";
     mapTexture.load(assets_path_name);
     std::ifstream in_file(data_path_name);
 
@@ -47,6 +47,28 @@ Board::~Board() {
     highScoreWordTexture.free();
     scoreNumberTexture.free();
     highScoreNumberTexture.free();
+}
+
+void Board::setMap(int clicks) {
+    int r = clicks % 4;
+    map_num = std::to_string(r);
+    std::cout << map_num;
+
+    std::string assets_path_name = "assets/Map" + map_num + ".png";
+    std::string data_path_name = "../data/Map" + map_num + ".txt";
+    mapTexture.load(assets_path_name);
+    std::ifstream in_file(data_path_name);
+
+    // Read the whole file
+    std::stringstream buffer;
+    buffer << in_file.rdbuf();
+    charBoard = buffer.str();
+
+    // Erase \n characters
+    charBoard.erase(std::remove(charBoard.begin(), charBoard.end(), '\n'), charBoard.end());
+
+    mapTexture.paint(boardColor);
+    this->convertSketch(charBoard);
 }
 
 void Board::convertSketch(std::string board) {
