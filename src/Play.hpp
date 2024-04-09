@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Game.hpp"
+#include "Fireworks.hpp"
 
 class Play {
 public:
@@ -9,6 +10,8 @@ public:
     void DisplayChoices(bool WinOrLose);
     void Playing();
     bool PlayAgain();
+    void render();
+    void shootFireworks();
 private:
     SDL_Event event;
     Game mGame;

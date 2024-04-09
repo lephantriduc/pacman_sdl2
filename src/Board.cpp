@@ -1,7 +1,21 @@
 #include "Board.hpp"
 
 Board::Board() {
-    mapTexture.load("assets/Map0.png");
+    std::string map = "MapTest";
+//    std::string assets_path_name = "assets/" + map + ".png";
+    std::string assets_path_name = "assets/Map1.png";
+    std::string data_path_name = "../data/" + map + ".txt";
+    mapTexture.load(assets_path_name);
+    std::ifstream in_file(data_path_name);
+
+    // Read the whole file
+    std::stringstream buffer;
+    buffer << in_file.rdbuf();
+    charBoard = buffer.str();
+
+    // Erase \n characters
+    charBoard.erase(std::remove(charBoard.begin(), charBoard.end(), '\n'), charBoard.end());
+
     dotTexture.load("assets/Dot.png");
     powerUpTexture.load("assets/powerUp.png");
     doorTexture.load("assets/Door.png");
@@ -13,83 +27,6 @@ Board::Board() {
 
     scoreWordTexture.loadFromRenderedText("Score", White);
     highScoreWordTexture.loadFromRenderedText("High Score", White);
-
-    charBoard =
-            "                            "
-            "                            "
-            "                            "
-            "############################"
-            "#[...........##...........]#"
-            "#.####.#####.##.#####.####.#"
-            "#o####.#####.##.#####.####o#"
-            "#.####.#####.##.#####.####.#"
-            "#............!.............#"
-            "#.####.##.########.##.####.#"
-            "#.####.##.########.##.####.#"
-            "#......##....##....##......#"
-            "######.##### ## #####.######"
-            "     #.##### ## #####.#     "
-            "     #.##    1     ##.#     "
-            "     #.## ###==### ##.#     "
-            "######.## #      # ##.######"
-            "......o   # 2    #   o......"
-            "######.## #      # ##.######"
-            "     #.## ######## ##.#     "
-            "     #.##    0     ##.#     "
-            "     #.## ######## ##.#     "
-            "######.## ######## ##.######"
-            "#............##............#"
-            "#.####.#####.##.#####.####.#"
-            "#.####.#####.##.#####.####.#"
-            "#o..##................##..o#"
-            "###.##.##.########.##.##.###"
-            "###.##.##.########.##.##.###"
-            "#......##....##h...##......#"
-            "#.##########.##.##########.#"
-            "#.##########.##.##########.#"
-            "#]........................[#"
-            "############################"
-            "                            "
-            "                            ";
-
-
-//    charBoard = // For testing game over (winning)
-//            "                            "
-//            "                            "
-//            "                            "
-//            "############################"
-//            "#[           ##           ]#"
-//            "# #### ##### ## ##### #### #"
-//            "# #### ##### ## ##### #### #"
-//            "# #### ##### ## ##### #### #"
-//            "# 2                        #"
-//            "# #### ## ######## ## #### #"
-//            "# #### ## ######## ## #### #"
-//            "#      ##    ##    ##      #"
-//            "###### ##### ## ##### ######"
-//            "     # ##### ## ##### #     "
-//            "     # ##    1     ## #     "
-//            "     # ## ######## ## #     "
-//            "###### ## #      # ## ######"
-//            "          #      #          "
-//            "###### ## #      # ## ######"
-//            "     # ## ######## ## #     "
-//            "     # ##    0     ## #     "
-//            "     # ## ######## ## #     "
-//            "###### ##.######## ## ######"
-//            "#            ##            #"
-//            "# #### ##### ## ##### #### #"
-//            "# #### ##### ## ##### #### #"
-//            "#   ##                ##   #"
-//            "### ## ## ######## ## ## ###"
-//            "### ## ## ######## ## ## ###"
-//            "#      ##    ##    ##      #"
-//            "# ########## ## ########## #"
-//            "# ########## ## ########## #"
-//            "#]                        [#"
-//            "############################"
-//            "                            "
-//            "                            ";
 
 
     mapTexture.paint(boardColor);
@@ -174,14 +111,13 @@ void Board::drawHighScore() {
 }
 
 
-
 void Board::draw(uint8_t ActualMap[]) {
     mapTexture.render();
 
     scoreWordTexture.render();
-    highScoreWordTexture.render(300);
+    highScoreWordTexture.render(400);
     scoreNumberTexture.render(0, 32);
-    highScoreNumberTexture.render(300, 32);
+    highScoreNumberTexture.render(400, 32);
 
     doorTexture.render(SCREEN_WIDTH / 2 - 23, SCREEN_HEIGHT / 2 - 57);
     char y = -1;
@@ -238,8 +174,8 @@ void Board::resetEntitiesPositions(Entity &entity) {
             entity.setX(x * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
             entity.setY(y * BLOCK_SIZE_24);
             return;
-        }else if (charBoard[i] == '2' &&
-                  entity.getIdentity() == Entities::Pinky) {
+        } else if (charBoard[i] == '2' &&
+                   entity.getIdentity() == Entities::Pinky) {
             entity.setX(x * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
             entity.setY(y * BLOCK_SIZE_24);
             return;

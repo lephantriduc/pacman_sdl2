@@ -12,8 +12,8 @@ bool Play::RunMainMenu() {
 
     mGame.mSound.PlayIntro();
     while (1) {
-        uint8_t hihi[BOARD_HEIGHT * BOARD_WIDTH];
-        mMenu.draw(hihi);
+        uint8_t menuBar[BOARD_HEIGHT * BOARD_WIDTH];
+        mMenu.draw(menuBar);
 
         mGame.runMenuEntities(mover);
         if (!mGame.mSound.IsChannelPlaying(0)) mGame.mSound.PlayIntro();
@@ -24,8 +24,8 @@ bool Play::RunMainMenu() {
                        event.button.button == SDL_BUTTON_LEFT) {
                 int mouseX, mouseY;
                 SDL_GetMouseState(&mouseX, &mouseY);
-                if (mouseY >= SCREEN_HEIGHT / 2 + 70 &&
-                    mouseY <= SCREEN_HEIGHT / 2 + 110) {
+                if (mouseY >= SCREEN_HEIGHT / 2 + 205 &&
+                    mouseY <= SCREEN_HEIGHT / 2 + 235) {
                     isDragging = true;
                     if (mouseX <= SCREEN_WIDTH / 2 - 75)
                         volume = 0;
@@ -77,21 +77,21 @@ bool Play::RunMainMenu() {
 
         // Delete old volume
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-        clearRect = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 50,
+        clearRect = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 160,
                               SCREEN_WIDTH, 30};
         SDL_RenderFillRect(renderer, &clearRect);
-        clearRect = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 70 + 15, 150,
+        clearRect = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 190, 150,
                      30};
         SDL_RenderFillRect(renderer, &clearRect);
         SDL_RenderClear(renderer);
 
         // Create new volume bar
         volumeBorder = {SCREEN_WIDTH / 2 - 76,
-                                 SCREEN_HEIGHT / 2 + 69 + 15, 152, 32};
+                                 SCREEN_HEIGHT / 2 + 189 + 15, 152, 32};
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderDrawRect(renderer, &volumeBorder);
         volumeBar = {SCREEN_WIDTH / 2 - 75,
-                              SCREEN_HEIGHT / 2 + 70 + 15,
+                              SCREEN_HEIGHT / 2 + 190 + 15,
                               volume * 150 / MIX_MAX_VOLUME, 30};
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderFillRect(renderer, &volumeBar);
@@ -102,7 +102,7 @@ bool Play::RunMainMenu() {
         volumeSurface =
             TTF_RenderText_Solid(Font, volumeToText.str().c_str(), textColor);
         volumeText = SDL_CreateTextureFromSurface(renderer, volumeSurface);
-        textRect = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 50,
+        textRect = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 160,
                              volumeSurface->w, volumeSurface->h};
         SDL_RenderCopy(renderer, volumeText, nullptr, &textRect);
 
@@ -118,6 +118,7 @@ void Play::RunGame() {
 
     mover.clear();
     mover.push_back(right);
+    mGame.start();
     // GameTimer.Start()
 
     Playing();
@@ -127,11 +128,11 @@ void Play::DisplayChoices(bool WinOrLose) {
     SDL_RenderClear(renderer);
     std::string name = WinOrLose ? "Play" : "Try";
     playAgainText = renderText(name + " Again", Font, Yellow, renderer);
-    quitGameText = renderText("Quit", Font, Yellow, renderer);
+    quitGameText = renderText("Back To Menu", Font, Yellow, renderer);
 
     playAgainButton = {10 * BLOCK_SIZE_24 + (WinOrLose ? -5 : 5), 20 * BLOCK_SIZE_24, 20 * (WinOrLose ? 10 : 9),
                        BLOCK_SIZE_24};
-    quitGameButton = {12 * BLOCK_SIZE_24 + 9, 26 * BLOCK_SIZE_24, 20 * 4, BLOCK_SIZE_24};
+    quitGameButton = {9 * BLOCK_SIZE_24, 26 * BLOCK_SIZE_24, 20 * 12, BLOCK_SIZE_24};
 
     SDL_RenderCopy(renderer, playAgainText, nullptr, &playAgainButton);
     SDL_RenderCopy(renderer, quitGameText, nullptr, &quitGameButton);
@@ -146,9 +147,13 @@ void Play::Playing() {
     static unsigned short startTicks = 4500;
 
     if(mGame.isGameOver || mGame.isGameWon()){
-        SDL_Delay(250);
+//        if(mGame.isGameWon()) {}
+//          shootFireworks();
+//        else
         DisplayChoices(mGame.isGameWon());
-        if(PlayAgain()) mGame.resetGame() , RunGame();
+        mGame.resetGame();
+        if(PlayAgain()) RunGame();
+        else if (RunMainMenu()) RunGame();
         return;
     }
 
@@ -210,3 +215,39 @@ bool Play::PlayAgain() {
     return isPlayAgain;
 }
 
+void Play::render() {
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+
+    for (const auto& fw : fireworks) {
+        SDL_SetRenderDrawColor(renderer, fw.r, fw.g, fw.b, fw.a);
+        SDL_RenderDrawPoint(renderer, fw.x, fw.y);
+    }
+
+    for (const auto& p : particles) {
+        SDL_SetRenderDrawColor(renderer, p.r, p.g, p.b, p.a);
+        SDL_Rect rect = {(int)p.x, (int)p.y, p.size, p.size};
+        SDL_RenderFillRect(renderer, &rect);
+    }
+
+    mGame.draw();
+    DisplayChoices(mGame.isGameWon());
+    SDL_RenderPresent(renderer);
+}
+
+void Play::shootFireworks() {
+    for (int j = 0; j < 8; ++j) {
+        createFirework(SCREEN_WIDTH  / 2 + (rand() % 201 - 100), SCREEN_HEIGHT / 2 + (rand() % 401 - 300));
+        int delay = 0;
+        while(delay++ <= 30) {
+            update();
+            render();
+            SDL_Delay(10);
+        }
+    }
+    while(!particles.empty()) {
+        update();
+        render();
+        SDL_Delay(10);
+    }
+}

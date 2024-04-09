@@ -138,6 +138,9 @@ void Game::resetGame() {
     mBoard.copyBoard(actualMap);
     isGameOver = false;
     mPac.setLiving(true);
+    mPac.setFacing(right);
+    mBlinky.setFacing(right);
+    mPinky.setFacing(right);
 
     mBoard.resetPosition(mPac);
     mBoard.resetPosition(mBlinky);
@@ -150,16 +153,23 @@ void Game::resetGame() {
 }
 
 void Game::runMenuEntities(std::vector<uint8_t> mover) {
+    if (mover.size()) mover.clear();
+    mover.push_back(right);
     mover.push_back(right);
     mPac.draw();
     mPac.updateFrame();
     mPac.updatePosition(mover);
+    mPac.setFacing(right);
 
     mBlinky.draw(mPac);
     mBlinky.updatePos(actualMap, mPac, true);
+    mBlinky.setFacing(right);
+    mBlinky.setDirection(right);
 
     mPinky.draw(mPac);
     mPinky.updatePos(actualMap, mPac, true);
+    mPinky.setFacing(right);
+    mPinky.setDirection(right);
 }
 
 void Game::putMenuEntities(Position pos) {

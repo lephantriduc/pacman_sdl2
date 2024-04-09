@@ -29,13 +29,15 @@ inline SDL_Texture* startText = nullptr;
 inline SDL_Texture* quitText = nullptr;
 inline SDL_Texture* playAgainText = nullptr;
 inline SDL_Texture* quitGameText = nullptr;
+inline SDL_Texture* mapText = nullptr;
+inline SDL_Texture* volumeText = nullptr;
+inline SDL_Texture* OkText = nullptr;
 
 inline SDL_Surface* volumeSurface = nullptr;
-inline SDL_Texture* volumeText = nullptr;
 inline std::stringstream volumeToText;
 inline TTF_Font* Font = TTF_OpenFont("fonts/emulogic.ttf", BLOCK_SIZE_24);
 
-inline SDL_Rect mainMenuRect , startButton , quitButton, playAgainButton, quitGameButton;
+inline SDL_Rect mainMenuRect , startButton , quitButton, playAgainButton, quitGameButton, mapButton , volumeRect , OkButton;;
 
 static bool gameStarted = false;
 
@@ -102,5 +104,3 @@ inline bool isMouseOver(SDL_Rect button, int mouseX, int mouseY) {
 } 
 
 void closeSDL();
-
-void DisPlayChoices(bool WinOrLose);
