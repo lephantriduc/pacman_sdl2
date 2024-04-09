@@ -23,11 +23,13 @@ void Pac::updatePosition(std::vector<uint8_t> &mover, uint8_t ActualMap[]){
         short potentialY = this->getY();
         this->getNextPosition(potentialX, potentialY, mover.at(0));
 
-        if (!wallCollision(potentialX, potentialY, ActualMap)) {
+        std::cout << this->getY() << std::endl;
+
+        if (!wallCollision(potentialX, potentialY, ActualMap) || this->getY() >= 840 || this->getY() <= 0) {
             // If no wall then update Pacman
             this->updateFrame();
             this->move(mover.at(0));
-            this->turn(mover.at(0));
+//            this->turn(mover.at(0));
         } else {
             // Pacman will have the same sprite for every time hitting wall
             this->setFrame(32);
@@ -53,6 +55,7 @@ void Pac::updatePosition(std::vector<uint8_t> &mover, uint8_t ActualMap[]){
 	}
     // Pacman seamlessly goes from this side of screen to the opposite one
     this->checkIfGoesOutOfScreen(false);
+
 }
 
 void Pac::draw(){

@@ -58,6 +58,13 @@ void Entity::checkIfGoesOutOfScreen(bool inMenu) {
             this->setDirection((this->getDirection() + 2) % 4);
         }
     }
+
+    if (this->getY() > SCREEN_HEIGHT) {
+        this->setY(-BLOCK_SIZE_24);
+    }
+    if (this->getY() < -BLOCK_SIZE_24) {
+        this->setY(SCREEN_HEIGHT);
+    }
 }
 
 void Entity::CharBoardPos(uint8_t SideDir, Position &BoardPos, float cell_x, float cell_y) {
