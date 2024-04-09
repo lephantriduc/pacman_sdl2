@@ -3,7 +3,9 @@ project(pacman)
 
 file(GLOB Sources CONFIGURE_DEPENDS "src/*.h" "src/*.cpp")
 
-add_executable(pacman ${Sources})
+add_executable(pacman ${Sources}
+        src/Fireworks.cpp
+        src/Fireworks.hpp)
 
 # 1. Look for a SDL2 package
 # 2. look for the SDL2 component and
@@ -34,6 +36,7 @@ add_custom_command(TARGET pacman
         COMMAND cp -r ${CMAKE_CURRENT_SOURCE_DIR}/assets ${CMAKE_CURRENT_BINARY_DIR}
         COMMAND cp -r ${CMAKE_CURRENT_SOURCE_DIR}/sounds ${CMAKE_CURRENT_BINARY_DIR}
         COMMAND cp -r ${CMAKE_CURRENT_SOURCE_DIR}/fonts ${CMAKE_CURRENT_BINARY_DIR}
+        COMMAND cp -r ${CMAKE_CURRENT_SOURCE_DIR}/data ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 #set(CMAKE_CXX_STANDARD 17)
