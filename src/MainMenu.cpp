@@ -3,7 +3,7 @@
 MainMenu::MainMenu() {
     mainMenuMapTexture.load("assets/MenuMap.png");
 
-    mainMenuMapTexture.paint(boardColor);
+    mainMenuMapTexture.paint(menuBarColor);
 }
 
 MainMenu::~MainMenu() {

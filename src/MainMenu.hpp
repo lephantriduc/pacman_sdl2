@@ -12,6 +12,6 @@ private:
     Texture mainMenuMapTexture;
     std::string mainMenuBoard;
 
-    RGB boardColor = {255, 255, 255};
+    RGB menuBarColor = {255, 255, 255};
 };
 
