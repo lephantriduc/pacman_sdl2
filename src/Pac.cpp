@@ -23,8 +23,6 @@ void Pac::updatePosition(std::vector<uint8_t> &mover, uint8_t ActualMap[]){
         short potentialY = this->getY();
         this->getNextPosition(potentialX, potentialY, mover.at(0));
 
-        std::cout << this->getY() << std::endl;
-
         if (!wallCollision(potentialX, potentialY, ActualMap) || this->getY() >= 840 || this->getY() <= 0) {
             // If no wall then update Pacman
             this->updateFrame();
