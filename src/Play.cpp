@@ -3,7 +3,8 @@
 bool Play::RunMainMenu() {
     mover.push_back(right);
 
-    int volume = MIX_MAX_VOLUME / 10 + 1;
+//    int volume = MIX_MAX_VOLUME / 10 + 1;
+    int volume = 0;
     Mix_Volume(-1, volume);
     bool isDragging = false;
 
@@ -40,6 +41,66 @@ bool Play::RunMainMenu() {
                     return true;
                 } else if (isMouseOver(quitButton, mouseX, mouseY)) {
                     return false;
+                } else if (isMouseOver(mapButton, mouseX, mouseY)) {
+                    int scale = 2;
+
+                    SDL_Surface *Map[4];
+                    Map[0] = IMG_Load("assets/Map0.png");
+                    Map[1] = IMG_Load("assets/Map1.png");
+                    Map[2] = IMG_Load("assets/Map2.png");
+                    Map[3] = IMG_Load("assets/Map3.png");
+                    SDL_Surface *Next = IMG_Load("assets/Next.png");
+                    SDL_Surface *Prev = IMG_Load("assets/Previous.png");
+
+                    SDL_Surface *Suf[5];
+                    for (int i = 0; i < 4; i++) {
+                        Suf[i] = SDL_CreateRGBSurface(0, Map[i]->w / scale, Map[i]->h / scale, 32, 0, 0, 0, 0);
+                        SDL_BlitScaled(Map[i], nullptr, Suf[i], nullptr);
+                    }
+
+                    SDL_Rect dstRect = {SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2 - SCREEN_HEIGHT / 4,
+                                        Suf[0]->w, Suf[0]->h};
+                    SDL_Rect NextRect = {SCREEN_WIDTH - 80, SCREEN_HEIGHT / 2 - 14, 40, 28};
+                    SDL_Rect PrevRect = {40, SCREEN_HEIGHT / 2 - 14, 40, 28};
+
+
+                    SDL_Texture *NextTexture = SDL_CreateTextureFromSurface(renderer, Next);
+                    SDL_Texture *PrevTexture = SDL_CreateTextureFromSurface(renderer, Prev);
+
+                    OkText = renderText("Ok", Font, textColor, renderer);
+                    OkButton = {SCREEN_WIDTH / 2 - 15, SCREEN_HEIGHT / 2 + 230, 30, 30};
+
+                    int Quit = 0;
+                    while (!Quit) {
+                        if (!mGame.mSound.IsChannelPlaying(0)) mGame.mSound.PlayIntro();
+                        while (SDL_PollEvent(&event) != 0) {
+                            if (event.type == SDL_QUIT) {
+                                Quit = 1;
+                            } else if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+                                SDL_GetMouseState(&mouseX, &mouseY);
+                                if (isMouseOver(OkButton, mouseX, mouseY)) {
+                                    Quit = 1;
+                                } else if (isMouseOver(PrevRect, mouseX, mouseY)) {
+                                    for (int i = 2; i >= 0; i--) std::swap(Suf[i], Suf[i + 1]);
+                                    mapClickCount += 3;
+                                } else if (isMouseOver(NextRect, mouseX, mouseY)) {
+                                    for (int i = 0; i < 3; i++) std::swap(Suf[i], Suf[i + 1]);
+                                    mapClickCount++;
+                                }
+                            }
+                        }
+                        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+                        SDL_RenderClear(renderer);
+                        SDL_Texture *MapTexture = SDL_CreateTextureFromSurface(renderer, Suf[0]);
+
+                        SDL_RenderCopy(renderer, mainMenuText, nullptr, &mainMenuRect);
+                        SDL_RenderCopy(renderer, MapTexture, nullptr, &dstRect);
+                        SDL_RenderCopy(renderer, OkText, nullptr, &OkButton);
+                        SDL_RenderCopy(renderer, NextTexture, nullptr, &NextRect);
+                        SDL_RenderCopy(renderer, PrevTexture, nullptr, &PrevRect);
+                        SDL_RenderPresent(renderer);
+
+                    }
                 }
             } else if (event.type == SDL_MOUSEBUTTONUP &&
                        event.button.button == SDL_BUTTON_LEFT) {
@@ -58,17 +119,10 @@ bool Play::RunMainMenu() {
 
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
-        mainMenuText = renderText("Pacman", Font, Yellow, renderer);
-        startText = renderText("Play", Font, textColor, renderer);
-        quitText = renderText("Quit", Font, textColor, renderer);
-
-        mainMenuRect = {SCREEN_WIDTH / 2 - 100, 50, 200, 50};
-        startButton = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 - 150, 150, 50};
-        quitButton = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 - 50, 150, 50};
-
         SDL_RenderCopy(renderer, mainMenuText, nullptr, &mainMenuRect);
         SDL_RenderCopy(renderer, startText, nullptr, &startButton);
         SDL_RenderCopy(renderer, quitText, nullptr, &quitButton);
+        SDL_RenderCopy(renderer, mapText, nullptr, &mapButton);
 
         SDL_RenderPresent(renderer);
         int imgFlags = IMG_INIT_PNG;
@@ -78,7 +132,7 @@ bool Play::RunMainMenu() {
         // Delete old volume
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         clearRect = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 160,
-                              SCREEN_WIDTH, 30};
+                     SCREEN_WIDTH, 30};
         SDL_RenderFillRect(renderer, &clearRect);
         clearRect = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 190, 150,
                      30};
@@ -87,12 +141,12 @@ bool Play::RunMainMenu() {
 
         // Create new volume bar
         volumeBorder = {SCREEN_WIDTH / 2 - 76,
-                                 SCREEN_HEIGHT / 2 + 189 + 15, 152, 32};
+                        SCREEN_HEIGHT / 2 + 189 + 15, 152, 32};
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderDrawRect(renderer, &volumeBorder);
         volumeBar = {SCREEN_WIDTH / 2 - 75,
-                              SCREEN_HEIGHT / 2 + 190 + 15,
-                              volume * 150 / MIX_MAX_VOLUME, 30};
+                     SCREEN_HEIGHT / 2 + 190 + 15,
+                     volume * 150 / MIX_MAX_VOLUME, 30};
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderFillRect(renderer, &volumeBar);
 
@@ -100,10 +154,10 @@ bool Play::RunMainMenu() {
         volumeToText.str("");
         volumeToText << "VOLUME: " << (volume * 100 / MIX_MAX_VOLUME) << "%";
         volumeSurface =
-            TTF_RenderText_Solid(Font, volumeToText.str().c_str(), textColor);
+                TTF_RenderText_Solid(Font, volumeToText.str().c_str(), textColor);
         volumeText = SDL_CreateTextureFromSurface(renderer, volumeSurface);
         textRect = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 160,
-                             volumeSurface->w, volumeSurface->h};
+                    volumeSurface->w, volumeSurface->h};
         SDL_RenderCopy(renderer, volumeText, nullptr, &textRect);
 
         SDL_FreeSurface(volumeSurface);
@@ -120,6 +174,7 @@ void Play::RunGame() {
     mover.push_back(right);
     mGame.start();
     // GameTimer.Start()
+    mGame.setMap(mapClickCount);
 
     Playing();
 }
@@ -146,13 +201,10 @@ void Play::Playing() {
     Timer GameTimer;
     static unsigned short startTicks = 4500;
 
-    if(mGame.isGameOver || mGame.isGameWon()){
-//        if(mGame.isGameWon()) {}
-//          shootFireworks();
-//        else
+    if (mGame.isGameOver || mGame.isGameWon()) {
         DisplayChoices(mGame.isGameWon());
         mGame.resetGame();
-        if(PlayAgain()) RunGame();
+        if (PlayAgain()) RunGame();
         else if (RunMainMenu()) RunGame();
         return;
     }
@@ -219,14 +271,14 @@ void Play::render() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
-    for (const auto& fw : fireworks) {
+    for (const auto &fw: fireworks) {
         SDL_SetRenderDrawColor(renderer, fw.r, fw.g, fw.b, fw.a);
         SDL_RenderDrawPoint(renderer, fw.x, fw.y);
     }
 
-    for (const auto& p : particles) {
+    for (const auto &p: particles) {
         SDL_SetRenderDrawColor(renderer, p.r, p.g, p.b, p.a);
-        SDL_Rect rect = {(int)p.x, (int)p.y, p.size, p.size};
+        SDL_Rect rect = {(int) p.x, (int) p.y, p.size, p.size};
         SDL_RenderFillRect(renderer, &rect);
     }
 
@@ -237,15 +289,15 @@ void Play::render() {
 
 void Play::shootFireworks() {
     for (int j = 0; j < 8; ++j) {
-        createFirework(SCREEN_WIDTH  / 2 + (rand() % 201 - 100), SCREEN_HEIGHT / 2 + (rand() % 401 - 300));
+        createFirework(SCREEN_WIDTH / 2 + (rand() % 201 - 100), SCREEN_HEIGHT / 2 + (rand() % 401 - 300));
         int delay = 0;
-        while(delay++ <= 30) {
+        while (delay++ <= 30) {
             update();
             render();
             SDL_Delay(10);
         }
     }
-    while(!particles.empty()) {
+    while (!particles.empty()) {
         update();
         render();
         SDL_Delay(10);

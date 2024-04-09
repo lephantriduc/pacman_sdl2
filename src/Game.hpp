@@ -12,6 +12,7 @@ public:
 
     void start();
     void draw();
+    void setMap(int clicks);
     void update(std::vector<uint8_t> &mover);
     void updatePositions(std::vector <uint8_t> &mover);
     bool process(std::vector<uint8_t> &mover, Timer gameTimer, unsigned short &startTicks);

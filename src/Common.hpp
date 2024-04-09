@@ -46,6 +46,9 @@ constexpr uint8_t deathFrames = 10;
 constexpr uint8_t ghostFrames = 6;
 constexpr uint8_t ghostEyesFrames = 5;
 
+inline std::string map_num;
+inline int mapClickCount = 0;
+
 enum Objects {
     wall,
     door,

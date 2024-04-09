@@ -14,6 +14,11 @@ void Game::start() {
     mBoard.resetEntitiesPositions(mPinky);
 }
 
+void Game::setMap(int clicks) {
+    mBoard.setMap(clicks);
+    mBoard.copyBoard(actualMap);
+}
+
 void Game::draw() {
     mBoard.drawScore();
     mBoard.drawHighScore();
@@ -71,6 +76,7 @@ bool Game::process(std::vector<uint8_t> &mover, Timer gameTimer, unsigned short 
                 mPac.setPacDoneDying(false);
                 mBoard.decreaseLives();
                 mPac.setLiving(true);
+                mPac.setFacing(right);
                 gameStarted = false;
                 this->resetMover(mover); // Make Pac facing right every reset
                 return false;
