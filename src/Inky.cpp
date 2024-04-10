@@ -12,5 +12,31 @@ void Inky::setTarget(Pac &mPac, Position mBlinky) {
     // and then doubling the length of the vector.
     // The tile that this new, extended vector ends on will be Inky's actual target.
 
-    this->target.setPosition(30, 30);
+    int x_pac = mPac.getX();
+    int y_pac = mPac.getY();
+
+    int x_b = mBlinky.getX();
+    int y_b = mBlinky.getY();
+
+    switch(mPac.getDirection()) {
+        case right:
+            x_pac += 2;
+            break;
+        case left:
+            x_pac -= 2;
+            break;
+        case up:
+            y_pac -= 2;
+            break;
+        case down:
+            y_pac += 2;
+            break;
+        default:
+            break;
+    }
+
+    int x = 2 * x_pac - x_b;
+    int y = 2 * y_pac - y_b;
+
+    this->target.setPosition(x, y);
 }

@@ -66,9 +66,9 @@ void Game::update(std::vector<uint8_t> &mover) {
 }
 
 void Game::updatePositions(std::vector<uint8_t> &mover) {
-    mBlinky.updatePos(actualMap, mPac, false);
-    mPinky.updatePos(actualMap, mPac, false);
-    mInky.updatePos(actualMap, mPac, false);
+    mBlinky.updatePos(actualMap, mPac, {0,0}, false);
+    mPinky.updatePos(actualMap, mPac, {0,0}, false);
+    mInky.updatePos(actualMap, mPac, mBlinky, false);
     mPac.updatePosition(mover, actualMap);
 }
 
@@ -178,21 +178,27 @@ void Game::runMenuEntities(std::vector<uint8_t> mover) {
     mPac.setFacing(right);
 
     mBlinky.draw(mPac);
-    mBlinky.updatePos(actualMap, mPac, true);
+    mBlinky.updatePos(actualMap, mPac, {0, 0}, true);
     mBlinky.setFacing(right);
     mBlinky.setDirection(right);
 
     mPinky.draw(mPac);
-    mPinky.updatePos(actualMap, mPac, true);
+    mPinky.updatePos(actualMap, mPac, {0, 0}, true);
     mPinky.setFacing(right);
     mPinky.setDirection(right);
+
+    mInky.draw(mPac);
+    mInky.updatePos(actualMap, mPac, {0, 0}, true);
+    mInky.setFacing(right);
+    mInky.setDirection(right);
 }
 
 void Game::putMenuEntities(Position pos) {
     mPac.setPosition(pos);
-    mBlinky.setDirection(right);
+//    mBlinky.setDirection(right);
     mBlinky.setPosition({pos.getX() - 100, pos.getY()});
     mPinky.setPosition(pos.getX() - 150, pos.getY());
+    mInky.setPosition(pos.getX() - 200, pos.getY());
 }
 
 void Game::resetMover(std::vector<uint8_t> &mover) {

@@ -8,7 +8,7 @@ bool Play::RunMainMenu() {
     Mix_Volume(-1, volume);
     bool isDragging = false;
 
-    Position pacPos = {150, 169};
+    Position pacPos = {250, 169};
     mGame.putMenuEntities(pacPos);
 
     mGame.mSound.PlayIntro();

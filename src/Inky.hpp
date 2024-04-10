@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Ghost.hpp"
+#include "Blinky.hpp"
 
 class Inky : public Ghost {
 public:

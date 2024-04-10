@@ -13,7 +13,7 @@ public:
     void directionsBubbleSort(std::vector<int> &distances, std::vector<uint8_t> &possibleDirections);
     bool isTargetToCalc(Pac& mPac);
     virtual void setTarget(Pac& mPac, Position mBlinky = {0, 0});
-    virtual void updatePos(uint8_t actualBoard[], Pac &mPac, bool inMenu);
+    virtual void updatePos(uint8_t actualBoard[], Pac &mPac, Position mBlinky, bool inMenu);
 
     void draw(Pac& pac);
     Position target;

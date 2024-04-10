@@ -178,13 +178,12 @@ void Ghost::dijkstra(uint8_t ActualMap[]) {
 
 void Ghost::setTarget(Pac &mPac, Position mBlinky) {
     this->target.setPosition(mPac.getPosition());
-
 }
 
-void Ghost::updatePos(uint8_t *actualBoard, Pac &mPac, bool inMenu) {
+void Ghost::updatePos(uint8_t *actualBoard, Pac &mPac, Position mBlinky, bool inMenu) {
     for(uint8_t i = 0; i < this->getSpeed(); i++){
         if (this->isTargetToCalc(mPac)) {
-            this->setTarget(mPac);
+            this->setTarget(mPac, mBlinky);
         }
 
         if (this->getLiving() && mPac.getPoweredUp()) {
