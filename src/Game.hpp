@@ -34,6 +34,7 @@ private:
     class Blinky mBlinky;
     class Pinky mPinky;
     class Inky mInky;
+    class Clyde mClyde;
     uint8_t actualMap[BOARD_HEIGHT * BOARD_WIDTH];
     Timer speedUpTime;
     Timer powerUpTime;

@@ -2,6 +2,7 @@
 #include "Blinky.hpp"
 #include "Pinky.hpp"
 #include "Inky.hpp"
+#include "Clyde.hpp"
 
 class Board {
 public:

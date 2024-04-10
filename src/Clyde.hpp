@@ -1,16 +1,10 @@
-//
-// Created by Le Phan Tri Duc on 10/04/2024.
-//
+#pragma once
 
-#ifndef PACMAN_CLYDE_HPP
-#define PACMAN_CLYDE_HPP
+#include "Ghost.hpp"
 
+class Clyde : public Ghost{
+public:
+    Clyde();
 
-
-class Clyde {
-
+    void setTarget(Pac& mPac, Position mBlinky) override;
 };
-
-
-
-#endif //PACMAN_CLYDE_HPP

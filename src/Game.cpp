@@ -13,6 +13,7 @@ void Game::start() {
     mBoard.resetPosition(mBlinky);
     mBoard.resetPosition(mPinky);
     mBoard.resetPosition(mInky);
+    mBoard.resetPosition(mClyde);
 }
 
 void Game::setMap(int clicks) {
@@ -27,6 +28,7 @@ void Game::draw() {
     mBlinky.draw(mPac);
     mPinky.draw(mPac);
     mInky.draw(mPac);
+    mClyde.draw(mPac);
     mPac.draw();
 }
 
@@ -34,10 +36,10 @@ void Game::update(std::vector<uint8_t> &mover) {
     this->updatePositions(mover);
     this->food();
 
-    if (mPac.isColliding(mBlinky) || mPac.isColliding(mPinky) || mPac.isColliding(mInky)) {
+    if (mPac.isColliding(mBlinky) || mPac.isColliding(mPinky) || mPac.isColliding(mInky) || mPac.isColliding(mClyde)) {
         if (!mPac.getPoweredUp()) { // Pac in normal state
             mPac.setFrame(32);
-            mPac.setLiving(false);
+//            mPac.setLiving(false);
             mBoard.decreaseScore(100);
         } else { // Pac is powered up
             if (mPac.isColliding(mBlinky)) {
@@ -55,6 +57,11 @@ void Game::update(std::vector<uint8_t> &mover) {
                 if (!flag_2) mBoard.increaseScore(500);
                 flag_2 = true;
             }
+            if (mPac.isColliding(mClyde)) {
+                mClyde.setLiving(false);
+                if (!flag_3) mBoard.increaseScore(500);
+                flag_3 = true;
+            }
         }
     }
 
@@ -62,13 +69,14 @@ void Game::update(std::vector<uint8_t> &mover) {
     if (mBlinky.isHome()) flag_0 = false;
     if (mPinky.isHome()) flag_1 = false;
     if (mInky.isHome()) flag_2 = false;
-
+    if (mClyde.isHome()) flag_3 = false;
 }
 
 void Game::updatePositions(std::vector<uint8_t> &mover) {
-    mBlinky.updatePos(actualMap, mPac, {0,0}, false);
-    mPinky.updatePos(actualMap, mPac, {0,0}, false);
+    mBlinky.updatePos(actualMap, mPac, {0, 0}, false);
+    mPinky.updatePos(actualMap, mPac, {0, 0}, false);
     mInky.updatePos(actualMap, mPac, mBlinky, false);
+    mClyde.updatePos(actualMap, mPac, {0, 0}, false);
     mPac.updatePosition(mover, actualMap);
 }
 
@@ -139,14 +147,14 @@ void Game::food() {
     }
 }
 
-bool Game::isGameWon(){
-	for(unsigned short i = 0; i < BOARD_HEIGHT * BOARD_WIDTH; i++){
-		if(actualMap[i] == Objects::dot)
-			return false;
-		if(actualMap[i] == Objects::powerUp)
-			return false;
-	}
-	return true;
+bool Game::isGameWon() {
+    for (unsigned short i = 0; i < BOARD_HEIGHT * BOARD_WIDTH; i++) {
+        if (actualMap[i] == Objects::dot)
+            return false;
+        if (actualMap[i] == Objects::powerUp)
+            return false;
+    }
+    return true;
 }
 
 void Game::resetGame() {
@@ -154,8 +162,9 @@ void Game::resetGame() {
     isGameOver = false;
     mPac.setLiving(true);
     mPac.setFacing(right);
-    mBlinky.setFacing(right);
-    mPinky.setFacing(right);
+//    mBlinky.setFacing(right);
+//    mPinky.setFacing(right);
+//    mClyde.setFacing(right);
 
     mBoard.resetPosition(mPac);
     mBoard.resetPosition(mBlinky);
@@ -191,6 +200,11 @@ void Game::runMenuEntities(std::vector<uint8_t> mover) {
     mInky.updatePos(actualMap, mPac, {0, 0}, true);
     mInky.setFacing(right);
     mInky.setDirection(right);
+
+    mClyde.draw(mPac);
+    mClyde.updatePos(actualMap, mPac, {0, 0}, true);
+    mClyde.setFacing(right);
+    mClyde.setDirection(right);
 }
 
 void Game::putMenuEntities(Position pos) {
@@ -199,6 +213,8 @@ void Game::putMenuEntities(Position pos) {
     mBlinky.setPosition({pos.getX() - 100, pos.getY()});
     mPinky.setPosition(pos.getX() - 150, pos.getY());
     mInky.setPosition(pos.getX() - 200, pos.getY());
+    mInky.setPosition(pos.getX() - 200, pos.getY());
+    mClyde.setPosition(pos.getX() - 250, pos.getY());
 }
 
 void Game::resetMover(std::vector<uint8_t> &mover) {
