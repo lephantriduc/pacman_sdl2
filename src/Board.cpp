@@ -3,7 +3,6 @@
 Board::Board() {
     map_num = "0";
     std::string assets_path_name = "assets/Map" + map_num + ".png";
-//    std::string assets_path_name = "assets/Map1.png";
     std::string data_path_name = "../data/Map" + map_num + ".txt";
     mapTexture.load(assets_path_name);
     std::ifstream in_file(data_path_name);
@@ -52,7 +51,6 @@ Board::~Board() {
 void Board::setMap(int clicks) {
     int r = clicks % 4;
     map_num = std::to_string(r);
-    std::cout << map_num;
 
     std::string assets_path_name = "assets/Map" + map_num + ".png";
     std::string data_path_name = "../data/Map" + map_num + ".txt";
@@ -69,6 +67,8 @@ void Board::setMap(int clicks) {
 
     mapTexture.paint(boardColor);
     this->convertSketch(charBoard);
+
+    this->makeGraph(charBoard);
 }
 
 void Board::convertSketch(std::string board) {
@@ -178,33 +178,6 @@ void Board::copyBoard(uint8_t ActualMap[]) {
     memcpy(ActualMap, numericBoard, BOARD_HEIGHT * BOARD_WIDTH);
 }
 
-void Board::resetEntitiesPositions(Entity &entity) {
-    int8_t y = -1;
-
-    for (short i = 0; i < BOARD_WIDTH * BOARD_HEIGHT; i++) {
-        uint8_t x = i % BOARD_WIDTH;
-
-        if (x == 0) {
-            y++;
-        }
-        if (charBoard[i] == '0' && entity.getIdentity() == Entities::pac) {
-            entity.setX(x * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
-            entity.setY(y * BLOCK_SIZE_24);
-            return;
-        } else if (charBoard[i] == '1' &&
-                   entity.getIdentity() == Entities::Blinky) {
-            entity.setX(x * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
-            entity.setY(y * BLOCK_SIZE_24);
-            return;
-        } else if (charBoard[i] == '2' &&
-                   entity.getIdentity() == Entities::Pinky) {
-            entity.setX(x * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
-            entity.setY(y * BLOCK_SIZE_24);
-            return;
-        }
-    }
-}
-
 void Board::increaseLives() {
     Lives++;
 }
@@ -243,6 +216,16 @@ void Board::resetPosition(Entity &mEntity) {
             mEntity.setY(y * BLOCK_SIZE_24);
             return;
         }
+        if (charBoard[i] == '3' && mEntity.getIdentity() == Entities::Inky) {
+            mEntity.setX(x * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
+            mEntity.setY(y * BLOCK_SIZE_24);
+            return;
+        }
+        if (charBoard[i] == '4' && mEntity.getIdentity() == Entities::Clyde) {
+            mEntity.setX(x * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
+            mEntity.setY(y * BLOCK_SIZE_24);
+            return;
+        }
     }
 }
 
@@ -263,4 +246,13 @@ void Board::decreaseScore(int delta) {
 }
 
 
-
+void Board::makeGraph(std::string CharBoard) {
+    for (int i = 0; i < BOARD_WIDTH * BOARD_HEIGHT; i++) {
+        if (CharBoard[i] != '#') {
+                if (i % BOARD_WIDTH != BOARD_WIDTH - 1 && CharBoard[i + 1] != '#') g[i].push_back(i + 1);
+                if (i % BOARD_WIDTH != 0 && CharBoard[i - 1] != '#') g[i].push_back(i - 1);
+                if (i / BOARD_WIDTH != BOARD_HEIGHT - 1 && CharBoard[i + BOARD_WIDTH] != '#') g[i].push_back(i + BOARD_WIDTH);
+                if (i > 23 && CharBoard[i - BOARD_WIDTH] != '#') g[i].push_back(i - BOARD_WIDTH);
+            }
+    }
+}

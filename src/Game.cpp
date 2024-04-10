@@ -9,9 +9,10 @@ Game::Game() {
 Game::~Game() {}
 
 void Game::start() {
-    mBoard.resetEntitiesPositions(mPac);
-    mBoard.resetEntitiesPositions(mBlinky);
-    mBoard.resetEntitiesPositions(mPinky);
+    mBoard.resetPosition(mPac);
+    mBoard.resetPosition(mBlinky);
+    mBoard.resetPosition(mPinky);
+    mBoard.resetPosition(mInky);
 }
 
 void Game::setMap(int clicks) {
@@ -25,6 +26,7 @@ void Game::draw() {
     mBoard.draw(actualMap);
     mBlinky.draw(mPac);
     mPinky.draw(mPac);
+    mInky.draw(mPac);
     mPac.draw();
 }
 
@@ -32,7 +34,7 @@ void Game::update(std::vector<uint8_t> &mover) {
     this->updatePositions(mover);
     this->food();
 
-    if (mPac.isColliding(mBlinky) || mPac.isColliding(mPinky)) {
+    if (mPac.isColliding(mBlinky) || mPac.isColliding(mPinky) || mPac.isColliding(mInky)) {
         if (!mPac.getPoweredUp()) { // Pac in normal state
             mPac.setFrame(32);
             mPac.setLiving(false);
@@ -48,18 +50,25 @@ void Game::update(std::vector<uint8_t> &mover) {
                 if (!flag_1) mBoard.increaseScore(500);
                 flag_1 = true;
             }
+            if (mPac.isColliding(mInky)) {
+                mInky.setLiving(false);
+                if (!flag_2) mBoard.increaseScore(500);
+                flag_2 = true;
+            }
         }
     }
 
     // Flags to avoid counting eating ghosts score too much
     if (mBlinky.isHome()) flag_0 = false;
     if (mPinky.isHome()) flag_1 = false;
+    if (mInky.isHome()) flag_2 = false;
 
 }
 
 void Game::updatePositions(std::vector<uint8_t> &mover) {
     mBlinky.updatePos(actualMap, mPac, false);
     mPinky.updatePos(actualMap, mPac, false);
+    mInky.updatePos(actualMap, mPac, false);
     mPac.updatePosition(mover, actualMap);
 }
 
@@ -151,6 +160,7 @@ void Game::resetGame() {
     mBoard.resetPosition(mPac);
     mBoard.resetPosition(mBlinky);
     mBoard.resetPosition(mPinky);
+    mBoard.resetPosition(mInky);
 
     mBoard.resetScore();
     mBoard.resetLives();

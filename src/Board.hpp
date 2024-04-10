@@ -1,6 +1,7 @@
 #pragma once
 #include "Blinky.hpp"
 #include "Pinky.hpp"
+#include "Inky.hpp"
 
 class Board {
 public:
@@ -13,8 +14,8 @@ public:
     void drawScore();
     void drawHighScore();
     void copyBoard(uint8_t ActualMap[]);
-    void resetEntitiesPositions(Entity& entity);
     void resetPosition(Entity& mEntity);
+
 
     uint8_t getLives();
 
@@ -24,6 +25,8 @@ public:
     void decreaseScore(int delta);
     void resetScore();
     void resetLives();
+
+    void makeGraph(std::string CharBoard);
 
 private:
     Texture mapTexture;

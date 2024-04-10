@@ -1,13 +1,8 @@
 #pragma once
 
-#include "Ghosts.hpp"
+#include "Ghost.hpp"
 
-class Blinky : public Ghosts{
+class Blinky : public Ghost{
 public:
     Blinky();
-
-    void setTarget(Position destination);
-    void updatePos(uint8_t actualBoard[], Pac &mPac, bool inMenu);
-private:
-
 };

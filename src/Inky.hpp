@@ -2,9 +2,10 @@
 
 #include "Ghost.hpp"
 
-class Pinky : public Ghost {
+class Inky : public Ghost {
 public:
-    Pinky();
+    Inky();
 
     void setTarget(Pac& mPac, Position mBlinky) override;
 };
+

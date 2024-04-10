@@ -1,32 +1,32 @@
 #include "Pinky.hpp"
 
-Pinky::Pinky() : Ghosts(Entities::Pinky){
+Pinky::Pinky() : Ghost(Entities::Pinky){
     ghostColor = {254,184,255};
 }
 
-void Pinky::setTarget(Position destination) {
-    this->target.setPosition(destination.getPosition());
-}
+void Pinky::setTarget(Pac& mPac, Position mBlinky) {
+    // Pinky's target tile is determined by looking at Pac-Man's current position and orientation
+    // and selecting the location four tiles straight ahead of Pac-Man.
+    int x = mPac.getX();
+    int y = mPac.getY();
 
-void Pinky::updatePos(uint8_t actualBoard[], Pac &mPac, bool inMenu) {
-    for(uint8_t i = 0; i < this->getSpeed(); i++){
-        if (this->isTargetToCalc(mPac)) {
-            this->setTarget(mPac);
-        }
-
-        if (this->getLiving() && mPac.getPoweredUp()) {
-            this->setFacing(4);
-        } else {
-            this->setFacing(this->getDirection());
-        }
-        if (!inMenu) {
-            this->calcDirection(actualBoard);
-            this->move(this->getDirection());
-            this->checkIfGoesOutOfScreen(false);
-        }
-        else {
-            this->move(this->getDirection());
-            this->checkIfGoesOutOfScreen(false);
-        }
+    switch(mPac.getDirection()) {
+        case right:
+            x += 4;
+            break;
+        case left:
+            x -= 4;
+            break;
+        case up:
+            y -= 4;
+            break;
+        case down:
+            y += 4;
+            break;
+        default:
+            break;
     }
+
+    this->target.setPosition(x, y);
 }
+
