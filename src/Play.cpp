@@ -42,34 +42,6 @@ bool Play::RunMainMenu() {
                 } else if (isMouseOver(quitButton, mouseX, mouseY)) {
                     return false;
                 } else if (isMouseOver(mapButton, mouseX, mouseY)) {
-                    int scale = 2;
-
-                    SDL_Surface *Map[4];
-                    Map[0] = IMG_Load("assets/Map0.png");
-                    Map[1] = IMG_Load("assets/Map1.png");
-                    Map[2] = IMG_Load("assets/Map2.png");
-                    Map[3] = IMG_Load("assets/Map3.png");
-                    SDL_Surface *Next = IMG_Load("assets/Next.png");
-                    SDL_Surface *Prev = IMG_Load("assets/Previous.png");
-
-                    SDL_Surface *Suf[5];
-                    for (int i = 0; i < 4; i++) {
-                        Suf[i] = SDL_CreateRGBSurface(0, Map[i]->w / scale, Map[i]->h / scale, 32, 0, 0, 0, 0);
-                        SDL_BlitScaled(Map[i], nullptr, Suf[i], nullptr);
-                    }
-
-                    SDL_Rect dstRect = {SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2 - SCREEN_HEIGHT / 4,
-                                        Suf[0]->w, Suf[0]->h};
-                    SDL_Rect NextRect = {SCREEN_WIDTH - 80, SCREEN_HEIGHT / 2 - 14, 40, 28};
-                    SDL_Rect PrevRect = {40, SCREEN_HEIGHT / 2 - 14, 40, 28};
-
-
-                    SDL_Texture *NextTexture = SDL_CreateTextureFromSurface(renderer, Next);
-                    SDL_Texture *PrevTexture = SDL_CreateTextureFromSurface(renderer, Prev);
-
-                    OkText = renderText("Ok", Font, textColor, renderer);
-                    OkButton = {SCREEN_WIDTH / 2 - 15, SCREEN_HEIGHT / 2 + 230, 30, 30};
-
                     int Quit = 0;
                     while (!Quit) {
                         if (!mGame.mSound.IsChannelPlaying(0)) mGame.mSound.PlayIntro();
@@ -81,17 +53,17 @@ bool Play::RunMainMenu() {
                                 if (isMouseOver(OkButton, mouseX, mouseY)) {
                                     Quit = 1;
                                 } else if (isMouseOver(PrevRect, mouseX, mouseY)) {
-                                    for (int i = 2; i >= 0; i--) std::swap(Suf[i], Suf[i + 1]);
+                                    for (int i = 2; i >= 0; i--) std::swap(Surface[i], Surface[i + 1]);
                                     mapClickCount += 3;
                                 } else if (isMouseOver(NextRect, mouseX, mouseY)) {
-                                    for (int i = 0; i < 3; i++) std::swap(Suf[i], Suf[i + 1]);
+                                    for (int i = 0; i < 3; i++) std::swap(Surface[i], Surface[i + 1]);
                                     mapClickCount++;
                                 }
                             }
                         }
                         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
                         SDL_RenderClear(renderer);
-                        SDL_Texture *MapTexture = SDL_CreateTextureFromSurface(renderer, Suf[0]);
+                        SDL_Texture *MapTexture = SDL_CreateTextureFromSurface(renderer, Surface[0]);
 
                         SDL_RenderCopy(renderer, mainMenuText, nullptr, &mainMenuRect);
                         SDL_RenderCopy(renderer, MapTexture, nullptr, &dstRect);
@@ -99,7 +71,6 @@ bool Play::RunMainMenu() {
                         SDL_RenderCopy(renderer, NextTexture, nullptr, &NextRect);
                         SDL_RenderCopy(renderer, PrevTexture, nullptr, &PrevRect);
                         SDL_RenderPresent(renderer);
-
                     }
                 }
             } else if (event.type == SDL_MOUSEBUTTONUP &&

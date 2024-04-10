@@ -19,6 +19,32 @@ void openSDL() {
     startButton = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 - 150, 150, 50};
     quitButton = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 - 50, 150, 50};
     mapButton = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 50, 150, 50};
+
+    int scale = 2;
+
+    OkText = renderText("Ok", Font, textColor, renderer);
+    OkButton = {SCREEN_WIDTH / 2 - 15, SCREEN_HEIGHT / 2 + 230, 30, 30};
+
+    Map[0] = IMG_Load("assets/Map0.png");
+    Map[1] = IMG_Load("assets/Map1.png");
+    Map[2] = IMG_Load("assets/Map2.png");
+    Map[3] = IMG_Load("assets/Map3.png");
+    SDL_Surface *Next = IMG_Load("assets/Next.png");
+    SDL_Surface *Prev = IMG_Load("assets/Previous.png");
+
+    for (int i = 0; i < 4; i++) {
+        Surface[i] = SDL_CreateRGBSurface(0, Map[i]->w / scale, Map[i]->h / scale, 32, 0, 0, 0, 0);
+        SDL_BlitScaled(Map[i], nullptr, Surface[i], nullptr);
+    }
+
+    dstRect = {SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2 - SCREEN_HEIGHT / 4,
+               Surface[0]->w, Surface[0]->h};
+    NextRect = {SCREEN_WIDTH - 80, SCREEN_HEIGHT / 2 - 14, 40, 28};
+    PrevRect = {40, SCREEN_HEIGHT / 2 - 14, 40, 28};
+
+
+    NextTexture = SDL_CreateTextureFromSurface(renderer, Next);
+    PrevTexture = SDL_CreateTextureFromSurface(renderer, Prev);
 }
 
 void closeSDL() {

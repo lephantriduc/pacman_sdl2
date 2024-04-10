@@ -11,6 +11,8 @@
 #include <sstream>
 #include <fstream>
 #include <string>
+#include <queue>
+#include <utility>
 
 constexpr uint8_t BOARD_WIDTH = 28;
 constexpr uint8_t BOARD_HEIGHT = 36;
@@ -32,6 +34,16 @@ inline SDL_Texture* quitGameText = nullptr;
 inline SDL_Texture* mapText = nullptr;
 inline SDL_Texture* volumeText = nullptr;
 inline SDL_Texture* OkText = nullptr;
+inline SDL_Texture *NextTexture = nullptr;
+inline SDL_Texture *PrevTexture = nullptr;
+
+inline SDL_Rect dstRect;
+inline SDL_Rect NextRect;
+inline SDL_Rect PrevRect;
+
+inline SDL_Surface *Surface[4];
+inline SDL_Surface *Map[4];
+
 
 inline SDL_Surface* volumeSurface = nullptr;
 inline std::stringstream volumeToText;
@@ -49,6 +61,8 @@ constexpr uint8_t ghostEyesFrames = 5;
 inline std::string map_num;
 inline int mapClickCount = 0;
 
+inline std::vector<int> g[BOARD_WIDTH * BOARD_HEIGHT];
+
 enum Objects {
     wall,
     door,
@@ -65,6 +79,8 @@ enum Entities {
     pac,
     Blinky,
     Pinky,
+    Inky,
+    Clyde,
 };
 
 enum Directions {
