@@ -72,6 +72,17 @@ void Board::setMap(int clicks) {
 }
 
 void Board::convertSketch(std::string board) {
+    std::vector<int> pos;
+    for(unsigned short i = 0; i < BOARD_HEIGHT * BOARD_WIDTH; i++){
+        if(board[i] == '.') pos.push_back(i);
+    }
+
+    std::shuffle(pos.begin(), pos.end(),std::mt19937(std::random_device()()));
+    for (int i = 0; i < 5; i++) board[pos[i]] = 'o';
+    for (int i = 0; i < 2; i++) board[pos[i]] = '!';
+    for (int i = 0; i < 1; i++) board[pos[i]] = 'h';
+    pos.clear();
+
     for (unsigned short i = 0; i < BOARD_HEIGHT * BOARD_WIDTH; i++) {
         switch (board[i]) {
             case '#':
