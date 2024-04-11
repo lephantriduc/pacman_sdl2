@@ -13,6 +13,8 @@
 #include <string>
 #include <queue>
 #include <utility>
+#include <algorithm>
+#include <random>
 
 constexpr uint8_t BOARD_WIDTH = 28;
 constexpr uint8_t BOARD_HEIGHT = 36;

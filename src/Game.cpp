@@ -134,8 +134,7 @@ void Game::food() {
             mPac.setPosition(BLOCK_SIZE_24 * 27 - mPac.getX(),BLOCK_SIZE_24 * 36 - mPac.getY());
             break;
         case 5: // Healing perk
-            mBoard.increaseLives();
-            mBoard.increaseScore(200);
+            if (mBoard.getLives() < 3) mBoard.increaseLives(), mBoard.increaseScore(200);;
             break;
         default:
             break;
