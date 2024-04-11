@@ -7,7 +7,7 @@ class Play {
 public:
     bool RunMainMenu();
     void RunGame();
-    void DisplayChoices(bool WinOrLose);
+    void DisplayChoices(bool hasWon);
     void Playing();
     bool PlayAgain();
     void render();

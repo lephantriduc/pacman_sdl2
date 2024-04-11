@@ -150,18 +150,21 @@ void Play::RunGame() {
     Playing();
 }
 
-void Play::DisplayChoices(bool WinOrLose) {
+void Play::DisplayChoices(bool hasWon) {
     SDL_RenderClear(renderer);
-    std::string name = WinOrLose ? "Play" : "Try";
-    playAgainText = renderText(name + " Again", Font, Yellow, renderer);
+    std::string name = hasWon ? "Victory <3" : "Defeat :(";
+    gameStatementText = renderText(name, Font, hasWon ? Yellow : Red, renderer);
+    playAgainText = renderText("Play Again", Font, Yellow, renderer);
     quitGameText = renderText("Back To Menu", Font, Yellow, renderer);
 
-    playAgainButton = {10 * BLOCK_SIZE_24 + (WinOrLose ? -5 : 5), 20 * BLOCK_SIZE_24, 20 * (WinOrLose ? 10 : 9),
+    gameStatementRect = { 11 * BLOCK_SIZE_24 - 31, 14 * BLOCK_SIZE_24, 200, BLOCK_SIZE_24};
+    playAgainButton = {10 * BLOCK_SIZE_24 + (hasWon ? -5 : 5), 20 * BLOCK_SIZE_24, 20 * (hasWon ? 10 : 9),
                        BLOCK_SIZE_24};
     quitGameButton = {9 * BLOCK_SIZE_24, 26 * BLOCK_SIZE_24, 20 * 12, BLOCK_SIZE_24};
 
     SDL_RenderCopy(renderer, playAgainText, nullptr, &playAgainButton);
     SDL_RenderCopy(renderer, quitGameText, nullptr, &quitGameButton);
+    SDL_RenderCopy(renderer, gameStatementText, nullptr, &gameStatementRect );
 
     mGame.draw();
     SDL_RenderPresent(renderer);

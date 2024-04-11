@@ -29,6 +29,7 @@ inline SDL_Color textColor = {255 , 255 , 255};
 inline SDL_Texture* mainMenuText = nullptr;
 inline SDL_Texture* startText = nullptr;
 inline SDL_Texture* quitText = nullptr;
+inline SDL_Texture* gameStatementText = nullptr;
 inline SDL_Texture* playAgainText = nullptr;
 inline SDL_Texture* quitGameText = nullptr;
 inline SDL_Texture* mapText = nullptr;
@@ -49,7 +50,7 @@ inline SDL_Surface* volumeSurface = nullptr;
 inline std::stringstream volumeToText;
 inline TTF_Font* Font = TTF_OpenFont("fonts/emulogic.ttf", BLOCK_SIZE_24);
 
-inline SDL_Rect mainMenuRect , startButton , quitButton, playAgainButton, quitGameButton, mapButton , volumeRect , OkButton;;
+inline SDL_Rect mainMenuRect , startButton , quitButton, playAgainButton, quitGameButton, mapButton, OkButton, gameStatementRect;
 
 static bool gameStarted = false;
 
@@ -90,10 +91,10 @@ enum Directions {
     down,
 };
 
-const SDL_Color Red = {0xff, 0x00, 0x00};
 const SDL_Color Yellow = {0xff, 0xff, 0x00};
 const SDL_Color White = {0xff, 0xff, 0xff};
-const SDL_Color Pink = {254, 184, 255};
+const SDL_Color Cyan = {1,255,255};
+const SDL_Color Red = {255, 0, 0};
 
 
 void openSDL();
