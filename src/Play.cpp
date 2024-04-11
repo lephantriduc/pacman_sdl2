@@ -190,6 +190,12 @@ void Play::Playing() {
         if (event.type == SDL_QUIT) return;
 
         if (event.key.state == SDL_PRESSED) {
+            if(event.key.keysym.sym == SDLK_SPACE)
+                if(!PauseGame()) {
+                    mGame.resetGame();
+                    if(RunMainMenu()) RunGame();
+                    return;
+                }
             if (event.key.keysym.sym == SDLK_RIGHT ||
                 event.key.keysym.sym == SDLK_d)
                 mover.push_back(right);

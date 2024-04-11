@@ -11,7 +11,12 @@ public:
     void Playing();
     bool PlayAgain();
     void render();
+    bool PauseGame();
     void shootFireworks();
+    Texture ghosty;
+    Texture Note;
+    Texture Authors;
+
 private:
     SDL_Event event;
     Game mGame;
