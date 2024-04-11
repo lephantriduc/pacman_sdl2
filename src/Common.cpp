@@ -17,8 +17,8 @@ void openSDL() {
 
     mainMenuRect = {SCREEN_WIDTH / 2 - 100, 50, 200, 50};
     startButton = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 - 150, 150, 50};
-    quitButton = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 - 50, 150, 50};
-    mapButton = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 50, 150, 50};
+    quitButton = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 50, 150, 50};
+    mapButton = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 - 50, 150, 50};
 
     int scale = 2;
 
