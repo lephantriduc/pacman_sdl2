@@ -2,7 +2,7 @@
 
 void openSDL() {
     SDL_Init(SDL_INIT_VIDEO);
-    window = SDL_CreateWindow("Let's goooooooo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT,
+    window = SDL_CreateWindow("", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT,
                               SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
     TTF_Init();
@@ -14,16 +14,20 @@ void openSDL() {
     startText = renderText("Play", Font, textColor, renderer);
     quitText = renderText("Quit", Font, textColor, renderer);
     mapText = renderText("Maps", Font, textColor, renderer);
+    AuthorText = renderText("This is our first", Font, textColor, renderer);
+    AuthorText1 = renderText("collaborative game", Font, textColor, renderer);
 
     mainMenuRect = {SCREEN_WIDTH / 2 - 100, 50, 200, 50};
     startButton = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 - 150, 150, 50};
     quitButton = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 50, 150, 50};
     mapButton = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 - 50, 150, 50};
+    AuthorRect = {109, 740, 180, 20};
+    AuthorRect1 = {390, 740, 180, 20};
 
     int scale = 2;
 
     OkText = renderText("Ok", Font, textColor, renderer);
-    OkButton = {SCREEN_WIDTH / 2 - 15, SCREEN_HEIGHT / 2 + 230, 30, 30};
+    OkButton = {SCREEN_WIDTH / 2 - 15, SCREEN_HEIGHT / 2 + 300, 30, 30};
 
     Map[0] = IMG_Load("assets/Map0.png");
     Map[1] = IMG_Load("assets/Map1.png");

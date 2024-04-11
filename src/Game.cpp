@@ -166,9 +166,7 @@ void Game::resetGame() {
     isGameOver = false;
     mPac.setLiving(true);
     mPac.setFacing(right);
-//    mBlinky.setFacing(right);
-//    mPinky.setFacing(right);
-//    mClyde.setFacing(right);
+    mPac.setPoweredUp(false);
 
     mBoard.resetPosition(mPac);
     mBoard.resetPosition(mBlinky);

@@ -1,5 +1,18 @@
 #include "Play.hpp"
 
+
+Play::Play() {
+    ghosty.load("assets/RedGhost.png");
+    Note.load("assets/Note.png");
+    Authors.load("assets/authors.png");
+}
+
+Play::~Play() {
+    ghosty.free();
+    Note.free();
+    Authors.free();
+}
+
 bool Play::RunMainMenu() {
     mover.push_back(right);
 
@@ -94,6 +107,10 @@ bool Play::RunMainMenu() {
         SDL_RenderCopy(renderer, startText, nullptr, &startButton);
         SDL_RenderCopy(renderer, quitText, nullptr, &quitButton);
         SDL_RenderCopy(renderer, mapText, nullptr, &mapButton);
+        SDL_RenderCopy(renderer, AuthorText, nullptr, &AuthorRect);
+        SDL_RenderCopy(renderer, AuthorText1, nullptr, &AuthorRect1);
+
+        Authors.render(0,864 - 220);
 
         SDL_RenderPresent(renderer);
         int imgFlags = IMG_INIT_PNG;
@@ -282,4 +299,60 @@ void Play::shootFireworks() {
         render();
         SDL_Delay(10);
     }
+}
+
+bool Play::PauseGame() {
+    SDL_RenderClear(renderer);
+    ghosty.render(20, -10);
+    Note.render(350, 640);
+    PauseRect = {SCREEN_WIDTH / 2 - 200, SCREEN_HEIGHT / 2 - 150 , 400 , 300 };
+    PauseBorder = {SCREEN_WIDTH / 2 - 201, SCREEN_HEIGHT / 2 - 151 , 402 , 302 };
+    GamePausedRect = {SCREEN_WIDTH / 2 - 140, SCREEN_HEIGHT / 2 - 120 , 280 , 60 };
+    ContinueButton = { SCREEN_WIDTH / 2 - 60, SCREEN_HEIGHT / 2 - 10 , 120, 40 };
+    QuitToMenuButton = { SCREEN_WIDTH / 2 - 90, SCREEN_HEIGHT / 2 + 60 , 180, 40 };
+    RUScaredRect = {80 + 100, 10 , 250 , 30 };
+    RUScaredRect1 = {50 + 100, 10 + 30 , 330 , 30 };
+    NoteRect = {50 + 100, 670 , 360 , 30 };
+    NoteRect1 = {70 + 100, 670 + 30 , 315 , 30 };
+
+    GamePausedText = renderText("Game Paused", Font, textColor, renderer);
+    QuitToMenuText = renderText("Quit To Menu", Font, textColor, renderer);
+    ContinueText = renderText("Continue", Font, textColor, renderer);
+    RUScaredText = renderText("Why did you stop?", Font, textColor, renderer);
+    RUScaredText1 = renderText("Are you scared or what?", Font, textColor, renderer);
+    NoteText = renderText("NOTE: You will lose your", Font, textColor, renderer);
+    NoteText1 = renderText("progress if you quit!", Font, textColor, renderer);
+
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderDrawRect(renderer, &PauseBorder);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+    SDL_RenderFillRect(renderer, &PauseRect);
+
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+    SDL_RenderCopy(renderer, GamePausedText, nullptr, &GamePausedRect);
+    SDL_RenderCopy(renderer, ContinueText, nullptr, &ContinueButton);
+    SDL_RenderCopy(renderer, QuitToMenuText, nullptr, &QuitToMenuButton);
+    SDL_RenderCopy(renderer, RUScaredText, nullptr, &RUScaredRect);
+    SDL_RenderCopy(renderer, RUScaredText1, nullptr, &RUScaredRect1);
+    SDL_RenderCopy(renderer, NoteText, nullptr, &NoteRect);
+    SDL_RenderCopy(renderer, NoteText1, nullptr, &NoteRect1);
+    SDL_RenderPresent(renderer);
+
+    while(1){
+        if(!SDL_PollEvent(&event)) continue;
+        if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+            int mouseX, mouseY;
+            SDL_GetMouseState(&mouseX, &mouseY);
+            if(isMouseOver(ContinueButton, mouseX, mouseY)){
+                SDL_RenderClear(renderer);
+                return 1;
+            }
+            if(isMouseOver(QuitToMenuButton, mouseX, mouseY)){
+                SDL_RenderClear(renderer);
+
+                return 0;
+            }
+        }
+    }
+
 }

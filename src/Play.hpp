@@ -5,6 +5,8 @@
 
 class Play {
 public:
+    Play();
+    ~Play();
     bool RunMainMenu();
     void RunGame();
     void DisplayChoices(bool hasWon);
@@ -28,4 +30,5 @@ private:
     SDL_Rect textRect;
     SDL_Rect volumeBorder;
     SDL_Rect clearRect;
+
 };

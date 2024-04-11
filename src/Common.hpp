@@ -21,22 +21,31 @@ constexpr uint8_t BLOCK_SIZE_24 = 24;
 constexpr uint16_t SCREEN_WIDTH = BOARD_WIDTH * BLOCK_SIZE_24;
 constexpr uint16_t SCREEN_HEIGHT = BOARD_HEIGHT * BLOCK_SIZE_24;
 
-inline SDL_Window* window = nullptr;
-inline SDL_Renderer* renderer = nullptr;
-inline SDL_Rect* currentClip = nullptr;
+inline SDL_Window *window = nullptr;
+inline SDL_Renderer *renderer = nullptr;
+inline SDL_Rect *currentClip = nullptr;
 
-inline SDL_Color textColor = {255 , 255 , 255};
-inline SDL_Texture* mainMenuText = nullptr;
-inline SDL_Texture* startText = nullptr;
-inline SDL_Texture* quitText = nullptr;
-inline SDL_Texture* gameStatementText = nullptr;
-inline SDL_Texture* playAgainText = nullptr;
-inline SDL_Texture* quitGameText = nullptr;
-inline SDL_Texture* mapText = nullptr;
-inline SDL_Texture* volumeText = nullptr;
-inline SDL_Texture* OkText = nullptr;
+inline SDL_Color textColor = {255, 255, 255};
+inline SDL_Texture *mainMenuText = nullptr;
+inline SDL_Texture *startText = nullptr;
+inline SDL_Texture *quitText = nullptr;
+inline SDL_Texture *gameStatementText = nullptr;
+inline SDL_Texture *playAgainText = nullptr;
+inline SDL_Texture *quitGameText = nullptr;
+inline SDL_Texture *mapText = nullptr;
+inline SDL_Texture *volumeText = nullptr;
+inline SDL_Texture *OkText = nullptr;
 inline SDL_Texture *NextTexture = nullptr;
 inline SDL_Texture *PrevTexture = nullptr;
+inline SDL_Texture *GamePausedText = nullptr;
+inline SDL_Texture *QuitToMenuText = nullptr;
+inline SDL_Texture *ContinueText = nullptr;
+inline SDL_Texture *RUScaredText = nullptr;
+inline SDL_Texture *RUScaredText1 = nullptr;
+inline SDL_Texture *NoteText = nullptr;
+inline SDL_Texture *NoteText1 = nullptr;
+inline SDL_Texture *AuthorText = nullptr;
+inline SDL_Texture *AuthorText1 = nullptr;
 
 inline SDL_Rect dstRect;
 inline SDL_Rect NextRect;
@@ -46,11 +55,13 @@ inline SDL_Surface *Surface[4];
 inline SDL_Surface *Map[4];
 
 
-inline SDL_Surface* volumeSurface = nullptr;
+inline SDL_Surface *volumeSurface = nullptr;
 inline std::stringstream volumeToText;
-inline TTF_Font* Font = TTF_OpenFont("fonts/emulogic.ttf", BLOCK_SIZE_24);
+inline TTF_Font *Font = TTF_OpenFont("fonts/emulogic.ttf", BLOCK_SIZE_24);
 
-inline SDL_Rect mainMenuRect , startButton , quitButton, playAgainButton, quitGameButton, mapButton, OkButton, gameStatementRect;
+inline SDL_Rect mainMenuRect, startButton, quitButton, playAgainButton, quitGameButton, mapButton, OkButton,
+        gameStatementRect, PauseRect, PauseBorder, GamePausedRect, ContinueButton, QuitToMenuButton,
+        RUScaredRect, RUScaredRect1, NoteRect, NoteRect1, AuthorRect, AuthorRect1;
 
 static bool gameStarted = false;
 
@@ -93,15 +104,14 @@ enum Directions {
 
 const SDL_Color Yellow = {0xff, 0xff, 0x00};
 const SDL_Color White = {0xff, 0xff, 0xff};
-const SDL_Color Cyan = {1,255,255};
 const SDL_Color Red = {255, 0, 0};
 
 
 void openSDL();
 
-inline void InitFrames(const uint8_t TotalFrames, SDL_Rect SpriteClips[], uint8_t CurrentBlockSize = BLOCK_SIZE_32){
+inline void InitFrames(const uint8_t TotalFrames, SDL_Rect SpriteClips[], uint8_t CurrentBlockSize = BLOCK_SIZE_32) {
     unsigned short counter = 0;
-    for(uint8_t i = 0; i < TotalFrames; i++){
+    for (uint8_t i = 0; i < TotalFrames; i++) {
         SpriteClips[i].x = counter;
         SpriteClips[i].y = 0;
         SpriteClips[i].w = CurrentBlockSize;
@@ -110,17 +120,18 @@ inline void InitFrames(const uint8_t TotalFrames, SDL_Rect SpriteClips[], uint8_
     }
 }
 
-inline SDL_Texture* renderText(const std::string& text, TTF_Font* font, SDL_Color color, SDL_Renderer* renderer) {
-    SDL_Surface* surface = TTF_RenderText_Solid(font, text.c_str(), color);
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+inline SDL_Texture *renderText(const std::string &text, TTF_Font *font, SDL_Color color, SDL_Renderer *renderer) {
+    SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), color);
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
 
     return texture;
 }
 
+
 inline bool isMouseOver(SDL_Rect button, int mouseX, int mouseY) {
     return mouseX >= button.x && mouseX <= button.x + button.w &&
            mouseY >= button.y && mouseY <= button.y + button.h;
-} 
+}
 
 void closeSDL();
