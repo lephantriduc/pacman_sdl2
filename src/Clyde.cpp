@@ -2,6 +2,7 @@
 
 Clyde::Clyde() : Ghost(Entities::Clyde){
     ghostColor = {255,185,81};
+    restPos = {9999, 9999};
 }
 
 void Clyde::setTarget(Pac &mPac, Position mBlinky) {

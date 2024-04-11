@@ -2,6 +2,7 @@
 
 Pinky::Pinky() : Ghost(Entities::Pinky){
     ghostColor = {254,184,255};
+    restPos.setPosition(9999,0);
 }
 
 void Pinky::setTarget(Pac& mPac, Position mBlinky) {

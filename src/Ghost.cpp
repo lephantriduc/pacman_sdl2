@@ -59,11 +59,11 @@ void Ghost::draw(Pac &pac) {
             this->setSpeed(2);
         } else {
             body.paint({0, 0, 255});
-            this->setSpeed(1);
+            this->setSpeed(1); // Ghost is scared and slows down
         }
     } else {
         body.paint({0, 0, 0});
-        this->setSpeed(5);
+        this->setSpeed(5); // Ghost quickly returns home
     }
 
     if (this->isHome()) {
@@ -131,56 +131,17 @@ bool Ghost::isTargetToCalc(Pac &mPac) {
     }
 
     canUseDoor = false;
-    return true;
-}
-
-void Ghost::dijkstra(uint8_t ActualMap[]) {
-    int dist[BOARD_WIDTH * BOARD_HEIGHT];
-    int x = this->getX();
-    int y = this->getY();
-
-    int cell_x = x / BLOCK_SIZE_24;
-    int cell_y = y / BLOCK_SIZE_24;
-
-    int pos = cell_y * BOARD_WIDTH + abs(cell_x % BOARD_WIDTH);
-
-    int target_x = target.getX() / 24;
-    int target_y = target.getY() / 24;
-
-    int target_pos = target_y * BOARD_WIDTH + abs(target_y % BOARD_WIDTH);
-    dist[target_pos] = 0;
-    std::queue<std::pair<int, int> > q;
-    q.push({target_pos, 0});
-    while (!q.empty()) {
-        auto [u, du] = q.front();
-        q.pop();
-        if (du != dist[u]) continue;
-        for (auto v : g[u]) {
-            if (dist[v] > du + 1) {
-                dist[v] = du + 1;
-                q.push({v, dist[v]});
-            }
-        }
-    }
-
-    std::vector<std::pair<int, int> > dists;
-    dists.clear();
-
-    if (pos % BOARD_WIDTH != BOARD_WIDTH - 1 && !wallCollision(cell_x, cell_y, ActualMap, canUseDoor)) dists.push_back({dist[pos + 1], Directions::right});
-    if (pos % BOARD_WIDTH != 0 && !wallCollision(cell_x, cell_y, ActualMap, canUseDoor)) dists.push_back({dist[pos - 1], Directions::left});
-    if (pos / BOARD_WIDTH != BOARD_HEIGHT - 1 && !wallCollision(cell_x, cell_y, ActualMap, canUseDoor)) dists.push_back({dist[pos + BOARD_WIDTH], Directions::down});
-    if (pos > 23 && !wallCollision(cell_x, cell_y, ActualMap, canUseDoor)) dists.push_back({dist[pos - BOARD_WIDTH], Directions::up});
-
-    sort(dists.begin(), dists.end());
-
-    this->setDirection(dists[0].second);
+    if (isChasing) return true;
+    target.setPosition(restPos);
+    return false;
 }
 
 void Ghost::setTarget(Pac &mPac, Position mBlinky) {
     this->target.setPosition(mPac.getPosition());
 }
 
-void Ghost::updatePos(uint8_t *actualBoard, Pac &mPac, Position mBlinky, bool inMenu) {
+void Ghost::updatePos(uint8_t *actualBoard, Pac &mPac, Position mBlinky, bool inMenu, bool TimedStatus) {
+    this->setChasingOrNot(TimedStatus, mPac);
     for(uint8_t i = 0; i < this->getSpeed(); i++){
         if (this->isTargetToCalc(mPac)) {
             this->setTarget(mPac, mBlinky);
@@ -201,5 +162,14 @@ void Ghost::updatePos(uint8_t *actualBoard, Pac &mPac, Position mBlinky, bool in
             this->checkIfGoesOutOfScreen(false);
         }
     }
+    std::cout << isChasing << std::endl;
 }
 
+void Ghost::setChasingOrNot(bool TimedStatus, Pac& mPac) {
+    if (mPac.getPoweredUp()) {
+        isChasing = false;
+        return;
+    } else {
+        isChasing = TimedStatus;
+    }
+}

@@ -24,6 +24,7 @@ public:
     bool isGameWon();
     void resetGame();
     void resetMover(std::vector<uint8_t> &mover);
+    void chaseTimer();
     
     bool isGameOver;
     Sound mSound;
@@ -38,7 +39,11 @@ private:
     uint8_t actualMap[BOARD_HEIGHT * BOARD_WIDTH];
     Timer speedUpTime;
     Timer powerUpTime;
-    Timer mapAnimationTimer;
+    Timer ghostTime;
+    int ghostTimeLimit;
+    int chaseTime = 15000;
+    int restTime = 5000;
+    bool isChasing;
 
     bool flag_0 = false;
     bool flag_1 = false;

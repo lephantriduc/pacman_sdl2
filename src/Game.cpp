@@ -14,6 +14,10 @@ void Game::start() {
     mBoard.resetPosition(mPinky);
     mBoard.resetPosition(mInky);
     mBoard.resetPosition(mClyde);
+    ghostTime.restart();
+    ghostTime.start();
+    isChasing = true;
+    ghostTimeLimit = chaseTime;
 }
 
 void Game::setMap(int clicks) {
@@ -35,11 +39,12 @@ void Game::draw() {
 void Game::update(std::vector<uint8_t> &mover) {
     this->updatePositions(mover);
     this->food();
+    this->chaseTimer();
 
     if (mPac.isColliding(mBlinky) || mPac.isColliding(mPinky) || mPac.isColliding(mInky) || mPac.isColliding(mClyde)) {
         if (!mPac.getPoweredUp()) { // Pac in normal state
             mPac.setFrame(32);
-//            mPac.setLiving(false);
+            mPac.setLiving(false);
             mBoard.decreaseScore(100);
         } else { // Pac is powered up
             if (mPac.isColliding(mBlinky)) {
@@ -73,10 +78,10 @@ void Game::update(std::vector<uint8_t> &mover) {
 }
 
 void Game::updatePositions(std::vector<uint8_t> &mover) {
-    mBlinky.updatePos(actualMap, mPac, {0, 0}, false);
-    mPinky.updatePos(actualMap, mPac, {0, 0}, false);
-    mInky.updatePos(actualMap, mPac, mBlinky, false);
-    mClyde.updatePos(actualMap, mPac, {0, 0}, false);
+    mBlinky.updatePos(actualMap, mPac, {0, 0}, false, isChasing);
+    mPinky.updatePos(actualMap, mPac, {0, 0}, false,isChasing);
+    mInky.updatePos(actualMap, mPac, mBlinky, false,isChasing);
+    mClyde.updatePos(actualMap, mPac, {0, 0}, false,isChasing);
     mPac.updatePosition(mover, actualMap);
 }
 
@@ -126,8 +131,7 @@ void Game::food() {
             speedUpTime.restart();
             break;
         case 4: // Teleport perk
-            mPac.setX(BLOCK_SIZE_24 * 27 - mPac.getX());
-            mPac.setY(BLOCK_SIZE_24 * 36 - mPac.getY());
+            mPac.setPosition(BLOCK_SIZE_24 * 27 - mPac.getX(),BLOCK_SIZE_24 * 36 - mPac.getY());
             break;
         case 5: // Healing perk
             mBoard.increaseLives();
@@ -187,29 +191,28 @@ void Game::runMenuEntities(std::vector<uint8_t> mover) {
     mPac.setFacing(right);
 
     mBlinky.draw(mPac);
-    mBlinky.updatePos(actualMap, mPac, {0, 0}, true);
+    mBlinky.updatePos(actualMap, mPac, {0, 0}, true, isChasing);
     mBlinky.setFacing(right);
     mBlinky.setDirection(right);
 
     mPinky.draw(mPac);
-    mPinky.updatePos(actualMap, mPac, {0, 0}, true);
+    mPinky.updatePos(actualMap, mPac, {0, 0}, true, isChasing);
     mPinky.setFacing(right);
     mPinky.setDirection(right);
 
     mInky.draw(mPac);
-    mInky.updatePos(actualMap, mPac, {0, 0}, true);
+    mInky.updatePos(actualMap, mPac, {0, 0}, true, isChasing);
     mInky.setFacing(right);
     mInky.setDirection(right);
 
     mClyde.draw(mPac);
-    mClyde.updatePos(actualMap, mPac, {0, 0}, true);
+    mClyde.updatePos(actualMap, mPac, {0, 0}, true, isChasing);
     mClyde.setFacing(right);
     mClyde.setDirection(right);
 }
 
 void Game::putMenuEntities(Position pos) {
     mPac.setPosition(pos);
-//    mBlinky.setDirection(right);
     mBlinky.setPosition({pos.getX() - 100, pos.getY()});
     mPinky.setPosition(pos.getX() - 150, pos.getY());
     mInky.setPosition(pos.getX() - 200, pos.getY());
@@ -220,4 +223,19 @@ void Game::putMenuEntities(Position pos) {
 void Game::resetMover(std::vector<uint8_t> &mover) {
     mover.clear();
     mover.push_back(right);
+}
+
+
+void Game::chaseTimer() {
+    if (ghostTime.getTicks() > ghostTimeLimit) {
+        if (ghostTimeLimit == restTime) { // If it is resting
+            isChasing = true;
+            ghostTimeLimit = chaseTime;
+            ghostTime.restart();
+        } else if (ghostTimeLimit == chaseTime) { // If it is chasing
+            isChasing = false;
+            ghostTimeLimit = restTime;
+            ghostTime.restart();
+        }
+    }
 }
