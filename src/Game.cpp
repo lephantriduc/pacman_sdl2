@@ -134,8 +134,7 @@ void Game::food() {
             mPac.setPosition(BLOCK_SIZE_24 * 27 - mPac.getX(),BLOCK_SIZE_24 * 36 - mPac.getY());
             break;
         case 5: // Healing perk
-            mBoard.increaseLives();
-            mBoard.increaseScore(200);
+            if (mBoard.getLives() < 3) mBoard.increaseLives(), mBoard.increaseScore(200);;
             break;
         default:
             break;
@@ -166,9 +165,7 @@ void Game::resetGame() {
     isGameOver = false;
     mPac.setLiving(true);
     mPac.setFacing(right);
-//    mBlinky.setFacing(right);
-//    mPinky.setFacing(right);
-//    mClyde.setFacing(right);
+    mPac.setPoweredUp(false);
 
     mBoard.resetPosition(mPac);
     mBoard.resetPosition(mBlinky);

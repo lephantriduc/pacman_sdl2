@@ -13,6 +13,7 @@ Ghost::Ghost(Entity mIdentity) : Entity(mIdentity) {
 
 Ghost::~Ghost() {
     body.free();
+    eyes.free();
 }
 
 void Ghost::calcDirection(uint8_t ActualMap[]) {
@@ -162,7 +163,6 @@ void Ghost::updatePos(uint8_t *actualBoard, Pac &mPac, Position mBlinky, bool in
             this->checkIfGoesOutOfScreen(false);
         }
     }
-    std::cout << isChasing << std::endl;
 }
 
 void Ghost::setChasingOrNot(bool TimedStatus, Pac& mPac) {

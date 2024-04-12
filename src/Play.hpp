@@ -5,13 +5,20 @@
 
 class Play {
 public:
+    Play();
+    ~Play();
     bool RunMainMenu();
     void RunGame();
     void DisplayChoices(bool hasWon);
     void Playing();
     bool PlayAgain();
     void render();
+    bool PauseGame();
     void shootFireworks();
+    Texture ghosty;
+    Texture Note;
+    Texture Authors;
+
 private:
     SDL_Event event;
     Game mGame;
@@ -23,4 +30,5 @@ private:
     SDL_Rect textRect;
     SDL_Rect volumeBorder;
     SDL_Rect clearRect;
+
 };
