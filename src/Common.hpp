@@ -29,7 +29,7 @@ inline SDL_Rect *currentClip = nullptr;
 
 inline SDL_Color textColor = {255, 255, 255};
 inline SDL_Texture *mainMenuText = nullptr;
-inline SDL_Texture *startText = nullptr;
+inline SDL_Texture *playText = nullptr;
 inline SDL_Texture *quitText = nullptr;
 inline SDL_Texture *gameStatementText = nullptr;
 inline SDL_Texture *playAgainText = nullptr;
@@ -61,11 +61,12 @@ inline SDL_Surface *volumeSurface = nullptr;
 inline std::stringstream volumeToText;
 inline TTF_Font *Font = TTF_OpenFont("fonts/emulogic.ttf", BLOCK_SIZE_24);
 
-inline SDL_Rect mainMenuRect, startButton, quitButton, playAgainButton, quitGameButton, mapButton, OkButton,
+inline SDL_Rect mainMenuRect, playButton, quitButton, playAgainButton, quitGameButton, mapButton, OkButton,
         gameStatementRect, PauseRect, PauseBorder, GamePausedRect, ContinueButton, QuitToMenuButton,
         RUScaredRect, RUScaredRect1, NoteRect, NoteRect1, AuthorRect, AuthorRect1;
 
 static bool gameStarted = false;
+static unsigned short startTicks = 3000;
 
 constexpr uint8_t pacmanFrames = 3;
 constexpr uint8_t deathFrames = 10;
@@ -76,6 +77,8 @@ inline std::string map_num;
 inline int mapClickCount = 0;
 
 inline std::vector<int> g[BOARD_WIDTH * BOARD_HEIGHT];
+
+inline int volume = 0;
 
 enum Objects {
     wall,

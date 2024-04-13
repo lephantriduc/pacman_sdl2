@@ -16,8 +16,6 @@ Play::~Play() {
 bool Play::RunMainMenu() {
     mover.push_back(right);
 
-//    int volume = MIX_MAX_VOLUME / 10 + 1;
-    int volume = 0;
     Mix_Volume(-1, volume);
     bool isDragging = false;
 
@@ -50,7 +48,7 @@ bool Play::RunMainMenu() {
                                  MIX_MAX_VOLUME / 150;
                     Mix_Volume(-1, volume);
                 }
-                if (isMouseOver(startButton, mouseX, mouseY)) {
+                if (isMouseOver(playButton, mouseX, mouseY)) {
                     return true;
                 } else if (isMouseOver(quitButton, mouseX, mouseY)) {
                     return false;
@@ -104,7 +102,7 @@ bool Play::RunMainMenu() {
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
         SDL_RenderCopy(renderer, mainMenuText, nullptr, &mainMenuRect);
-        SDL_RenderCopy(renderer, startText, nullptr, &startButton);
+        SDL_RenderCopy(renderer, playText, nullptr, &playButton);
         SDL_RenderCopy(renderer, quitText, nullptr, &quitButton);
         SDL_RenderCopy(renderer, mapText, nullptr, &mapButton);
         SDL_RenderCopy(renderer, AuthorText, nullptr, &AuthorRect);
@@ -153,6 +151,8 @@ bool Play::RunMainMenu() {
 }
 
 void Play::RunGame() {
+    startTicks = 3000;
+
     SDL_RenderClear(renderer);
     SDL_SetRenderDrawColor(SDL_GetRenderer(window), 0, 0, 0, 255);
     SDL_RenderClear(SDL_GetRenderer(window));
@@ -161,8 +161,8 @@ void Play::RunGame() {
     mover.clear();
     mover.push_back(right);
     mGame.start();
-    // GameTimer.Start()
     mGame.setMap(mapClickCount);
+    GameTimer.start();
 
     Playing();
 }
@@ -189,14 +189,11 @@ void Play::DisplayChoices(bool hasWon) {
 }
 
 void Play::Playing() {
-    Timer GameTimer;
-    static unsigned short startTicks = 4500;
-
     if (mGame.isGameOver || mGame.isGameWon()) {
+        if (mGame.isGameWon()) shootFireworks();
         DisplayChoices(mGame.isGameWon());
         mGame.resetGame();
-        if (PlayAgain()) RunGame();
-        else if (RunMainMenu()) RunGame();
+        if (PlayAgain() || RunMainMenu()) RunGame();
         return;
     }
 
@@ -267,6 +264,7 @@ bool Play::PlayAgain() {
 void Play::render() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
+    mGame.draw();
 
     for (const auto &fw: fireworks) {
         SDL_SetRenderDrawColor(renderer, fw.r, fw.g, fw.b, fw.a);
@@ -279,8 +277,6 @@ void Play::render() {
         SDL_RenderFillRect(renderer, &rect);
     }
 
-    mGame.draw();
-    DisplayChoices(mGame.isGameWon());
     SDL_RenderPresent(renderer);
 }
 

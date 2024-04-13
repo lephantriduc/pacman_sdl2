@@ -7,8 +7,8 @@ Ghost::Ghost(Entity mIdentity) : Entity(mIdentity) {
     InitFrames(ghostEyesFrames, ghostEyesSpriteClips);
     currentBodyFrame = 0;
     canUseDoor = false;
-    doorTarget.setPosition(13 * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2, 15 * BLOCK_SIZE_24);
-    home.setPosition(13 * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2, 17 * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
+    doorTarget.setPosition(324, 360);
+    home.setPosition(290, 415);
 }
 
 Ghost::~Ghost() {
@@ -111,7 +111,13 @@ bool Ghost::isHome() {
 bool Ghost::isTargetToCalc(Pac &mPac) {
     if (!this->getLiving()) {
         canUseDoor = true;
-        target.setPosition(home);
+
+        // Fixing ghosts not going home
+        if (!(target.getPosition() == home)) target.setPosition(doorTarget);
+        if (this->getX() > 216 && this->getX() < 432 && this->getY() == 336 && target.getPosition() == doorTarget) {
+            target.setPosition(home);
+        }
+
         if (this->getPosition() == home.getPosition())
             this->setLiving(true);
         return false;
@@ -119,8 +125,8 @@ bool Ghost::isTargetToCalc(Pac &mPac) {
 
     if (this->isHome() && mPac.getPoweredUp()) {
         if (this->getPosition() == home.getPosition())
-            target.setY(this->home.getY() - BLOCK_SIZE_24);
-        else if (this->getX() == home.getX() && this->getY() == home.getY() - BLOCK_SIZE_24)
+            target.setY(this->home.getY());
+        else if (this->getX() == home.getX() && this->getY() == home.getY())
             target.setY(this->home.getY());
         return false;
     }
@@ -143,7 +149,7 @@ void Ghost::setTarget(Pac &mPac, Position mBlinky) {
 
 void Ghost::updatePos(uint8_t *actualBoard, Pac &mPac, Position mBlinky, bool inMenu, bool TimedStatus) {
     this->setChasingOrNot(TimedStatus, mPac);
-    for(uint8_t i = 0; i < this->getSpeed(); i++){
+    for (uint8_t i = 0; i < this->getSpeed(); i++) {
         if (this->isTargetToCalc(mPac)) {
             this->setTarget(mPac, mBlinky);
         }
@@ -157,15 +163,14 @@ void Ghost::updatePos(uint8_t *actualBoard, Pac &mPac, Position mBlinky, bool in
             this->calcDirection(actualBoard);
             this->move(this->getDirection());
             this->checkIfGoesOutOfScreen(false);
-        }
-        else {
+        } else {
             this->move(this->getDirection());
             this->checkIfGoesOutOfScreen(false);
         }
     }
 }
 
-void Ghost::setChasingOrNot(bool TimedStatus, Pac& mPac) {
+void Ghost::setChasingOrNot(bool TimedStatus, Pac &mPac) {
     if (mPac.getPoweredUp()) {
         isChasing = false;
         return;
@@ -173,3 +178,4 @@ void Ghost::setChasingOrNot(bool TimedStatus, Pac& mPac) {
         isChasing = TimedStatus;
     }
 }
+
