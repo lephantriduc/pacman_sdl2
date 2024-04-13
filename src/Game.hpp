@@ -15,7 +15,7 @@ public:
     void setMap(int clicks);
     void update(std::vector<uint8_t> &mover);
     void updatePositions(std::vector <uint8_t> &mover);
-    bool process(std::vector<uint8_t> &mover, Timer gameTimer, unsigned short &startTicks);
+    bool process(std::vector<uint8_t> &mover, Timer& gameTimer, unsigned short &startTicks);
 
     void food();
 
@@ -25,7 +25,7 @@ public:
     void resetGame();
     void resetMover(std::vector<uint8_t> &mover);
     void chaseTimer();
-    
+
     bool isGameOver;
     Sound mSound;
 
@@ -44,6 +44,7 @@ private:
     int chaseTime = 15000;
     int restTime = 5000;
     bool isChasing;
+    Texture Ready;
 
     bool flag_0 = false;
     bool flag_1 = false;

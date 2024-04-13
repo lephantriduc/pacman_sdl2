@@ -20,13 +20,15 @@ private:
     SDL_Event event;
     Game mGame;
     MainMenu mMenu;
-     Timer GameTimer;
+    Timer GameTimer;
     std::vector<unsigned char> mover;
-    // unsigned short StartTicks = 4500;
     SDL_Rect volumeBar;
     SDL_Rect textRect;
     SDL_Rect volumeBorder;
     SDL_Rect clearRect;
+    Texture ghosty;
+    Texture Note;
+    Texture Authors;
 
     Texture ghosty;
     Texture Note;
