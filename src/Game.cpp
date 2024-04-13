@@ -49,7 +49,7 @@ void Game::update(std::vector<uint8_t> &mover) {
     if (mPac.isColliding(mBlinky) || mPac.isColliding(mPinky) || mPac.isColliding(mInky) || mPac.isColliding(mClyde)) {
         if (!mPac.getPoweredUp()) { // Pac in normal state
             mPac.setFrame(32);
-            mPac.setLiving(false);
+            mPac.setLiving(false); // Commenting this for immortality
             mBoard.decreaseScore(100);
         } else { // Pac is powered up
             if (mPac.isColliding(mBlinky)) {
@@ -149,6 +149,24 @@ void Game::food() {
         case 4: // Teleport perk
             newX = BLOCK_SIZE_24 * 27 - mPac.getX();
             newY = BLOCK_SIZE_24 * 36 - mPac.getY();
+
+            if (mPac.getFacing() == up || mPac.getFacing() == down) {
+                if (abs(newX - 24) < abs(newX - 624)) {
+                    newX = 24;
+                    if (mPac.getFacing() == up) {
+                        newY = 118;
+                    }
+                } else {
+                    newX = 624;
+                }
+            }
+            if (mPac.getFacing() == right || mPac.getFacing() == left) {
+                if (abs(newY - 96) < abs(newY - 768)) {
+                    newY = 96;
+                } else {
+                    newY = 768;
+                }
+            }
             mPac.setPosition(newX, newY);
             break;
         case 5: // Healing perk
