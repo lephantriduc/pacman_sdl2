@@ -4,9 +4,12 @@ Game::Game() {
     mBoard.copyBoard(actualMap);
     isGameOver = false;
     mPac.setLiving(true);
+    Ready.loadFromRenderedText("Ready?", Yellow);
 }
 
-Game::~Game() {}
+Game::~Game() {
+    Ready.free();
+}
 
 void Game::start() {
     mBoard.resetPosition(mPac);
@@ -18,6 +21,7 @@ void Game::start() {
     ghostTime.start();
     isChasing = true;
     ghostTimeLimit = chaseTime;
+    Ready.render(11 * 24, 20 * 24 - 5);
 }
 
 void Game::setMap(int clicks) {
@@ -85,29 +89,33 @@ void Game::updatePositions(std::vector<uint8_t> &mover) {
     mPac.updatePosition(mover, actualMap);
 }
 
-bool Game::process(std::vector<uint8_t> &mover, Timer gameTimer, unsigned short &startTicks) {
-    if (!gameStarted) {
-        this->start();
+bool Game::process(std::vector<uint8_t> &mover, Timer& gameTimer, unsigned short &startTicks) {
+    if (gameTimer.getTicks() < startTicks || !gameStarted) {
+        if (!gameStarted) gameTimer.restart();
         gameStarted = true;
-    }
-    if (mPac.getLiving()) {
-        this->update(mover);
-    } else { // If Pac is ded
-        if (mBoard.getLives() > 1) { // If Pac is ded but still have lives
-            if (mPac.getPacDoneDying()) { // Wait for death animation to finish before resetting
-                mPac.setPacDoneDying(false);
-                mBoard.decreaseLives();
-                mPac.setLiving(true);
-                mPac.setFacing(right);
-                gameStarted = false;
-                this->resetMover(mover); // Make Pac facing right every reset
-                return false;
-            }
-        } else { // If Pac is ded but no lives remaining
-            if (mPac.getPacDoneDying()) {
-                mPac.setPacDoneDying(false);
-                mBoard.decreaseLives();
-                isGameOver = true;
+        this->start();
+    } else {
+        if (mPac.getLiving()) {
+            this->update(mover);
+        } else { // If Pac is ded
+            if (mBoard.getLives() > 1) { // If Pac is ded but still have lives
+                if (mPac.getPacDoneDying()) { // Wait for death animation to finish before resetting
+                    this->resetMover(mover); // Make Pac facing right every reset
+                    startTicks = 2000;
+                    mPac.setPacDoneDying(false);
+                    mPac.setLiving(true);
+                    mBoard.decreaseLives();
+                    mPac.setFacing(right);
+                    gameStarted = false;
+                    gameTimer.reset();
+                    return false;
+                }
+            } else { // If Pac is ded but no lives remaining
+                if (mPac.getPacDoneDying()) {
+                    mPac.setPacDoneDying(false);
+                    mBoard.decreaseLives();
+                    isGameOver = true;
+                }
             }
         }
     }

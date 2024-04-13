@@ -50,7 +50,7 @@ bool Play::RunMainMenu() {
                                  MIX_MAX_VOLUME / 150;
                     Mix_Volume(-1, volume);
                 }
-                if (isMouseOver(startButton, mouseX, mouseY)) {
+                if (isMouseOver(playButton, mouseX, mouseY)) {
                     return true;
                 } else if (isMouseOver(quitButton, mouseX, mouseY)) {
                     return false;
@@ -104,7 +104,7 @@ bool Play::RunMainMenu() {
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
         SDL_RenderCopy(renderer, mainMenuText, nullptr, &mainMenuRect);
-        SDL_RenderCopy(renderer, startText, nullptr, &startButton);
+        SDL_RenderCopy(renderer, startText, nullptr, &playButton);
         SDL_RenderCopy(renderer, quitText, nullptr, &quitButton);
         SDL_RenderCopy(renderer, mapText, nullptr, &mapButton);
         SDL_RenderCopy(renderer, AuthorText, nullptr, &AuthorRect);
@@ -153,6 +153,8 @@ bool Play::RunMainMenu() {
 }
 
 void Play::RunGame() {
+    startTicks = 3000;
+
     SDL_RenderClear(renderer);
     SDL_SetRenderDrawColor(SDL_GetRenderer(window), 0, 0, 0, 255);
     SDL_RenderClear(SDL_GetRenderer(window));
@@ -161,8 +163,8 @@ void Play::RunGame() {
     mover.clear();
     mover.push_back(right);
     mGame.start();
-    // GameTimer.Start()
     mGame.setMap(mapClickCount);
+    GameTimer.start();
 
     Playing();
 }
