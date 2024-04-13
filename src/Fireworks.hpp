@@ -51,10 +51,9 @@ inline void createFirework(double x, double y) {
     double speed = (rand() % 5 + 5) / 10.0;
     fw.dx = -speed * cos(angle); // Fireworks move towards the center of the screen
     fw.dy = -speed * sin(angle); // Fireworks move towards the center of the screen
-    fw.r = rand() % 156 + 200; // Bright color (100-255)
-    fw.g = rand() % 156 + 200; // Bright color (100-255)
-    fw.b = rand() % 156 + 200; // Bright color (100-255)
-    fw.a = 255;
+    fw.r = rand() % 256; // Bright color (100-255)
+    fw.g = rand() % (fw.r + 1) + 255 - fw.r; // Bright color (100-255)
+    fw.b = 510 - fw.r - fw.g; // Bright color (100-255)
     fw.timer = rand() % 60 + 30; // Random lifetime
     fireworks.push_back(fw);
 }
