@@ -10,7 +10,7 @@ void openSDL() {
 //    LittleFont = TTF_OpenFont("Fonts/VpPixel.ttf", 20);
     Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024);
 
-    mainMenuText = renderText("pacman", Font, textColor, renderer);
+    mainMenuText = renderText("pacman", Font, Yellow, renderer);
     playText = renderText("Play", Font, textColor, renderer);
     quitText = renderText("Quit", Font, textColor, renderer);
     mapText = renderText("Maps", Font, textColor, renderer);

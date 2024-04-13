@@ -22,6 +22,7 @@ bool Play::RunMainMenu() {
     Position pacPos = {250, 169};
     mGame.putMenuEntities(pacPos);
 
+    if (mGame.mSound.IsChannelPlaying(7)) mGame.mSound.StopChannel(7);
     mGame.mSound.PlayIntro();
     while (1) {
         uint8_t menuBar[BOARD_HEIGHT * BOARD_WIDTH];

@@ -27,6 +27,7 @@ public:
     void chaseTimer();
 
     bool isGameOver;
+    bool deathMusicYetToPlay;
     Sound mSound;
 
 private:

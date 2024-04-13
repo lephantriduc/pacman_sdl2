@@ -21,6 +21,7 @@ void Game::start() {
     ghostTime.start();
     isChasing = true;
     ghostTimeLimit = chaseTime;
+    deathMusicYetToPlay = true;
     Ready.render(11 * 24, 20 * 24 - 5);
 }
 
@@ -98,6 +99,12 @@ bool Game::process(std::vector<uint8_t> &mover, Timer& gameTimer, unsigned short
         if (mPac.getLiving()) {
             this->update(mover);
         } else { // If Pac is ded
+            if (mSound.IsChannelPlaying(7)) mSound.StopChannel(7);
+            if (deathMusicYetToPlay) {
+                mSound.PlayPacDeath();
+                deathMusicYetToPlay = false;
+            }
+
             if (mBoard.getLives() > 1) { // If Pac is ded but still have lives
                 if (mPac.getPacDoneDying()) { // Wait for death animation to finish before resetting
                     this->resetMover(mover); // Make Pac facing right every reset
@@ -124,6 +131,7 @@ bool Game::process(std::vector<uint8_t> &mover, Timer& gameTimer, unsigned short
 }
 
 void Game::food() {
+    int newX, newY;
     switch (mPac.foodCollision(actualMap)) {
         case 1: // Dot
             mBoard.increaseScore(10);
@@ -139,7 +147,9 @@ void Game::food() {
             speedUpTime.restart();
             break;
         case 4: // Teleport perk
-            mPac.setPosition(BLOCK_SIZE_24 * 27 - mPac.getX(),BLOCK_SIZE_24 * 36 - mPac.getY());
+            newX = BLOCK_SIZE_24 * 27 - mPac.getX();
+            newY = BLOCK_SIZE_24 * 36 - mPac.getY();
+            mPac.setPosition(newX, newY);
             break;
         case 5: // Healing perk
             if (mBoard.getLives() < 3) mBoard.increaseLives(), mBoard.increaseScore(200);;
@@ -171,6 +181,7 @@ bool Game::isGameWon() {
 void Game::resetGame() {
     mBoard.copyBoard(actualMap);
     isGameOver = false;
+    deathMusicYetToPlay = true;
     mPac.setLiving(true);
     mPac.setFacing(right);
     mPac.setPoweredUp(false);

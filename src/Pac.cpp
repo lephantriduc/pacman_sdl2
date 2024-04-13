@@ -9,6 +9,8 @@ Pac::Pac():Entity(Entities::pac){
 
     currentPacmanFrame = 0;
     currentDeathFrame = 0;
+
+    prev_x = this->getX(), prev_y = this->getY(), cur_x = this->getX(), cur_y = this->getY();
 }
 
 Pac::~Pac(){
@@ -17,6 +19,12 @@ Pac::~Pac(){
 }
 
 void Pac::updatePosition(std::vector<uint8_t> &mover, uint8_t ActualMap[]){
+    cur_x = this->getX();
+    cur_y = this->getY();
+    if (cur_x != prev_x || cur_y != prev_y) std::cout << cur_x << " " << cur_y << "\n";
+    prev_x = cur_x;
+    prev_y = cur_y;
+
 	for(uint8_t i = 0; i < this->getSpeed(); i++){
         // Calculate the potential next step that Pacman is going to take
         short potentialX = this->getX();

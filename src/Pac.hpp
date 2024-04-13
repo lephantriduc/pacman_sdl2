@@ -30,4 +30,6 @@ private:
 
     bool isPacDoneDying;
     bool isPoweredUp;
+
+    int prev_x, prev_y, cur_x, cur_y;
 };

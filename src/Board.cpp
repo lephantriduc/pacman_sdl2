@@ -79,9 +79,9 @@ void Board::convertSketch(std::string board) {
         }
 
         std::shuffle(pos.begin(), pos.end(), std::mt19937(std::random_device()()));
-        for (int i = 0; i < 3; i++) board[pos[i]] = '!';
-        for (int i = 3; i < 5; i++) board[pos[i]] = 'o';
-        for (int i = 5; i < 6; i++) board[pos[i]] = 'h';
+        for (int i = 0; i < 4; i++) board[pos[i]] = 'o';
+        for (int i = 4; i < 6; i++) board[pos[i]] = '!';
+        for (int i = 6; i < 7; i++) board[pos[i]] = 'h';
         pos.clear();
     }
 
