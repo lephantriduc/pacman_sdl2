@@ -29,8 +29,4 @@ private:
     Texture ghosty;
     Texture Note;
     Texture Authors;
-
-    Texture ghosty;
-    Texture Note;
-    Texture Authors;
 };
