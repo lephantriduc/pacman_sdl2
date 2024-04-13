@@ -191,14 +191,11 @@ void Play::DisplayChoices(bool hasWon) {
 }
 
 void Play::Playing() {
-    Timer GameTimer;
-    static unsigned short startTicks = 4500;
-
     if (mGame.isGameOver || mGame.isGameWon()) {
+        if (mGame.isGameWon()) shootFireworks();
         DisplayChoices(mGame.isGameWon());
         mGame.resetGame();
-        if (PlayAgain()) RunGame();
-        else if (RunMainMenu()) RunGame();
+        if (PlayAgain() || RunMainMenu()) RunGame();
         return;
     }
 
@@ -269,6 +266,7 @@ bool Play::PlayAgain() {
 void Play::render() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
+    mGame.draw();
 
     for (const auto &fw: fireworks) {
         SDL_SetRenderDrawColor(renderer, fw.r, fw.g, fw.b, fw.a);
@@ -281,8 +279,6 @@ void Play::render() {
         SDL_RenderFillRect(renderer, &rect);
     }
 
-    mGame.draw();
-    DisplayChoices(mGame.isGameWon());
     SDL_RenderPresent(renderer);
 }
 
