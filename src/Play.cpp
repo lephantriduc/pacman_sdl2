@@ -2,13 +2,13 @@
 
 
 Play::Play() {
-    ghosty.load("assets/RedGhost.png");
+    AreYouScaredGhost.load("assets/RedGhost.png");
     Note.load("assets/Note.png");
     Authors.load("assets/authors.png");
 }
 
 Play::~Play() {
-    ghosty.free();
+    AreYouScaredGhost.free();
     Note.free();
     Authors.free();
 }
@@ -25,6 +25,7 @@ bool Play::RunMainMenu() {
     if (mGame.mSound.IsChannelPlaying(7)) mGame.mSound.StopChannel(7);
     mGame.mSound.PlayIntro();
     while (1) {
+        // Two horizontal bars in menu
         uint8_t menuBar[BOARD_HEIGHT * BOARD_WIDTH];
         mMenu.draw(menuBar);
 
@@ -262,7 +263,7 @@ bool Play::PlayAgain() {
     return isPlayAgain;
 }
 
-void Play::render() {
+void Play::renderFireworks() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
     mGame.draw();
@@ -286,21 +287,21 @@ void Play::shootFireworks() {
         createFirework(SCREEN_WIDTH / 2 + (rand() % 201 - 100), SCREEN_HEIGHT / 2 + (rand() % 401 - 300));
         int delay = 0;
         while (delay++ <= 30) {
-            update();
-            render();
+            updateFireworks();
+            renderFireworks();
             SDL_Delay(10);
         }
     }
     while (!particles.empty()) {
-        update();
-        render();
+        updateFireworks();
+        renderFireworks();
         SDL_Delay(10);
     }
 }
 
 bool Play::PauseGame() {
     SDL_RenderClear(renderer);
-    ghosty.render(20, -10);
+    AreYouScaredGhost.render(20, -10);
     Note.render(350, 640);
     PauseRect = {SCREEN_WIDTH / 2 - 200, SCREEN_HEIGHT / 2 - 150 , 400 , 300 };
     PauseBorder = {SCREEN_WIDTH / 2 - 201, SCREEN_HEIGHT / 2 - 151 , 402 , 302 };

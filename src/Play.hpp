@@ -12,7 +12,7 @@ public:
     void DisplayChoices(bool hasWon);
     void Playing();
     bool PlayAgain();
-    void render();
+    void renderFireworks();
     bool PauseGame();
     void shootFireworks();
 
@@ -26,7 +26,7 @@ private:
     SDL_Rect textRect;
     SDL_Rect volumeBorder;
     SDL_Rect clearRect;
-    Texture ghosty;
+    Texture AreYouScaredGhost;
     Texture Note;
     Texture Authors;
 };

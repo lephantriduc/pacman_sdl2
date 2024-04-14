@@ -58,7 +58,7 @@ inline void createFirework(double x, double y) {
     fireworks.push_back(fw);
 }
 
-inline void update() {
+inline void updateFireworks() {
     for (int i = fireworks.size() - 1; i >= 0; --i) {
         fireworks[i].x += fireworks[i].dx;
         fireworks[i].y += fireworks[i].dy;

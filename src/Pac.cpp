@@ -116,7 +116,7 @@ void Pac::updatePosition(std::vector<uint8_t> &mover) {
     this->checkIfGoesOutOfScreen(false);
 }
 
-uint8_t Pac::   foodCollision(uint8_t ActualMap[]) {
+uint8_t Pac::foodCollision(uint8_t ActualMap[]) {
     float cell_x = this->getX() / static_cast<float>(BLOCK_SIZE_24);
     float cell_y = this->getY() / static_cast<float>(BLOCK_SIZE_24);
     Position BoardPos;

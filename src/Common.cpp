@@ -17,7 +17,7 @@ void openSDL() {
     AuthorText = renderText("This is our first", Font, textColor, renderer);
     AuthorText1 = renderText("collaborative game", Font, textColor, renderer);
 
-    mainMenuRect = {SCREEN_WIDTH / 2 - 100, 50, 200, 50};
+    mainMenuRect = {SCREEN_WIDTH / 2 - 150, 20, 300, 80};
     playButton = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 - 150, 150, 50};
     quitButton = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 + 50, 150, 50};
     mapButton = {SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 - 50, 150, 50};

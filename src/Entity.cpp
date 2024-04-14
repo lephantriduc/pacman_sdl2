@@ -67,6 +67,7 @@ void Entity::checkIfGoesOutOfScreen(bool inMenu) {
     }
 }
 
+
 void Entity::CharBoardPos(uint8_t SideDir, Position &BoardPos, float cell_x, float cell_y) {
     switch (SideDir) {
         case 0:
