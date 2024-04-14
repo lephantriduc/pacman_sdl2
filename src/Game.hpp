@@ -42,8 +42,8 @@ private:
     Timer powerUpTime;
     Timer ghostTime;
     int ghostTimeLimit;
-    int chaseTime = 15000;
-    int restTime = 5000;
+    int chaseTime = 16000;
+    int restTime = 4000;
     bool isChasing;
     Texture Ready;
 

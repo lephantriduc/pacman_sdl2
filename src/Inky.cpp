@@ -2,7 +2,7 @@
 
 Inky::Inky() : Ghost(Entities::Inky) {
     ghostColor = {1, 255, 255};
-    restPos = {0,9999};
+    restPos = {-999,9999};
 }
 
 void Inky::setTarget(Pac &mPac, Position mBlinky) {
