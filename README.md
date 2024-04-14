@@ -32,7 +32,7 @@ Trong một thế giới đầy mê cung và nguy hiểm, Pac-Man đối mặt v
 - Như có thể thấy, chúng ta có những vật phẩm đồng hành trên con đường giành lại chính nghĩa. Tuy nhiên, sau mỗi trận rượt đuổi gay go, những vật phẩm sẽ được sinh ra *hoàn toàn ngẫu nhiên* theo một thuật toán phức tạp!
 - Các vật phẩm:
   - Trái ác quỷ (Gomu Gomu no Mi) ban tặng cho Pacman sức hủy diệt kinh hoàng trong một khoảng thời gian có hạn: ![](/Users/lephantriduc/CPP/pacman/assets/Powerup.png)
-  - Tia sét của thần Zeus đem lại cho Pacman tốc độ của thần để anh bỏ xa các con ma háu ăn: ![](/Users/lephantriduc/CPP/pacman/assets/Lightning.png)
+  - Tia sét của thần Zeus đem lại cho Pacman tốc độ của thần để anh bỏ xa các con ma háu ăn: ![](assets/Lightning.png)
   - Trái tim của Aphrodite ban cho Pacman thêm một cơ hội làm lại cuộc đời (nếu Pacman đã mất mạng): ![](/Users/lephantriduc/CPP/pacman/assets/Heart.png)
   - Cánh cửa thần kì (どこでもドア) của Doraemon giúp Nobi-pacman được phen thoát chết khi bị ép góc: ![](/Users/lephantriduc/CPP/pacman/assets/Portal2.png)  ![](/Users/lephantriduc/CPP/pacman/assets/Portal1.png) (chắc chắn không phải từ game Portal)
 - Nếu bạn muốn nhân vật Pacman của mình trụ thêm được ít lâu thì bạn có thể bấm SPACE để pause game, màn hình sẽ hiện ra một màn hình tạm dừng. Ở đó, bạn có thể thấy hình ảnh một con ma lấc cấc và một chú Pacman cute phomaique. Bạn có thể bấm quit to menu để tránh phải xem cảnh giết người kinh dị của những con ma khát máu với chú Pacman yếu đuối hoặc có thể tiếp tục để chứng kiến cảnh Pacman bị dí đến chết.
