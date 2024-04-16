@@ -8,7 +8,7 @@
 |___|    |__| |__||_______||_|   |_||__| |__||_|  |__|           |_______||______| |_______||_______|
 ```
 # 1. Giới thiệu Game
-Trong một thế giới đầy mê cung và nguy hiểm, Pacman đối mặt với thị trấn bị UFO xâm chiếm. Sử dụng sức mạnh từ trái chuối vàng, anh dấn thân vào cuộc hành trình khám phá và giải cứu. Trải qua mê cung, anh phải đối mặt với những cặm bẫy và thách thức từ những kẻ ngoại đạo tàn ác không có tay. Bằng sự can đảm và khéo léo tận dụng những vật phẩm trong mê cung, anh chinh phục mọi thử thách, vượt qua mọi rủi ro để đánh bại người ngoài hành tinh và tái lập hòa bình cho thị trấn. Cuối cùng, Pacman trở thành biểu tượng của sự hy vọng và chiến thắng.
+Vào một ngày đẹp trời, thị trấn mà Pacman sinh sống bị UFO xâm chiếm. Những người ngoài hành tinh trên chiếc UFO chiếm đoạt tiền xu của người dân thị trấn vốn đã nghèo khó, khốn khổ và bần hàn.  Sử dụng sức mạnh từ trái chuối vàng, anh dấn thân vào hành trình lấy lại những tài sản đã mất. Đột nhập vào phi thuyền của chúng là những mê cung, Pacman phải đối mặt với những cặm bẫy và thách thức từ những kẻ ngoại đạo tàn ác không có tay. Bằng sự can đảm và khéo léo tận dụng những vật phẩm rải rác trong mê cung, anh chinh phục mọi thử thách, vượt qua mọi rủi ro để đánh bại người ngoài hành tinh và lấy lại tiền xu mà chúng đã đánh cắp, tái lập hòa bình cho thị trấn. Cuối cùng, Pacman trở thành biểu tượng của sự hy vọng và chiến thắng. Game dựa trên một câu chuyện hoàn toàn (không) có thật.
 
 # 2. Main menu
 - Ngay ở màn hình chờ, ta đã thấy được Impostor và Pacman rượt nhau xuyên màn hình.
@@ -27,7 +27,7 @@ Trong một thế giới đầy mê cung và nguy hiểm, Pacman đối mặt v�
 - Sau khi chọn map và nhấn PLAY, bạn sẽ có thể bắt đầu tận hưởng tựa game này.
 - Game sẽ cho bạn chuẩn bị trong vòng 3s.
 ![](assets/InGame.png)
-- Để giành được chiến thắng trước những tên ngoài hành tinh gian ác và sặc sỡ này, ta cần di chuyển khôn khéo để tránh những thế lực hắc ám và ăn hết ***tất cả*** các đốm trắng trên màn hình.
+- Để giành được chiến thắng trước những tên ngoài hành tinh gian ác và đầy màu sắc này, ta cần di chuyển khôn khéo để tránh những thế lực hắc ám và lấy được hết ***tất cả*** các đồng xu ![](assets/dot.png) trên màn hình.
 - Như có thể thấy, chúng ta có những vật phẩm đồng hành trên con đường giành lại chính nghĩa. Tuy nhiên, sau mỗi trận rượt đuổi gay go, những vật phẩm sẽ được sinh ra *hoàn toàn ngẫu nhiên* theo một thuật toán phức tạp!
 - Các vật phẩm:
   - <span style = "color : purple">Trái ác quỷ</span> (Gomu Gomu no Mi) ban tặng cho Pacman sức hủy diệt kinh hoàng trong một khoảng thời gian có hạn: ![](assets/Powerup.png)
