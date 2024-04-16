@@ -27,7 +27,7 @@ Vào một ngày đẹp trời, thị trấn mà Pacman sinh sống bị UFO xâ
 - Sau khi chọn map và nhấn PLAY, bạn sẽ có thể bắt đầu tận hưởng tựa game này.
 - Game sẽ cho bạn chuẩn bị trong vòng 3s.
 ![](assets/InGame.png)
-- Để giành được chiến thắng trước những tên ngoài hành tinh gian ác và đầy màu sắc này, ta cần di chuyển khôn khéo để tránh những thế lực hắc ám và lấy được hết ***tất cả*** các đồng xu ![](assets/dot.png) trên màn hình.
+- Để giành được chiến thắng trước những tên ngoài hành tinh gian ác và đầy màu sắc này, ta cần di chuyển khôn khéo để tránh những thế lực hắc ám và lấy được hết ***tất cả*** các đồng xu ![](assets/Dot.png) trên màn hình.
 - Như có thể thấy, chúng ta có những vật phẩm đồng hành trên con đường giành lại chính nghĩa. Tuy nhiên, sau mỗi trận rượt đuổi gay go, những vật phẩm sẽ được sinh ra *hoàn toàn ngẫu nhiên* theo một thuật toán phức tạp!
 - Các vật phẩm:
   - <span style = "color : purple">Trái ác quỷ</span> (Gomu Gomu no Mi) ban tặng cho Pacman sức hủy diệt kinh hoàng trong một khoảng thời gian có hạn: ![](assets/Powerup.png)
