@@ -37,3 +37,16 @@ Trong một thế giới đầy mê cung và nguy hiểm, Pac-Man đối mặt v
 - Nếu bạn muốn nhân vật Pacman của mình trụ thêm được ít lâu thì bạn có thể bấm SPACE để pause game, màn hình sẽ hiện ra một màn hình tạm dừng. Ở đó, bạn có thể thấy hình ảnh một tên ngoài hành tinh nham hiểm và một chú Pacman cute phomaique. Bạn có thể bấm quit to menu để tránh phải xem cảnh giết người kinh dị của những tên khát máu với chú Pacman yếu đuối hoặc có thể tiếp tục để chứng kiến cảnh Pacman bị dí đến chết.
 ![](assets/PauseGamePreview.png)
 - Nếu như may mắn giành được chiến thắng, bạn sẽ được nhận một phần thưởng bất ngờ 🎆 🎇.
+```
+. 　　　。　　　　•　 　ﾟ　　。 　　.
+
+　　　.　　　 　　.　　　　　。　　 。　. 　
+
+.　　 。　　　　　 ඞ 。 . 　　 • 　　　　•
+
+　　ﾟ　　 SusRed was An Impostor.　 。　.
+
+　　'　　　 3 Impostors remain 　 　　。
+
+　　ﾟ　　　.　　　. ,　　　　.　 .
+```

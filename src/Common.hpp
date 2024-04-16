@@ -77,7 +77,7 @@ inline int mapClickCount = 0;
 
 inline std::vector<int> g[BOARD_WIDTH * BOARD_HEIGHT];
 
-inline int volume = 50;
+inline int volume = MIX_MAX_VOLUME / 2;
 
 enum Objects {
     wall,

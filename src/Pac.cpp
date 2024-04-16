@@ -7,7 +7,7 @@ Pac::Pac():Entity(Entities::pac){
 	InitFrames(pacmanFrames, pacmanSpriteClips, BLOCK_SIZE_32);
     InitFrames(deathFrames, deathSpriteClips, BLOCK_SIZE_32);
 
-    currentPacmanFrame = 0;
+    currentPacmanFrame = 4;
     currentDeathFrame = 0;
 
     prev_x = this->getX(), prev_y = this->getY(), cur_x = this->getX(), cur_y = this->getY();
