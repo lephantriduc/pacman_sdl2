@@ -16,17 +16,17 @@ Trong một thế giới đầy mê cung và nguy hiểm, Pac-Man đối mặt v
 - Điều chỉnh âm lượng bằng thanh âm lượng dưới chữ VOLUME.
 - Bạn có thể thoát ra bằng nút QUIT.
 - Ta có thể chiêm ngưỡng dung nhan của 2 tác giả ở 2 góc màn hình.
-![](assets/MainMenuPreview.png)
+![](assets/MainMenuPreview.png?)
 - Không chỉ thế, ta còn có thể nhấn MAPS để lựa chọn 1 trong 4 map khác nhau:
   - Map gốc
   - Map cải tiến
   - Map yêu trường
   - Map luyện tập
-![](assets/MapPreview.png)
+![](assets/MapPreview.png?)
 # 3. Chơi Game
 - Sau khi chọn map và nhấn PLAY, bạn sẽ có thể bắt đầu tận hưởng tựa game này.
 - Game sẽ cho bạn chuẩn bị trong vòng 3s.
-![](assets/InGame.png)
+![](assets/InGame.png?)
 - Để giành được chiến thắng trước những tên Alien gian ác và sặc sỡ này, ta cần di chuyển khôn khéo để tránh những thế lực hắc ám và ăn hết ***tất cả*** các đốm trắng trên màn hình.
 - Như có thể thấy, chúng ta có những vật phẩm đồng hành trên con đường giành lại chính nghĩa. Tuy nhiên, sau mỗi trận rượt đuổi gay go, những vật phẩm sẽ được sinh ra *hoàn toàn ngẫu nhiên* theo một thuật toán phức tạp!
 - Các vật phẩm:
@@ -35,5 +35,5 @@ Trong một thế giới đầy mê cung và nguy hiểm, Pac-Man đối mặt v
   - Trái tim của Aphrodite ban cho Pacman thêm một cơ hội làm lại cuộc đời (nếu Pacman đã mất mạng): ![](assets/heart.png)
   - Cánh cửa thần kì (どこでもドア) của Doraemon giúp Nobi-pacman được phen thoát chết khi bị ép góc: ![](assets/Portal2.png)  ![](assets/Portal1.png) (chắc chắn không phải từ game Portal)
 - Nếu bạn muốn nhân vật Pacman của mình trụ thêm được ít lâu thì bạn có thể bấm SPACE để pause game, màn hình sẽ hiện ra một màn hình tạm dừng. Ở đó, bạn có thể thấy hình ảnh một tên ngoài hành tinh nham hiểm và một chú Pacman cute phomaique. Bạn có thể bấm quit to menu để tránh phải xem cảnh giết người kinh dị của những tên khát máu với chú Pacman yếu đuối hoặc có thể tiếp tục để chứng kiến cảnh Pacman bị dí đến chết.
-![](assets/PauseGamePreview.png)
+![](assets/PauseGamePreview.png?)
 - Nếu như may mắn giành được chiến thắng, bạn sẽ được nhận một phần thưởng bất ngờ 🎆 🎇.
