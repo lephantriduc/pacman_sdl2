@@ -1,8 +1,8 @@
 #pragma once
-#include "Blinky.hpp"
-#include "Pinky.hpp"
-#include "Inky.hpp"
-#include "Clyde.hpp"
+#include "SusRed.hpp"
+#include "SusPink.hpp"
+#include "SusGreen.hpp"
+#include "SusBrown.hpp"
 
 class Board {
 public:

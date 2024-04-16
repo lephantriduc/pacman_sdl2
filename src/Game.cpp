@@ -13,14 +13,14 @@ Game::~Game() {
 
 void Game::start() {
     mBoard.resetPosition(mPac);
-    mBoard.resetPosition(mBlinky);
-    mBoard.resetPosition(mPinky);
-    mBoard.resetPosition(mInky);
-    mBoard.resetPosition(mClyde);
-    ghostTime.restart();
-    ghostTime.start();
+    mBoard.resetPosition(susRed);
+    mBoard.resetPosition(susPink);
+    mBoard.resetPosition(susGreen);
+    mBoard.resetPosition(susBrown);
+    impostorTime.restart();
+    impostorTime.start();
     isChasing = true;
-    ghostTimeLimit = chaseTime;
+    impostorTimeLimit = chaseTime;
     deathMusicYetToPlay = true;
     Ready.render(11 * 24, 20 * 24 - 5);
 }
@@ -34,10 +34,10 @@ void Game::draw() {
     mBoard.drawScore();
     mBoard.drawHighScore();
     mBoard.draw(actualMap);
-    mBlinky.draw(mPac);
-    mPinky.draw(mPac);
-    mInky.draw(mPac);
-    mClyde.draw(mPac);
+    susRed.draw(mPac);
+    susPink.draw(mPac);
+    susGreen.draw(mPac);
+    susBrown.draw(mPac);
     mPac.draw();
 }
 
@@ -46,29 +46,29 @@ void Game::update(std::vector<uint8_t> &mover) {
     this->food();
     this->chaseTimer();
 
-    if (mPac.isColliding(mBlinky) || mPac.isColliding(mPinky) || mPac.isColliding(mInky) || mPac.isColliding(mClyde)) {
+    if (mPac.isColliding(susRed) || mPac.isColliding(susPink) || mPac.isColliding(susGreen) || mPac.isColliding(susBrown)) {
         if (!mPac.getPoweredUp()) { // Pac in normal state
             mPac.setFrame(32);
             mPac.setLiving(false); // Commenting this for immortality
             mBoard.decreaseScore(100);
         } else { // Pac is powered up
-            if (mPac.isColliding(mBlinky)) {
-                mBlinky.setLiving(false);
+            if (mPac.isColliding(susRed)) {
+                susRed.setLiving(false);
                 if (!flag_0) mBoard.increaseScore(500);
                 flag_0 = true;
             }
-            if (mPac.isColliding(mPinky)) {
-                mPinky.setLiving(false);
+            if (mPac.isColliding(susPink)) {
+                susPink.setLiving(false);
                 if (!flag_1) mBoard.increaseScore(500);
                 flag_1 = true;
             }
-            if (mPac.isColliding(mInky)) {
-                mInky.setLiving(false);
+            if (mPac.isColliding(susGreen)) {
+                susGreen.setLiving(false);
                 if (!flag_2) mBoard.increaseScore(500);
                 flag_2 = true;
             }
-            if (mPac.isColliding(mClyde)) {
-                mClyde.setLiving(false);
+            if (mPac.isColliding(susBrown)) {
+                susBrown.setLiving(false);
                 if (!flag_3) mBoard.increaseScore(500);
                 flag_3 = true;
             }
@@ -76,17 +76,17 @@ void Game::update(std::vector<uint8_t> &mover) {
     }
 
     // Flags to avoid counting eating ghosts score too much
-    if (mBlinky.isHome()) flag_0 = false;
-    if (mPinky.isHome()) flag_1 = false;
-    if (mInky.isHome()) flag_2 = false;
-    if (mClyde.isHome()) flag_3 = false;
+    if (susRed.isHome()) flag_0 = false;
+    if (susPink.isHome()) flag_1 = false;
+    if (susGreen.isHome()) flag_2 = false;
+    if (susBrown.isHome()) flag_3 = false;
 }
 
 void Game::updatePositions(std::vector<uint8_t> &mover) {
-    mBlinky.updatePos(actualMap, mPac, {0, 0}, false, isChasing);
-    mPinky.updatePos(actualMap, mPac, {0, 0}, false,isChasing);
-    mInky.updatePos(actualMap, mPac, mBlinky, false,isChasing);
-    mClyde.updatePos(actualMap, mPac, {0, 0}, false,isChasing);
+    susRed.updatePos(actualMap, mPac, {0, 0}, false, isChasing);
+    susPink.updatePos(actualMap, mPac, {0, 0}, false, isChasing);
+    susGreen.updatePos(actualMap, mPac, susRed, false, isChasing);
+    susBrown.updatePos(actualMap, mPac, {0, 0}, false, isChasing);
     mPac.updatePosition(mover, actualMap);
 }
 
@@ -180,7 +180,7 @@ void Game::food() {
         speedUpTime.reset();
     }
 
-    if (powerUpTime.getTicks() > 5000) {
+    if (powerUpTime.getTicks() > 7000) {
         mPac.setPoweredUp(false);
         powerUpTime.reset();
     }
@@ -205,9 +205,9 @@ void Game::resetGame() {
     mPac.setPoweredUp(false);
 
     mBoard.resetPosition(mPac);
-    mBoard.resetPosition(mBlinky);
-    mBoard.resetPosition(mPinky);
-    mBoard.resetPosition(mInky);
+    mBoard.resetPosition(susRed);
+    mBoard.resetPosition(susPink);
+    mBoard.resetPosition(susGreen);
 
     mBoard.resetScore();
     mBoard.resetLives();
@@ -224,34 +224,34 @@ void Game::runMenuEntities(std::vector<uint8_t> mover) {
     mPac.updatePosition(mover);
     mPac.setFacing(right);
 
-    mBlinky.draw(mPac);
-    mBlinky.updatePos(actualMap, mPac, {0, 0}, true, isChasing);
-    mBlinky.setFacing(right);
-    mBlinky.setDirection(right);
+    susRed.draw(mPac);
+    susRed.updatePos(actualMap, mPac, {0, 0}, true, isChasing);
+    susRed.setFacing(right);
+    susRed.setDirection(right);
 
-    mPinky.draw(mPac);
-    mPinky.updatePos(actualMap, mPac, {0, 0}, true, isChasing);
-    mPinky.setFacing(right);
-    mPinky.setDirection(right);
+    susPink.draw(mPac);
+    susPink.updatePos(actualMap, mPac, {0, 0}, true, isChasing);
+    susPink.setFacing(right);
+    susPink.setDirection(right);
 
-    mInky.draw(mPac);
-    mInky.updatePos(actualMap, mPac, {0, 0}, true, isChasing);
-    mInky.setFacing(right);
-    mInky.setDirection(right);
+    susGreen.draw(mPac);
+    susGreen.updatePos(actualMap, mPac, {0, 0}, true, isChasing);
+    susGreen.setFacing(right);
+    susGreen.setDirection(right);
 
-    mClyde.draw(mPac);
-    mClyde.updatePos(actualMap, mPac, {0, 0}, true, isChasing);
-    mClyde.setFacing(right);
-    mClyde.setDirection(right);
+    susBrown.draw(mPac);
+    susBrown.updatePos(actualMap, mPac, {0, 0}, true, isChasing);
+    susBrown.setFacing(right);
+    susBrown.setDirection(right);
 }
 
 void Game::putMenuEntities(Position pos) {
     mPac.setPosition(pos);
-    mBlinky.setPosition({pos.getX() - 100, pos.getY()});
-    mPinky.setPosition(pos.getX() - 150, pos.getY());
-    mInky.setPosition(pos.getX() - 200, pos.getY());
-    mInky.setPosition(pos.getX() - 200, pos.getY());
-    mClyde.setPosition(pos.getX() - 250, pos.getY());
+    susRed.setPosition({pos.getX() - 100, pos.getY()});
+    susPink.setPosition(pos.getX() - 150, pos.getY());
+    susGreen.setPosition(pos.getX() - 200, pos.getY());
+    susGreen.setPosition(pos.getX() - 200, pos.getY());
+    susBrown.setPosition(pos.getX() - 250, pos.getY());
 }
 
 void Game::resetMover(std::vector<uint8_t> &mover) {
@@ -261,15 +261,15 @@ void Game::resetMover(std::vector<uint8_t> &mover) {
 
 
 void Game::chaseTimer() {
-    if (ghostTime.getTicks() > ghostTimeLimit) {
-        if (ghostTimeLimit == restTime) { // If it is resting
+    if (impostorTime.getTicks() > impostorTimeLimit) {
+        if (impostorTimeLimit == restTime) { // If it is resting
             isChasing = true;
-            ghostTimeLimit = chaseTime;
-            ghostTime.restart();
-        } else if (ghostTimeLimit == chaseTime) { // If it is chasing
+            impostorTimeLimit = chaseTime;
+            impostorTime.restart();
+        } else if (impostorTimeLimit == chaseTime) { // If it is chasing
             isChasing = false;
-            ghostTimeLimit = restTime;
-            ghostTime.restart();
+            impostorTimeLimit = restTime;
+            impostorTime.restart();
         }
     }
 }

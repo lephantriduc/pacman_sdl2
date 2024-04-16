@@ -70,8 +70,7 @@ static unsigned short startTicks = 3000;
 
 constexpr uint8_t pacmanFrames = 3;
 constexpr uint8_t deathFrames = 10;
-constexpr uint8_t ghostFrames = 6;
-constexpr uint8_t ghostEyesFrames = 5;
+constexpr uint8_t impostorFrames = 4;
 
 inline std::string map_num;
 inline int mapClickCount = 0;
@@ -94,10 +93,10 @@ enum Objects {
 
 enum Entities {
     pac,
-    Blinky,
-    Pinky,
-    Inky,
-    Clyde,
+    SusRed,
+    SusPink,
+    SusGreen,
+    SusBrown,
 };
 
 enum Directions {

@@ -46,7 +46,7 @@ void Texture::paint(RGB color) {
     SDL_SetTextureColorMod(mTexture, color.r, color.g, color.b);
 }
 
-void Texture::render(short x, short y, uint8_t facing, SDL_Rect *clip) {
+void Texture::render(short x, short y, uint8_t facing, SDL_Rect *clip, int flip) {
     // Set rendering space and render to screen
     SDL_Rect renderQuad = {x, y, mWidth, mHeight};
 
@@ -56,7 +56,7 @@ void Texture::render(short x, short y, uint8_t facing, SDL_Rect *clip) {
         renderQuad.h = clip->h;
     }
     // Render to screen
-    SDL_RenderCopyEx(renderer, mTexture, clip, &renderQuad, facing * 90.0f, nullptr, SDL_FLIP_NONE);
+    SDL_RenderCopyEx(renderer, mTexture, clip, &renderQuad, facing * 90.0f, nullptr, (flip == right) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
 }
 
 

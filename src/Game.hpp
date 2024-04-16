@@ -33,15 +33,15 @@ public:
 private:
     Pac mPac;
     Board mBoard;
-    class Blinky mBlinky;
-    class Pinky mPinky;
-    class Inky mInky;
-    class Clyde mClyde;
+    class SusRed susRed;
+    class SusPink susPink;
+    class SusGreen susGreen;
+    class SusBrown susBrown;
     uint8_t actualMap[BOARD_HEIGHT * BOARD_WIDTH];
     Timer speedUpTime;
     Timer powerUpTime;
-    Timer ghostTime;
-    int ghostTimeLimit;
+    Timer impostorTime;
+    int impostorTimeLimit;
     int chaseTime = 16000;
     int restTime = 4000;
     bool isChasing;

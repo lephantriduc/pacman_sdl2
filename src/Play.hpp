@@ -26,7 +26,7 @@ private:
     SDL_Rect textRect;
     SDL_Rect volumeBorder;
     SDL_Rect clearRect;
-    Texture AreYouScaredGhost;
+    Texture SusScary;
     Texture Note;
     Texture Authors;
 };

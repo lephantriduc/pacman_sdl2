@@ -219,22 +219,22 @@ void Board::resetPosition(Entity &mEntity) {
             mEntity.setY(y * BLOCK_SIZE_24);
             return;
         }
-        if (charBoard[i] == '1' && mEntity.getIdentity() == Entities::Blinky) {
+        if (charBoard[i] == '1' && mEntity.getIdentity() == Entities::SusRed) {
             mEntity.setX(x * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
             mEntity.setY(y * BLOCK_SIZE_24);
             return;
         }
-        if (charBoard[i] == '2' && mEntity.getIdentity() == Entities::Pinky) {
+        if (charBoard[i] == '2' && mEntity.getIdentity() == Entities::SusPink) {
             mEntity.setX(x * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
             mEntity.setY(y * BLOCK_SIZE_24);
             return;
         }
-        if (charBoard[i] == '3' && mEntity.getIdentity() == Entities::Inky) {
+        if (charBoard[i] == '3' && mEntity.getIdentity() == Entities::SusGreen) {
             mEntity.setX(x * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
             mEntity.setY(y * BLOCK_SIZE_24);
             return;
         }
-        if (charBoard[i] == '4' && mEntity.getIdentity() == Entities::Clyde) {
+        if (charBoard[i] == '4' && mEntity.getIdentity() == Entities::SusBrown) {
             mEntity.setX(x * BLOCK_SIZE_24 + BLOCK_SIZE_24 / 2);
             mEntity.setY(y * BLOCK_SIZE_24);
             return;

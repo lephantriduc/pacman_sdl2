@@ -2,13 +2,13 @@
 
 
 Play::Play() {
-    AreYouScaredGhost.load("assets/RedGhost.png");
+    SusScary.load("assets/SusScary.png");
     Note.load("assets/Note.png");
     Authors.load("assets/authors.png");
 }
 
 Play::~Play() {
-    AreYouScaredGhost.free();
+    SusScary.free();
     Note.free();
     Authors.free();
 }
@@ -301,7 +301,7 @@ void Play::shootFireworks() {
 
 bool Play::PauseGame() {
     SDL_RenderClear(renderer);
-    AreYouScaredGhost.render(20, -10);
+    SusScary.render(20, -10);
     Note.render(350, 640);
     PauseRect = {SCREEN_WIDTH / 2 - 200, SCREEN_HEIGHT / 2 - 150 , 400 , 300 };
     PauseBorder = {SCREEN_WIDTH / 2 - 201, SCREEN_HEIGHT / 2 - 151 , 402 , 302 };

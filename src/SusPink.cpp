@@ -1,12 +1,12 @@
-#include "Pinky.hpp"
+#include "SusPink.hpp"
 
-Pinky::Pinky() : Ghost(Entities::Pinky){
-    ghostColor = {254,184,255};
+SusPink::SusPink() : Impostor(Entities::SusPink){
     restPos.setPosition(9999,0);
+    SusColor = "Pink";
 }
 
-void Pinky::setTarget(Pac& mPac, Position mBlinky) {
-    // Pinky's target tile is determined by looking at Pac-Man's current position and orientation
+void SusPink::setTarget(Pac& mPac, Position susRed) {
+    // SusPink's target tile is determined by looking at Pac-Man's current position and orientation
     // and selecting the location four tiles straight ahead of Pac-Man.
     int x = mPac.getX();
     int y = mPac.getY();

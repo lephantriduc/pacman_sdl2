@@ -1,11 +1,11 @@
-#include "Clyde.hpp"
+#include "SusBrown.hpp"
 
-Clyde::Clyde() : Ghost(Entities::Clyde){
-    ghostColor = {255,185,81};
+SusBrown::SusBrown() : Impostor(Entities::SusBrown){
     restPos = {9999, 9999};
+    SusColor = "Brown";
 }
 
-void Clyde::setTarget(Pac &mPac, Position mBlinky) {
+void SusBrown::setTarget(Pac &mPac, Position susRed) {
     // It selects target randomly
 
     srand(time(nullptr));

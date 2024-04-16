@@ -1,22 +1,19 @@
-#include "Ghost.hpp"
+#include "Impostor.hpp"
 
-Ghost::Ghost(Entity mIdentity) : Entity(mIdentity) {
-    body.load("assets/Ghost.png");
-    eyes.load("assets/GhostEyes.png");
-    InitFrames(ghostFrames, ghostSpriteClips);
-    InitFrames(ghostEyesFrames, ghostEyesSpriteClips);
+Impostor::Impostor(Entity mIdentity) : Entity(mIdentity) {
+//    body.load("assets/SusRed.png");
+    InitFrames(impostorFrames, impostorSpriteClips);
     currentBodyFrame = 0;
     canUseDoor = false;
     doorTarget.setPosition(324, 360);
-    home.setPosition(290, 415);
+    home.setPosition(SCREEN_WIDTH / 2 - BLOCK_SIZE_24 / 2, 415);
 }
 
-Ghost::~Ghost() {
+Impostor::~Impostor() {
     body.free();
-    eyes.free();
 }
 
-void Ghost::calcDirection(uint8_t ActualMap[]) {
+void Impostor::calcDirection(uint8_t ActualMap[]) {
     std::vector<int> distances;
     std::vector<uint8_t> possibleDirections;
 
@@ -51,41 +48,41 @@ void Ghost::calcDirection(uint8_t ActualMap[]) {
     }
 }
 
-void Ghost::draw(Pac &pac) {
-    RGB white{0xff, 0xff, 0xff};
+void Impostor::draw(Pac &pac) {
+    std::string SusPath = "assets/Sus" + SusColor + ".png";
+    std::string SusPathNervous = "assets/Sus" + SusColor + "Nervous.png";
+    std::string SusPathDead = "assets/Sus" + SusColor + "Dead.png";
 
     if (this->getLiving()) {
         if (!pac.getPoweredUp()) {
-            body.paint(ghostColor);
+            body.load(SusPath);
             this->setSpeed(2);
         } else {
-            body.paint({0, 0, 255});
-            this->setSpeed(1); // Ghost is scared and slows down
+            body.load(SusPathNervous);
+            this->setSpeed(1); // Impostor is scared and slows down
         }
     } else {
-        body.paint({0, 0, 0});
-        this->setSpeed(5); // Ghost quickly returns home
+        body.load(SusPathDead);
+        this->setSpeed(5); // Impostor quickly returns home
     }
 
     if (this->isHome()) {
         this->setLiving(true);
     }
 
-    eyes.paint(white);
-
-    currentClip = &ghostSpriteClips[currentBodyFrame / ghostFrames];
-    body.render(this->getX() - 4, this->getY() - 4, 0, currentClip);
-
-    currentClip = &ghostEyesSpriteClips[this->getFacing()];
-    eyes.render(this->getX() - 4, this->getY() - 4, 0, currentClip);
+    currentClip = &impostorSpriteClips[currentBodyFrame / impostorFrames];
+    static int flip;
+    if (this->getFacing() == right) flip = right;
+    else if (this->getFacing() == left) flip = left;
+    body.render(this->getX() - 4, this->getY() - 4, 0, currentClip, flip);
 
     currentBodyFrame++;
-    if (currentBodyFrame / ghostFrames >= ghostFrames) {
+    if (currentBodyFrame / impostorFrames >= impostorFrames) {
         currentBodyFrame = 0;
     }
 }
 
-void Ghost::directionsBubbleSort(std::vector<int> &distances, std::vector<uint8_t> &possibleDirections) {
+void Impostor::directionsBubbleSort(std::vector<int> &distances, std::vector<uint8_t> &possibleDirections) {
     for (uint8_t i = 0; i < distances.size(); i++) {
         for (uint8_t j = 0; j < distances.size(); j++) {
             if (distances.at(i) < distances.at(j)) {
@@ -100,7 +97,7 @@ void Ghost::directionsBubbleSort(std::vector<int> &distances, std::vector<uint8_
     }
 }
 
-bool Ghost::isHome() {
+bool Impostor::isHome() {
     if (this->getX() > 11 * BLOCK_SIZE_24 && this->getX() < 17 * BLOCK_SIZE_24) {
         if (this->getY() > 15 * BLOCK_SIZE_24 && this->getY() < 18 * BLOCK_SIZE_24)
             return true;
@@ -108,7 +105,7 @@ bool Ghost::isHome() {
     return false;
 }
 
-bool Ghost::isTargetToCalc(Pac &mPac) {
+bool Impostor::isTargetToCalc(Pac &mPac) {
     if (!this->getLiving()) {
         canUseDoor = true;
 
@@ -143,15 +140,15 @@ bool Ghost::isTargetToCalc(Pac &mPac) {
     return false;
 }
 
-void Ghost::setTarget(Pac &mPac, Position mBlinky) {
+void Impostor::setTarget(Pac &mPac, Position susRed) {
     this->target.setPosition(mPac.getPosition());
 }
 
-void Ghost::updatePos(uint8_t *actualBoard, Pac &mPac, Position mBlinky, bool inMenu, bool TimedStatus) {
+void Impostor::updatePos(uint8_t *actualBoard, Pac &mPac, Position susRed, bool inMenu, bool TimedStatus) {
     this->setChasingOrNot(TimedStatus, mPac);
     for (uint8_t i = 0; i < this->getSpeed(); i++) {
         if (this->isTargetToCalc(mPac)) {
-            this->setTarget(mPac, mBlinky);
+            this->setTarget(mPac, susRed);
         }
 
         if (this->getLiving() && mPac.getPoweredUp()) {
@@ -170,7 +167,7 @@ void Ghost::updatePos(uint8_t *actualBoard, Pac &mPac, Position mBlinky, bool in
     }
 }
 
-void Ghost::setChasingOrNot(bool TimedStatus, Pac &mPac) {
+void Impostor::setChasingOrNot(bool TimedStatus, Pac &mPac) {
     if (mPac.getPoweredUp()) {
         isChasing = false;
         return;
