@@ -30,10 +30,10 @@ Trong một thế giới đầy mê cung và nguy hiểm, Pacman đối mặt v�
 - Để giành được chiến thắng trước những tên ngoài hành tinh gian ác và sặc sỡ này, ta cần di chuyển khôn khéo để tránh những thế lực hắc ám và ăn hết ***tất cả*** các đốm trắng trên màn hình.
 - Như có thể thấy, chúng ta có những vật phẩm đồng hành trên con đường giành lại chính nghĩa. Tuy nhiên, sau mỗi trận rượt đuổi gay go, những vật phẩm sẽ được sinh ra *hoàn toàn ngẫu nhiên* theo một thuật toán phức tạp!
 - Các vật phẩm:
-  - <font color = "purple">Trái ác quỷ</font> (Gomu Gomu no Mi) ban tặng cho Pacman sức hủy diệt kinh hoàng trong một khoảng thời gian có hạn: ![](assets/Powerup.png)
-  - <font color = "cyan">Tia sét</font> của thần Zeus đem lại cho Pacman tốc độ ánh sáng c = 299 792 458 m/s để anh bỏ xa các tên ngoài hành tinh háu ăn: ![](assets/Lightning.png)
-  - <font color = "red">Trái tim</font> của Aphrodite ban cho Pacman thêm một cơ hội làm lại cuộc đời (nếu Pacman đã mất mạng): ![](assets/heart.png)
-  - <font color = "orange">Cánh cửa</font> <font color = "blue">thần kì</font> (どこでもドア) của Doraemon giúp Nobi-pac được phen thoát chết khi bị dí ép góc: ![](assets/Portal2.png)  ![](assets/Portal1.png) (chắc chắn không phải từ game Portal)
+  - <span style = "color : purple">Trái ác quỷ</span> (Gomu Gomu no Mi) ban tặng cho Pacman sức hủy diệt kinh hoàng trong một khoảng thời gian có hạn: ![](assets/Powerup.png)
+  - <span style = "color : cyan">Tia sét</span> của thần Zeus đem lại cho Pacman tốc độ ánh sáng c = 299 792 458 m/s để anh bỏ xa các tên ngoài hành tinh háu ăn: ![](assets/Lightning.png)
+  - <span style = "color : red">Trái tim</span> của Aphrodite ban cho Pacman thêm một cơ hội làm lại cuộc đời (nếu Pacman đã mất mạng): ![](assets/heart.png)
+  - <span style = "color : orange">Cánh cửa</span> <span style = "color : blue">thần kì</span> (どこでもドア) của Doraemon giúp Nobi-pac được phen thoát chết khi bị dí ép góc: ![](assets/Portal2.png)  ![](assets/Portal1.png) (chắc chắn không phải từ game Portal)
 - Nếu bạn muốn nhân vật Pacman của mình trụ thêm được ít lâu thì bạn có thể bấm SPACE để pause game, màn hình sẽ hiện ra một màn hình tạm dừng. Ở đó, bạn có thể thấy hình ảnh một tên ngoài hành tinh nham hiểm và một chú Pacman cute phomaique. Bạn có thể bấm quit to menu để tránh phải xem cảnh giết người kinh dị của những tên khát máu với chú Pacman yếu đuối hoặc có thể tiếp tục để chứng kiến cảnh Pacman bị dí đến chết.
 ![](assets/PauseGamePreview.png)
 - Nếu như may mắn giành được chiến thắng, bạn sẽ được nhận một phần thưởng bất ngờ 🎆 🎇.
@@ -52,10 +52,9 @@ Hoạt ảnh của Impostor được tác giả tự sáng tác dưới 3 dạng
 
 ![SusPink.gif](assets%2FSusPink.gif) *- Dự đoán trước hướng đi bạn sắp tới và ***đón đầu*** bạn*
 
-![SusGreen.gif](assets%2FSusGreen.gif) *- Thường xuyên ***phối hợp*** với <font color="red">Impostor đỏ</font> để chặn đầu bạn*
+![SusGreen.gif](assets%2FSusGreen.gif) *- Thường xuyên ***phối hợp*** với <span style="color:red">Impostor đỏ</span> để chặn đầu bạn*
 
 ![SusBrown.gif](assets%2FSusBrown.gif) *- Cơ chế vô cùng đặc biệt và ***khó đoán****
-## 
 
 ## Credits
 
