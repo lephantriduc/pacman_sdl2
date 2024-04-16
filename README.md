@@ -58,8 +58,9 @@ Hoạt ảnh của Impostor được tác giả tự sáng tác dưới 3 dạng
 
 ## Credits
 
-
 - Dưới công sức của [mình](https://github.com/lephantriduc) và [bạn mình](https://github.com/hieupy2k5).
+- [Tác giả của một trong hai tựa game gốc chúng mình lấy ý tưởng](https://en.wikipedia.org/wiki/Toru_Iwatani)
+- [Công ty của tựa game còn lại](https://www.innersloth.com)
 
 
 ```
