@@ -86,12 +86,8 @@ void Impostor::directionsBubbleSort(std::vector<int> &distances, std::vector<uin
     for (uint8_t i = 0; i < distances.size(); i++) {
         for (uint8_t j = 0; j < distances.size(); j++) {
             if (distances.at(i) < distances.at(j)) {
-                auto temp1 = distances.at(i);
-                distances.at(i) = distances.at(j);
-                distances.at(j) = temp1;
-                uint8_t temp2 = possibleDirections.at(i);
-                possibleDirections.at(i) = possibleDirections.at(j);
-                possibleDirections.at(j) = temp2;
+                std::swap(distances[i], distances[j]);
+                std::swap(possibleDirections[i], possibleDirections[j]);
             }
         }
     }
@@ -151,11 +147,8 @@ void Impostor::updatePos(uint8_t *actualBoard, Pac &mPac, Position susRed, bool 
             this->setTarget(mPac, susRed);
         }
 
-        if (this->getLiving() && mPac.getPoweredUp()) {
-            this->setFacing(4);
-        } else {
-            this->setFacing(this->getDirection());
-        }
+        this->setFacing(this->getDirection());
+
         if (!inMenu) {
             this->calcDirection(actualBoard);
             this->move(this->getDirection());

@@ -7,10 +7,22 @@
 |   |    |   _   ||     |_ | ||_|| ||   _   || | |   |            _____| ||       ||       || |_____ 
 |___|    |__| |__||_______||_|   |_||__| |__||_|  |__|           |_______||______| |_______||_______|
 ```
+- [Giới thiệu game](#1-giới-thiệu-game)
+
+- [Main menu](#2-main-menu)
+
+- [Chơi game](#3-chơi-game)
+
+- [Khác](#4-khác)
+
+  * [Hoạt ảnh](#hoạt-ảnh)
+  * [AImpostor](#aimpostor)
+  * [Credits](#credits)
+
 # 1. Giới thiệu Game
 Vào một ngày đẹp trời, thị trấn mà Pacman sinh sống bị UFO xâm chiếm. Những người ngoài hành tinh trên chiếc UFO chiếm đoạt tiền xu của người dân thị trấn vốn đã nghèo khó, khốn khổ và bần hàn.  Sử dụng sức mạnh từ trái chuối vàng, anh dấn thân vào hành trình lấy lại những tài sản đã mất. Đột nhập vào phi thuyền của chúng là những mê cung, Pacman phải đối mặt với những cặm bẫy và thách thức từ những kẻ ngoại đạo tàn ác không có tay. Bằng sự can đảm và khéo léo tận dụng những vật phẩm rải rác trong mê cung, anh chinh phục mọi thử thách, vượt qua mọi rủi ro để đánh bại người ngoài hành tinh và lấy lại tiền xu mà chúng đã đánh cắp, tái lập hòa bình cho thị trấn. Cuối cùng, Pacman trở thành biểu tượng của sự hy vọng và chiến thắng. Game dựa trên một câu chuyện hoàn toàn (không) có thật.
 
-# 2. Main menu
+# 2. Main menu 
 - Ngay ở màn hình chờ, ta đã thấy được Impostor và Pacman rượt nhau xuyên màn hình.
 - Ta có thể bẳt đầu game bằng cách nhấn nút PLAY.
 - Điều chỉnh âm lượng bằng thanh âm lượng dưới chữ VOLUME.
