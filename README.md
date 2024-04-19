@@ -90,10 +90,13 @@ Hoạt ảnh của Impostor được tác giả tự sáng tác dưới 3 dạng
 # Credits
 
 - Dưới công sức của [mình](https://github.com/lephantriduc) và [bạn mình](https://github.com/hieupy2k5).
-- [Trang web tham khảo hướng dẫn chi tiết làm game bằng SDL2 (chắc ai cũng biết)](https://lazyfoo.net)
+- [Trang web tham khảo hướng dẫn chi tiết làm game bằng SDL2 (chắc ai cũng biết)](https://lazyfoo.net).
 - [Tác giả của một trong hai tựa game gốc chúng mình lấy ý tưởng](https://en.wikipedia.org/wiki/Toru_Iwatani).
 - [Công ty của tựa game còn lại](https://www.innersloth.com).
 
+# Preview
+*Nhấp vào để xem:*
+[![](assets/Preview.png)](https://youtu.be/Wkjzj5qTlhE?si=LcVrI7F_3A34v0TU)
 
 ```
 . 　　　。　　　　•　 　ﾟ　　。 　　.
