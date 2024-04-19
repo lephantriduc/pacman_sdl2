@@ -75,7 +75,7 @@ void Game::update(std::vector<uint8_t> &mover) {
         }
     }
 
-    // Flags to avoid counting eating ghosts score too much
+    // Flags to avoid counting score for eating impostors too many times
     if (susRed.isHome()) flag_0 = false;
     if (susPink.isHome()) flag_1 = false;
     if (susGreen.isHome()) flag_2 = false;

@@ -37,7 +37,8 @@ void Impostor::calcDirection(uint8_t ActualMap[]) {
     }
 
     // Sort the possible directions
-    this->directionsBubbleSort(distances, possibleDirections);
+//    this->directionsBubbleSort(distances, possibleDirections);
+    this->directionsMergeSort(distances, possibleDirections);
 
     // To make sure that ghosts won't reverse direction abruptly
     for (uint8_t i = 0; i < possibleDirections.size(); i++) {
@@ -82,16 +83,59 @@ void Impostor::draw(Pac &pac) {
     }
 }
 
-void Impostor::directionsBubbleSort(std::vector<int> &distances, std::vector<uint8_t> &possibleDirections) {
-    for (uint8_t i = 0; i < distances.size(); i++) {
-        for (uint8_t j = 0; j < distances.size(); j++) {
-            if (distances.at(i) < distances.at(j)) {
-                std::swap(distances[i], distances[j]);
-                std::swap(possibleDirections[i], possibleDirections[j]);
-            }
+void Impostor::merge(std::vector<int> &distances, std::vector<uint8_t> &possibleDirections, std::vector<int> &tempDistances, std::vector<uint8_t> &tempDirections, int left, int mid, int right) {
+    int i = left;
+    int j = mid + 1;
+    int k = left;
+
+    while (i <= mid && j <= right) {
+        if (distances[i] <= distances[j]) {
+            tempDistances[k] = distances[i];
+            tempDirections[k] = possibleDirections[i];
+            i++;
+        } else {
+            tempDistances[k] = distances[j];
+            tempDirections[k] = possibleDirections[j];
+            j++;
         }
+        k++;
+    }
+
+    while (i <= mid) {
+        tempDistances[k] = distances[i];
+        tempDirections[k] = possibleDirections[i];
+        i++;
+        k++;
+    }
+
+    while (j <= right) {
+        tempDistances[k] = distances[j];
+        tempDirections[k] = possibleDirections[j];
+        j++;
+        k++;
+    }
+
+    for (int x = left; x <= right; x++) {
+        distances[x] = tempDistances[x];
+        possibleDirections[x] = tempDirections[x];
     }
 }
+
+void Impostor::mergeSort(std::vector<int> &distances, std::vector<uint8_t> &possibleDirections, std::vector<int> &tempDistances, std::vector<uint8_t> &tempDirections, int left, int right) {
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+        mergeSort(distances, possibleDirections, tempDistances, tempDirections, left, mid);
+        mergeSort(distances, possibleDirections, tempDistances, tempDirections, mid + 1, right);
+        merge(distances, possibleDirections, tempDistances, tempDirections, left, mid, right);
+    }
+}
+
+void Impostor::directionsMergeSort(std::vector<int> &distances, std::vector<uint8_t> &possibleDirections) {
+    std::vector<int> tempDistances(distances.size());
+    std::vector<uint8_t> tempDirections(possibleDirections.size());
+    mergeSort(distances, possibleDirections, tempDistances, tempDirections, 0, distances.size() - 1);
+}
+
 
 bool Impostor::isHome() {
     if (this->getX() > 11 * BLOCK_SIZE_24 && this->getX() < 17 * BLOCK_SIZE_24) {
