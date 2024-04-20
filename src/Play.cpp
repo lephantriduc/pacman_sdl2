@@ -235,6 +235,8 @@ void Play::Playing() {
         SDL_RenderPresent(renderer);
     }
 
+    SDL_Delay(1000/120);
+
     Playing();
 }
 
